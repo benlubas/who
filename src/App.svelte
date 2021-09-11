@@ -1,5 +1,5 @@
 <script lang="ts">
-  let name = "Benjamin";
+  let name = "ben";
 </script>
 
 <h1>Hello {name}!</h1>
