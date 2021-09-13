@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
-:root {
-  --bg: #221f23;
-  --primary: white;
-  margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,700&display=swap");
+* {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 html,
@@ -15,28 +14,34 @@ body {
 }
 
 body {
-  color: #333;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --bg: #221f23;
+  --primary: white;
+  font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+    sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  background: var(--bg);
+  color: var(--primary);
+}
+
+.page-cont {
+  padding: 3rem;
+}
+.page-title {
+  font-size: 5rem;
+  font-family: Montserrat, sans-serif;
+}
+.subtitle {
+  font-size: 2.3rem;
+  font-family: Montserrat, sans-serif;
+}
+.text {
+  max-width: 980px;
 }
 
 a {
-  color: rgb(0, 100, 200);
+  color: inherit;
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: rgb(0, 80, 160);
-}
-
-label {
-  display: block;
 }
 
 input,
@@ -51,26 +56,4 @@ textarea {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 2px;
-}
-
-input:disabled {
-  color: #ccc;
-}
-
-button {
-  color: #333;
-  background-color: #f4f4f4;
-  outline: none;
-}
-
-button:disabled {
-  color: #999;
-}
-
-button:not(:disabled):active {
-  background-color: #ddd;
-}
-
-button:focus {
-  border-color: #666;
 }

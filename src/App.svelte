@@ -1,5 +1,6 @@
-<script lang="ts">
-  import PageContainer from "./components/pageContainer.svelte";
+<script>
+  import { Router } from "@sveltech/routify";
+  import { routes } from "@sveltech/routify/tmp/routes";
 </script>
 
-<PageContainer />
+<Router {routes} />
