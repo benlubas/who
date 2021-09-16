@@ -16,6 +16,7 @@ body {
 body {
   --bg: #221f23;
   --primary: white;
+  --accent: rgb(189, 0, 189);
   font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
     sans-serif;
   font-size: 1.2rem;
