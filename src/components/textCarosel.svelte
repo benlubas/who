@@ -12,7 +12,7 @@
     in:fly={{ x: 200, duration: 1000 }}
     out:fly={{ x: -200, duration: 1000 }}
     class:hide={shown !== i}
-    class="subtitle"
+    class="carosel-text"
   >
     {val}
   </div>
@@ -22,7 +22,7 @@
   .hide {
     display: none;
   }
-  .subtitle {
+  .carosel-text {
     font-size: 1.5rem;
     font-family: Roboto, sans-serif;
     font-weight: 100;

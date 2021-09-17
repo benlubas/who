@@ -1,9 +1,11 @@
 <script lang="ts">
+  import PageTitle from "../components/PageTitle.svelte";
 </script>
 
 <div class="page-cont">
   <div>
-    <div class="page-title">About</div>
+    <PageTitle title="About" />
+
     <div class="text">
       Hi, I'm Ben Lubas! I'm currently a student at Northeastern University
       studying computer science. Firstly, welcome to my website! I hope you

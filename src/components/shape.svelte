@@ -106,6 +106,7 @@
     top: 0px;
     left: 0px;
     visibility: hidden;
+    pointer-events: none;
   }
   .shapeColor {
     background: var(--accent);
@@ -114,6 +115,7 @@
   }
   .shapeInvert {
     backdrop-filter: invert(100%);
+    -webkit-backdrop-filter: invert(100%);
     z-index: 10;
   }
 </style>

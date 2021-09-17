@@ -1,7 +1,9 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import PageTitle from "../components/PageTitle.svelte";
+</script>
 
 <div class="page-cont">
-  <div class="page-title">Projects</div>
+  <PageTitle title="Projects" />
 
   <div class="item">One thing that I've done...</div>
   <div class="item">One thing that I've done...</div>

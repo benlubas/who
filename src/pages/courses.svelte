@@ -1,9 +1,10 @@
 <script lang="ts">
+  import PageTitle from "../components/PageTitle.svelte";
 </script>
 
 <div class="page-cont">
   <div>
-    <div class="page-title">Course Work</div>
+    <PageTitle title="Course Work" />
     <div class="text">
       On this page I'll discuss my coursework, the interesting classes I've
       taken, smaller projects that I've done, and the courses that I'm looking

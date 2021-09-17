@@ -29,6 +29,13 @@
 {/each}
 
 <style>
+  a {
+    font-style: normal;
+  }
+  a:hover {
+    color: inherit;
+    text-decoration: none;
+  }
   #center {
     grid-area: center;
   }
