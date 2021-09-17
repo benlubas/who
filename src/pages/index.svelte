@@ -4,6 +4,7 @@
   import AboutBtn from "../components/gridBoxes/aboutBtn.svelte";
   import { url } from "@sveltech/routify";
   import Shape from "../components/shape.svelte";
+  import CoursesBtn from "../components/gridBoxes/coursesBtn.svelte";
 </script>
 
 <div class="container">
@@ -17,7 +18,9 @@
   <div id="br">
     <a href={$url("/about")}> <AboutBtn /></a>
   </div>
-  <div id="right" />
+  <div id="right">
+    <a href={$url("/courses")}><CoursesBtn /></a>
+  </div>
   <div id="bottom" />
 </div>
 
@@ -59,17 +62,6 @@
     width: 100%;
     padding: 5px;
     position: relative;
-  }
-
-  .shapes {
-    position: absolute;
-    width: 150px;
-    /* filter: invert(); */
-    background: white;
-    height: 150px;
-    border-radius: 50%;
-    top: 0px;
-    left: 0px;
   }
 
   .container {

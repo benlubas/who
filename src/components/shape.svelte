@@ -2,6 +2,11 @@
   export let shapeColor = false;
   export let shapeInvert = true;
 
+  // distance from the shape that your mouse will interact with it.
+  const INTERACTION_DISTANCE = 5;
+  const DAMPENING_CONST = 0.025;
+  const DECAY = 0.05;
+
   let ref: HTMLElement;
 
   const rand = (min: number, max: number) => {
@@ -47,19 +52,19 @@
     }
 
     // the factor that speed deacys (higher = faster decay = shapes slow down faster)
-    let decay = 0.1;
+
     //decay to slower speed
     if (dx > 2) {
-      dx -= decay;
+      dx -= DECAY;
     }
     if (dx < -2) {
-      dx += decay;
+      dx += DECAY;
     }
     if (dy > 2) {
-      dy -= decay;
+      dy -= DECAY;
     }
     if (dy < -2) {
-      dx += decay;
+      dx += DECAY;
     }
 
     // So the shapes don't flash at (0,0) before JS sets their position
@@ -74,7 +79,6 @@
   $: centerY = y + size / 2;
 
   // Dampens the mouse vector moving shapes (smaller = mouse has less effect on shapes)
-  let dampener = 0.025;
   const handleMouseMove = (e: MouseEvent) => {
     v.x = e.clientX - m.x;
     v.y = e.clientY - m.y;
@@ -82,10 +86,10 @@
     m.y = e.clientY;
 
     let d = dist(centerX, centerY, m.x, m.y);
-    if (d < size + 20) {
+    if (d < size + INTERACTION_DISTANCE) {
       let dFact = 20 ** -(d / 400);
-      dx += v.x * dampener * dFact;
-      dy += v.y * dampener * dFact;
+      dx += v.x * DAMPENING_CONST * dFact;
+      dy += v.y * DAMPENING_CONST * dFact;
     }
   };
 </script>

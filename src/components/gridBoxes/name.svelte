@@ -13,7 +13,7 @@
     "Python Aficionado",
     "AI Whisperer",
     "PHP *Sucks*",
-    "Can Google Good",
+    "Google Poweruser",
     "CSS God",
   ]}
 />
