@@ -1,17 +1,21 @@
 <script lang="ts">
   import Name from "../components/gridBoxes/name.svelte";
   import ProjectsBtn from "../components/gridBoxes/projectsBtn.svelte";
+  import AboutBtn from "../components/gridBoxes/aboutBtn.svelte";
   import { url } from "@sveltech/routify";
 </script>
 
 <div class="container">
+  <div class="shapes" />
   <div class="grid-item" id="center">
     <Name />
   </div>
   <div id="tl">
     <a href={$url("/projects")}> <ProjectsBtn /></a>
   </div>
-  <div id="br" />
+  <div id="br">
+    <a href={$url("/about")}> <AboutBtn /></a>
+  </div>
   <div id="right" />
   <div id="bottom" />
 </div>
@@ -50,6 +54,17 @@
     width: 100%;
     padding: 5px;
     position: relative;
+  }
+
+  .shapes {
+    position: absolute;
+    width: 150px;
+    /* filter: invert(); */
+    background: white;
+    height: 150px;
+    border-radius: 50%;
+    top: 0px;
+    left: 0px;
   }
 
   .container {

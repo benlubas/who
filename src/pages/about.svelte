@@ -34,6 +34,19 @@
     site in more-or-less one semester. I spent a lot of time durring covid finishing
     the site and pollishing it up. Unfortunately, the school didn't let me into their
     server to configure the hosting that was required. Partly because COVID, hopefully
-    I can set it up over
+    I can set it up over the summer at some point.
+
+    <br />
+    <div class="subtitle">This Website and Svelte</div>
+    This site is built with Svelte, a web framework that's a little differnt. It
+    works differently to React in that it's a compiler for JS, it doens't use a virtual
+    DOM. This has advantages; it's smaller for small projects, it's easier to write
+    in (in my opinion at least), it can do some "magic" that React just can't. But
+    it also has the disadvantage that it doesn't scale as well (in addition to not
+    having the corporate backing or large community of React).
+    <br />
+    I ran into Svelte when v 3.0 was launched, and started to learn it. I had already
+    used React, but I liked this much better. There's something about the way Svelte
+    components are written, they make more sense, they're cleaner.
   </div>
 </div>
