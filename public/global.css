@@ -53,8 +53,7 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
-  font-style: italic;
+  text-decoration: underline;
 }
 a:hover {
   color: var(--accent);
