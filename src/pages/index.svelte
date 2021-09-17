@@ -3,6 +3,7 @@
   import ProjectsBtn from "../components/gridBoxes/projectsBtn.svelte";
   import AboutBtn from "../components/gridBoxes/aboutBtn.svelte";
   import { url } from "@sveltech/routify";
+  import Shape from "../components/shape.svelte";
 </script>
 
 <div class="container">
@@ -19,6 +20,10 @@
   <div id="right" />
   <div id="bottom" />
 </div>
+
+{#each Array(4) as _}
+  <Shape shapeInvert />
+{/each}
 
 <style>
   #center {
