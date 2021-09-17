@@ -24,9 +24,11 @@
   <div id="bottom" />
 </div>
 
-{#each Array(4) as _}
-  <Shape shapeInvert />
-{/each}
+<Shape shapeInvert />
+<Shape shapeInvert />
+<Shape shapeInvert />
+<Shape shapeInvert />
+<Shape shapeColor circle />
 
 <style>
   a {

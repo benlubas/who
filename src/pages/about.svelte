@@ -55,7 +55,19 @@
       I ran into Svelte when v3.0 was launched, and started to learn it. I had already
       used React, but I liked this much better. There's something about the way Svelte
       components are written, they make more sense, they're cleaner. I also like
-      that it's not backed by Facebook.
+      that it's not backed by Facebook/Google.
+      <br /><br />
+      More technical stuff about the site, it's just a front end, I wanted to be
+      able to host it for free. I'm only using the Svelte framework with
+      <a href="https://routify.dev">Routify</a>
+      for page routing. No additional external JS, no external CSS. I should note,
+      that I am making use of some of Svelte's built in animation functionality for
+      the text carolsel. But everything else has been written by me.
+      <br /><br />
+
+      This entire website is hosted on GitHub and the source code is visible
+      there as well.
+      <a href="https://www.github.com/benlubas/who">Link.</a>
 
       <div class="subtitle">Education&mdash;High School</div>
       I graduated from high school in 2020; I was around the top of my class. I had

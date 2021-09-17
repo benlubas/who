@@ -1,13 +1,42 @@
 <script lang="ts">
+  import { onDestroy, onMount } from "svelte";
+
   export let shapeColor = false;
   export let shapeInvert = true;
+  export let circle = false;
+  export let fullScreen = false;
 
   // distance from the shape that your mouse will interact with it.
   const INTERACTION_DISTANCE = 5;
   const DAMPENING_CONST = 0.025;
-  const DECAY = 0.05;
+  // the factor that speed deacys (higher = faster decay = shapes slow down faster)
+  const DECAY = 0.07;
 
   let ref: HTMLElement;
+  let boundingBox: DOMRect;
+  let bodyRef: HTMLElement;
+
+  let x: number;
+  let y: number;
+  let size: number;
+
+  onMount(() => {
+    // So the shapes don't flash at (0,0) before JS sets their position
+    ref.style.visibility = "visible";
+    ref.parentElement.style.position = "relative";
+
+    if (fullScreen) {
+      boundingBox = bodyRef.getBoundingClientRect();
+    } else {
+      boundingBox = ref.parentElement.getBoundingClientRect();
+    }
+    let lim = Math.min(boundingBox.width, boundingBox.height, 500);
+    size = circle ? rand(0.25 * lim, 0.03 * lim) : rand(0.25 * lim, 0.55 * lim);
+    ref.style.width = size + "px";
+    ref.style.height = size + "px";
+    x = rand(boundingBox.left, boundingBox.width - size);
+    y = rand(boundingBox.top, boundingBox.height - size);
+  });
 
   const rand = (min: number, max: number) => {
     return (Math.random() * (max - min) + min) | 0;
@@ -15,43 +44,33 @@
   const dist = (x1: number, y1: number, x2: number, y2: number) => {
     return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
   };
-  let size = rand(50, 250);
 
   let dx = rand(-10, 10) / 5;
   let dy = rand(-10, 10) / 5;
-  let x = rand(0, window.innerWidth - size);
-  let y = rand(0, window.innerHeight - size);
-
-  $: if (ref) {
-    ref.style.width = size + "px";
-    ref.style.height = size + "px";
-  }
 
   // for shape movement
-  setInterval(() => {
-    ref.style.top = `${y}px`;
-    ref.style.left = `${x}px`;
+  const interval = setInterval(() => {
+    ref.style.left = `${x - boundingBox.left}px`;
+    ref.style.top = `${y - boundingBox.top}px`;
     x += dx;
     y += dy;
     //COLLISION LOGIC
-    if (x + size >= window.innerWidth) {
+    if (x >= boundingBox.right - size) {
       dx *= -1;
-      x = window.innerWidth - size;
+      x = boundingBox.right - size;
     }
-    if (x < 0) {
+    if (x <= boundingBox.left) {
       dx *= -1;
-      x = 0;
+      x = boundingBox.left;
     }
-    if (y + size >= window.innerHeight) {
+    if (y >= boundingBox.bottom - size) {
       dy *= -1;
-      y = window.innerHeight - size;
+      y = boundingBox.bottom - size;
     }
-    if (y < 0) {
+    if (y <= boundingBox.top) {
       dy *= -1;
-      y = 0;
+      y = boundingBox.top;
     }
-
-    // the factor that speed deacys (higher = faster decay = shapes slow down faster)
 
     //decay to slower speed
     if (dx > 2) {
@@ -66,13 +85,10 @@
     if (dy < -2) {
       dx += DECAY;
     }
-
-    // So the shapes don't flash at (0,0) before JS sets their position
-    ref.style.visibility = "visible";
   }, 1000 / 30);
 
   // the absolute position of the mouse
-  let m = { x: size / 2, y: size / 2 };
+  let m = { x: 0, y: 0 };
   // the absolute vector direction that the mouse is traveling in.
   let v = { x: 0, y: 0 };
   $: centerX = x + size / 2;
@@ -80,23 +96,39 @@
 
   // Dampens the mouse vector moving shapes (smaller = mouse has less effect on shapes)
   const handleMouseMove = (e: MouseEvent) => {
-    v.x = e.clientX - m.x;
-    v.y = e.clientY - m.y;
-    m.x = e.clientX;
-    m.y = e.clientY;
+    let relMX = e.clientX;
+    let relMY = e.clientY;
+    v.x = relMX - m.x;
+    v.y = relMY - m.y;
+    m.x = relMX;
+    m.y = relMY;
 
     let d = dist(centerX, centerY, m.x, m.y);
-    if (d < size + INTERACTION_DISTANCE) {
+    if (d < size / 2 + INTERACTION_DISTANCE) {
       let dFact = 20 ** -(d / 400);
       dx += v.x * DAMPENING_CONST * dFact;
       dy += v.y * DAMPENING_CONST * dFact;
     }
   };
+  $: if (bodyRef && fullScreen) {
+    boundingBox = bodyRef.getBoundingClientRect();
+  } else if (ref) {
+    boundingBox = ref.parentElement.getBoundingClientRect();
+  }
+  onDestroy(() => {
+    clearInterval(interval);
+  });
 </script>
 
-<svelte:window on:mousemove={handleMouseMove} />
+<svelte:body bind:this={bodyRef} on:mousemove={handleMouseMove} />
 
-<div bind:this={ref} class="shape" class:shapeColor class:shapeInvert />
+<div
+  bind:this={ref}
+  class="shape"
+  class:shapeColor
+  class:shapeInvert
+  class:circle
+/>
 
 <style>
   .shape {
@@ -117,5 +149,8 @@
     backdrop-filter: invert(100%);
     -webkit-backdrop-filter: invert(100%);
     z-index: 10;
+  }
+  .circle {
+    border-radius: 50%;
   }
 </style>

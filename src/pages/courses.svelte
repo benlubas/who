@@ -6,12 +6,22 @@
   <div>
     <PageTitle title="Course Work" />
     <div class="text">
-      On this page I'll discuss my coursework, the interesting classes I've
-      taken, smaller projects that I've done, and the courses that I'm looking
-      forward to. Of note, the two projects from high school are on the projects
-      page.
+      On this page I'll discuss my coursework, starting with courses that I'm
+      currently enrolled in. Then I go over my past courses and a few of the
+      more interesting projects that I've done.
 
-      <br />
+      <div class="subtitle">Currently Taking...</div>
+      <div class="projectTitle">Systems -</div>
+      A class that teaches the low level systems of machines. We learn C and Assembly,
+      and that's as far as I've gotten as of writing this.<br />
+
+      <div class="projectTitle">Foundations of AI -</div>
+      This class starts with search and graph basics, and continues into A*, reinforcement
+      learning, and Bayesian Networks, among others.<br />
+
+      <div class="projectTitle">Fundementals of Cyber Security -</div>
+      How to not leave horribly obvious backdoors in systems.<br />
+
       <div class="subtitle">Fundies 1 & 2</div>
       Fundementals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
       the first is taught in Racket (I had never heard of it either), the second
@@ -57,7 +67,10 @@
       <br />
       This was the last project that we did, it was the culmination of the year of
       work. We basically created a very primitive image editor that was capable of
-      scaling images down, applying basic filters.
+      scaling images down, applying basic filters and effects, and then exporting
+      those images. We used Java Spring to build the UI. This, unlike the other two
+      projects, was not very satisfying, it was slow and clunky, and it looked really
+      bad.
     </div>
   </div>
 </div>
