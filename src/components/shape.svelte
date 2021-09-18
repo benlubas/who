@@ -5,7 +5,6 @@
   export let shapeInvert = true;
   export let circle = false;
   export let fullScreen = false;
-  export let visibility = false;
 
   // distance from the shape that your mouse will interact with it.
   const INTERACTION_DISTANCE = 5;
