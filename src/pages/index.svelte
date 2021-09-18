@@ -81,6 +81,6 @@
       [row1-start] "tl top tr" calc(100vh / 3) [row1-end]
       [row2-start] "left center right" calc(100vh / 3) [row2-end]
       [row3-start] "bl bottom br" calc(100vh / 3) [row3-end]
-      / 1fr 1fr 1fr;
+      / 1fr 1.5fr 1fr;
   }
 </style>
