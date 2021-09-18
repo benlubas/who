@@ -1,13 +1,12 @@
 <script>
-  import { Router, basepath } from "@sveltech/routify";
+  import { Router } from "@sveltech/routify";
   import { routes } from "@sveltech/routify/tmp/routes";
-  // $basepath = "/public/";
+
   const routifyConfig = {
     urlTransform: {
       apply: (url) => url, // external URL
       remove: (url) => {
-        const partialUrl = `/who`;
-        return url.replace(partialUrl, "");
+        return url.replace("/who/", "/");
       }, //internal URL
     },
     useHash: true,
