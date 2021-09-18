@@ -1,16 +1,16 @@
 <script>
-  import { Router } from "@sveltech/routify";
-  import { routes } from "@sveltech/routify/tmp/routes";
+  import { Router } from "@roxi/routify";
+  import { routes } from "../.routify/routes";
 
-  const routifyConfig = {
+  const config = {
     urlTransform: {
       apply: (url) => url, // external URL
       remove: (url) => {
-        return url.replace("/who/", "/");
+        return url.replace("/", "/");
       }, //internal URL
     },
     useHash: true,
   };
 </script>
 
-<Router {routes} config={routifyConfig} />
+<Router {routes} {config} />

@@ -1,6 +1,6 @@
 <script lang="ts">
   import PageTitle from "../components/PageTitle.svelte";
-  import { url } from "@sveltech/routify";
+  import { url } from "@roxi/routify";
 </script>
 
 <div class="page-cont">

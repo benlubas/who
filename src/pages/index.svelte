@@ -2,7 +2,7 @@
   import Name from "../components/gridBoxes/name.svelte";
   import ProjectsBtn from "../components/gridBoxes/projectsBtn.svelte";
   import AboutBtn from "../components/gridBoxes/aboutBtn.svelte";
-  import { url } from "@sveltech/routify";
+  import { url } from "@roxi/routify";
   import Shape from "../components/shape.svelte";
   import CoursesBtn from "../components/gridBoxes/coursesBtn.svelte";
 </script>

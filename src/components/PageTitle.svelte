@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { url } from "@sveltech/routify";
+  import { url } from "@roxi/routify";
   import Shape from "../components/shape.svelte";
 
   export let title = "New Page";
