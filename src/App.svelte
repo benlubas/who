@@ -6,7 +6,7 @@
     urlTransform: {
       apply: (url) => url, // external URL
       remove: (url) => {
-        const partialUrl = `/pages/benlubas/who`;
+        const partialUrl = `/who`;
         return url.replace(partialUrl, "");
       }, //internal URL
     },
