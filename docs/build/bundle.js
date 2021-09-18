@@ -5775,7 +5775,7 @@ var app = (function () {
     		urlTransform: {
     			apply: url => url, // external URL
     			remove: url => {
-    				return url.replace("/", "/");
+    				return url.replace("/who/", "/");
     			}, //internal URL
     			
     		},
