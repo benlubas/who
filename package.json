@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "routify": "routify",
     "build": "rollup -c",
     "dev": "routify --no-dynamic-imports -c my-server",
     "my-server": "rollup -c -w",
