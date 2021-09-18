@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.3
- * File generated Sat Sep 18 2021 14:05:51 GMT-0400 (Eastern Daylight Time)
+ * File generated Sat Sep 18 2021 18:31:51 GMT-0400 (Eastern Daylight Time)
  */
 
 export const __version = "2.18.3"
-export const __timestamp = "2021-09-18T18:05:51.843Z"
+export const __timestamp = "2021-09-18T22:31:51.529Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -35,7 +35,7 @@ export const _tree = {
       "name": "about",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/about.svelte",
+      "absolutePath": "C:/Users/Ben Lubas/Documents/GitHub/who/src/pages/about.svelte",
       "importPath": "../src/pages/about.svelte",
       "isLayout": false,
       "isReset": false,
@@ -60,7 +60,7 @@ export const _tree = {
       "name": "courses",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/courses.svelte",
+      "absolutePath": "C:/Users/Ben Lubas/Documents/GitHub/who/src/pages/courses.svelte",
       "importPath": "../src/pages/courses.svelte",
       "isLayout": false,
       "isReset": false,
@@ -85,7 +85,7 @@ export const _tree = {
       "name": "index",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/index.svelte",
+      "absolutePath": "C:/Users/Ben Lubas/Documents/GitHub/who/src/pages/index.svelte",
       "importPath": "../src/pages/index.svelte",
       "isLayout": false,
       "isReset": false,
@@ -110,7 +110,7 @@ export const _tree = {
       "name": "projects",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/projects.svelte",
+      "absolutePath": "C:/Users/Ben Lubas/Documents/GitHub/who/src/pages/projects.svelte",
       "importPath": "../src/pages/projects.svelte",
       "isLayout": false,
       "isReset": false,

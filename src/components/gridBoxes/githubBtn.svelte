@@ -3,46 +3,50 @@
 
 <div class="container">
   <div class="clip-border box">
-    <div class="title">Courses</div>
+    <div class="title">Github</div>
   </div>
 </div>
 
 <style>
   .box {
     border: 5px solid white;
-    /* border-radius: 15px; */
     padding: 10px;
     height: 100%;
     position: relative;
+    overflow: hidden;
   }
-  .box::after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: -5px;
-    width: 5px;
-    height: 100%;
-    background: white;
-    transition: all 0.3s ease;
-  }
-  .box:hover::after {
-    left: 100%;
-  }
+
+  .box::after,
   .box::before {
     content: "";
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 0%;
+    width: 100%;
     height: 100%;
     background: white;
-    opacity: 0.45;
-    transition: width 0.3s ease, opacity 0.4s linear;
+    opacity: 0.4;
+    position: absolute;
   }
-  .box:hover::before {
-    width: 100%;
+  .box::after {
+    top: 100%;
+    left: 0px;
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 100% 0%);
+    transition: all 0.3s ease 0.25s;
+  }
+  .box::before {
+    bottom: 100%;
+    left: 0px;
+    clip-path: polygon(0% 0%, 100% 0%, 0% 100%, 0% 0%);
+    transition: all 0.3s ease;
+  }
+
+  .box:hover::after {
+    top: 0%;
     opacity: 0.15;
   }
+  .box:hover::before {
+    bottom: 0%;
+    opacity: 0.15;
+  }
+
   .title {
     font-size: 4.5vw;
     font-family: "Montserrat", sans-serif;

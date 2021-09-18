@@ -9,36 +9,39 @@
 
 <style>
   .box {
-    border-top: 5px solid white;
-    border-bottom: 5px solid white;
+    border: 5px solid white;
     padding: 10px;
     height: 100%;
     position: relative;
+    overflow: hidden;
   }
   .box::after,
   .box::before {
     content: "";
     position: absolute;
     background: white;
-    top: 0px;
+    opacity: 0.4;
     height: 100%;
-    width: 5px;
+    width: calc(50% + 0.5px);
     transition: all 0.3s ease;
+    z-index: 2;
   }
   .box::after {
-    right: 0px;
-    transform-origin: 0% -5px;
+    right: -1px;
+    top: 100%;
   }
   .box::before {
     left: 0px;
-    transform-origin: 100% calc(100% + 5px);
+    bottom: 100%;
   }
 
   .box:hover::after {
-    transform: rotate(90deg);
+    top: 0px;
+    opacity: 0.15;
   }
   .box:hover::before {
-    transform: rotate(90deg);
+    bottom: 0px;
+    opacity: 0.15;
   }
   .title {
     font-size: 4.5vw;

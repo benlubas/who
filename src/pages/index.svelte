@@ -5,6 +5,7 @@
   import { url } from "@roxi/routify";
   import Shape from "../components/shape.svelte";
   import CoursesBtn from "../components/gridBoxes/coursesBtn.svelte";
+  import GithubBtn from "../components/gridBoxes/githubBtn.svelte";
 </script>
 
 <div class="container">
@@ -21,7 +22,9 @@
   <div id="right">
     <a href={$url("/courses")}><CoursesBtn /></a>
   </div>
-  <div id="bottom" />
+  <div id="bl">
+    <a href="https://github.com/benlubas"><GithubBtn /></a>
+  </div>
 </div>
 
 <Shape shapeInvert />
