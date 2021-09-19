@@ -8,7 +8,7 @@
     "Software Dev",
     "Web Dev",
     "Svelte Advocate",
-    "React Adept",
+    "React Familiar",
     "Java Disciple",
     "Python Aficionado",
     "AI Whisperer",
