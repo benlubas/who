@@ -7,14 +7,12 @@
   list={[
     "Software Dev",
     "Web Dev",
-    "Svelte Advocate",
-    "React Familiar",
-    "Java Disciple",
-    "Python Aficionado",
-    "AI Whisperer",
-    "PHP *Sucks*",
+    "Student",
+    "Svelte",
+    "React",
+    "Java",
+    "Python",
     "Google Poweruser",
-    "CSS God",
   ]}
 />
 
@@ -28,5 +26,6 @@
     top: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    white-space: nowrap;
   }
 </style>

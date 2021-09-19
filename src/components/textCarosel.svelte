@@ -32,5 +32,6 @@
     left: 50%;
     transform: translate(-50%, -50%) translateY(1rem);
     pointer-events: none;
+    white-space: nowrap;
   }
 </style>

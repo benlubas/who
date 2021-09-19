@@ -86,4 +86,24 @@
       [row3-start] "bl bottom br" calc(100vh / 3) [row3-end]
       / 1fr 1.5fr 1fr;
   }
+  @media (max-width: 1012px), (orientation: portrait) {
+    .container {
+      grid:
+        [row1-start] "center center" calc(100vh / 3) [row1-end]
+        [row2-start] "br tl" calc(100vh / 3) [row2-end]
+        [row3-start] "bl right" calc(100vh / 3) [row3-end]
+        / 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .container {
+      grid:
+        [row1-start] "center" calc(100vh / 3) [row1-end]
+        [row2-start] "br" calc(100vh / 3) [row2-end]
+        [row3-start] "tl" calc(100vh / 3) [row3-end]
+        [row4-start] "bl" calc(100vh / 3) [row4-end]
+        [row5-start] "right" calc(100vh / 3) [row5-end]
+        / 1fr;
+    }
+  }
 </style>
