@@ -3,75 +3,71 @@
 </script>
 
 <div class="page-cont">
-  <div>
+  <div class="text">
     <PageTitle title="Course Work" />
-    <div class="text">
-      On this page I'll discuss my coursework, starting with courses that I'm
-      currently enrolled in. Then I go over my past courses and a few of the
-      more interesting projects that I've done.
+    On this page I'll discuss my coursework, starting with courses that I'm currently
+    enrolled in. Then I go over my past courses and a few of the more interesting
+    projects that I've done.
 
-      <div class="subtitle">Currently Taking...</div>
-      <div class="projectTitle">Systems -</div>
-      A class that teaches the low level systems of machines. We learn C and Assembly,
-      and that's as far as I've gotten as of writing this.<br />
+    <div class="subtitle">Currently Taking...</div>
+    <div class="projectTitle">Systems -</div>
+    A class that teaches the low level systems of machines. We learn C and Assembly,
+    and that's as far as I've gotten as of writing this.<br />
 
-      <div class="projectTitle">Foundations of AI -</div>
-      This class starts with search and graph basics, and continues into A*, reinforcement
-      learning, and Bayesian Networks, among others.<br />
+    <div class="projectTitle">Foundations of AI -</div>
+    This class starts with search and graph basics, and continues into A*, reinforcement
+    learning, and Bayesian Networks, among others.<br />
 
-      <div class="projectTitle">Fundementals of Cyber Security -</div>
-      How to not leave horribly obvious backdoors in systems.<br />
+    <div class="projectTitle">Fundementals of Cyber Security -</div>
+    How to not leave horribly obvious backdoors in systems.<br />
 
-      <div class="subtitle">Fundies 1 & 2</div>
-      Fundementals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
-      the first is taught in Racket (I had never heard of it either), the second
-      was in Java. I learned about Functional and OO Programming, the differences,
-      advantages, and disadvantages of each. I'll briefly mention a few of the more
-      interesting projects from Fundies 2.
+    <div class="subtitle">Fundies 1 & 2</div>
+    Fundementals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
+    the first is taught in Racket (I had never heard of it either), the second was
+    in Java. I learned about Functional and OO Programming, the differences, advantages,
+    and disadvantages of each. I'll briefly mention a few of the more interesting
+    projects from Fundies 2.
 
-      <br />
-      <div class="projectTitle">Maze Solver</div>
-      <br />
+    <br />
+    <div class="projectTitle">Maze Solver</div>
+    <br />
 
-      The more interesting projects came towards the end of the second course.
-      We made a maze generator and solver making use of Kruskals algorithm to
-      generate a minimum spanning tree of grid cells that were connected with
-      random weights. The tree that was generated became the path for the maze,
-      start and end cells were chosen in oposite corners. We built two solvers,
-      one that used BFS, and another that used DFS. The thing was animated and
-      it was just so satisfying to watch it run. Especially after hitting our
-      heads against a few bugs.
+    The more interesting projects came towards the end of the second course. We
+    made a maze generator and solver making use of Kruskals algorithm to
+    generate a minimum spanning tree of grid cells that were connected with
+    random weights. The tree that was generated became the path for the maze,
+    start and end cells were chosen in oposite corners. We built two solvers,
+    one that used BFS, and another that used DFS. The thing was animated and it
+    was just so satisfying to watch it run. Especially after hitting our heads
+    against a few bugs.
 
-      <br />
-      <div class="projectTitle">Seam Carving</div>
-      <br />
+    <br />
+    <div class="projectTitle">Seam Carving</div>
+    <br />
 
-      Seam carving is a process of finding the least "important" line of pixels
-      in an image so that you can remove it to compress the image (horizonatally
-      or vertically) without warping the image (to some extent). The concept of
-      "important" was defined by pixel color values in relation to surrounding
-      pixels. We then used a dynamic programming approach to find the seam with
-      minimum value and removed it from the image.
-      <br />
-      <br />
-      This process was also animated and increadibly satisfying to watch. The images
-      got really distorted at the end, but I was surprised with how well the algorithm
-      worked to keep the most interesting pixels in the image.
+    Seam carving is a process of finding the least "important" line of pixels in
+    an image so that you can remove it to compress the image (horizonatally or
+    vertically) without warping the image (to some extent). The concept of
+    "important" was defined by pixel color values in relation to surrounding
+    pixels. We then used a dynamic programming approach to find the seam with
+    minimum value and removed it from the image.
+    <br />
+    <br />
+    This process was also animated and increadibly satisfying to watch. The images
+    got really distorted at the end, but I was surprised with how well the algorithm
+    worked to keep the most interesting pixels in the image.
 
-      <div class="subtitle">Object Oriented Design</div>
-      Fun course, lots of work, took it over the summer. Fun projects illustrated
-      below:
+    <div class="subtitle">Object Oriented Design</div>
+    Fun course, lots of work, took it over the summer. Fun projects illustrated below:
 
-      <br />
-      <div class="projectTitle">Image Editing GUI</div>
-      <br />
-      This was the last project that we did, it was the culmination of the year of
-      work. We basically created a very primitive image editor that was capable of
-      scaling images down, applying basic filters and effects, and then exporting
-      those images. We used Java Spring to build the UI. This, unlike the other two
-      projects, was not very satisfying, it was slow and clunky, and it looked really
-      bad.
-    </div>
+    <br />
+    <div class="projectTitle">Image Editing GUI</div>
+    <br />
+    This was the last project that we did, it was the culmination of the year of
+    work. We basically created a very primitive image editor that was capable of
+    scaling images down, applying basic filters and effects, and then exporting those
+    images. We used Java Spring to build the UI. This, unlike the other two projects,
+    was not very satisfying, it was slow and clunky, and it looked really bad.
   </div>
 </div>
 
