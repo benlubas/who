@@ -25,13 +25,12 @@
   <div id="bl">
     <a href="https://github.com/benlubas"><GithubBtn /></a>
   </div>
+  <Shape shapeInvert />
+  <Shape shapeInvert />
+  <Shape shapeInvert />
+  <Shape shapeInvert />
+  <Shape shapeColor circle />
 </div>
-
-<Shape shapeInvert />
-<Shape shapeInvert />
-<Shape shapeInvert />
-<Shape shapeInvert />
-<Shape shapeColor circle />
 
 <style>
   a {
@@ -97,6 +96,7 @@
   }
   @media (max-width: 600px) {
     .container {
+      height: unset;
       grid:
         [row1-start] "center" calc(100vh / 3) [row1-end]
         [row2-start] "br" calc(100vh / 3) [row2-end]

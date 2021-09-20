@@ -3531,7 +3531,7 @@ var app = (function () {
     			toggle_class(div, "shapeColor", /*shapeColor*/ ctx[0]);
     			toggle_class(div, "shapeInvert", /*shapeInvert*/ ctx[1]);
     			toggle_class(div, "circle", /*circle*/ ctx[2]);
-    			add_location(div, file$b, 112, 0, 3233);
+    			add_location(div, file$b, 112, 0, 3400);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3602,6 +3602,7 @@ var app = (function () {
     	let x;
     	let y;
     	let size;
+    	let interval;
 
     	onMount(() => {
     		// So the shapes don't flash at (0,0) before JS sets their position
@@ -3625,6 +3626,55 @@ var app = (function () {
     		$$invalidate(3, ref.style.height = size + "px", ref);
     		$$invalidate(6, x = rand(boundingBox.left, boundingBox.width - size));
     		$$invalidate(7, y = rand(boundingBox.top, boundingBox.height - size));
+
+    		// for shape movement
+    		interval = setInterval(
+    			() => {
+    				$$invalidate(3, ref.style.left = `${x - boundingBox.left}px`, ref);
+    				$$invalidate(3, ref.style.top = `${y - boundingBox.top}px`, ref);
+    				$$invalidate(6, x += dx);
+    				$$invalidate(7, y += dy);
+
+    				//COLLISION LOGIC
+    				if (x >= boundingBox.right - size) {
+    					dx *= -1;
+    					$$invalidate(6, x = boundingBox.right - size);
+    				}
+
+    				if (x <= boundingBox.left) {
+    					dx *= -1;
+    					$$invalidate(6, x = boundingBox.left);
+    				}
+
+    				if (y >= boundingBox.bottom - size) {
+    					dy *= -1;
+    					$$invalidate(7, y = boundingBox.bottom - size);
+    				}
+
+    				if (y <= boundingBox.top) {
+    					dy *= -1;
+    					$$invalidate(7, y = boundingBox.top);
+    				}
+
+    				//decay to slower speed
+    				if (dx > 2) {
+    					dx -= DECAY;
+    				}
+
+    				if (dx < -2) {
+    					dx += DECAY;
+    				}
+
+    				if (dy > 2) {
+    					dy -= DECAY;
+    				}
+
+    				if (dy < -2) {
+    					dx += DECAY;
+    				}
+    			},
+    			1000 / 30
+    		);
     	});
 
     	const rand = (min, max) => {
@@ -3637,55 +3687,6 @@ var app = (function () {
 
     	let dx = rand(-10, 10) / 5;
     	let dy = rand(-10, 10) / 5;
-
-    	// for shape movement
-    	const interval = setInterval(
-    		() => {
-    			$$invalidate(3, ref.style.left = `${x - boundingBox.left}px`, ref);
-    			$$invalidate(3, ref.style.top = `${y - boundingBox.top}px`, ref);
-    			$$invalidate(6, x += dx);
-    			$$invalidate(7, y += dy);
-
-    			//COLLISION LOGIC
-    			if (x >= boundingBox.right - size) {
-    				dx *= -1;
-    				$$invalidate(6, x = boundingBox.right - size);
-    			}
-
-    			if (x <= boundingBox.left) {
-    				dx *= -1;
-    				$$invalidate(6, x = boundingBox.left);
-    			}
-
-    			if (y >= boundingBox.bottom - size) {
-    				dy *= -1;
-    				$$invalidate(7, y = boundingBox.bottom - size);
-    			}
-
-    			if (y <= boundingBox.top) {
-    				dy *= -1;
-    				$$invalidate(7, y = boundingBox.top);
-    			}
-
-    			//decay to slower speed
-    			if (dx > 2) {
-    				dx -= DECAY;
-    			}
-
-    			if (dx < -2) {
-    				dx += DECAY;
-    			}
-
-    			if (dy > 2) {
-    				dy -= DECAY;
-    			}
-
-    			if (dy < -2) {
-    				dx += DECAY;
-    			}
-    		},
-    		1000 / 30
-    	);
 
     	// the absolute position of the mouse
     	let m = { x: 0, y: 0 };
@@ -3710,6 +3711,11 @@ var app = (function () {
     		}
     	};
 
+    	// $: if (bodyRef && fullScreen) {
+    	//   boundingBox = bodyRef.getBoundingClientRect();
+    	// } else if (ref) {
+    	//   boundingBox = ref.parentElement.getBoundingClientRect();
+    	// }
     	onDestroy(() => {
     		clearInterval(interval);
     	});
@@ -3750,11 +3756,11 @@ var app = (function () {
     		x,
     		y,
     		size,
+    		interval,
     		rand,
     		dist,
     		dx,
     		dy,
-    		interval,
     		m,
     		v,
     		handleMouseMove,
@@ -3769,10 +3775,11 @@ var app = (function () {
     		if ('fullScreen' in $$props) $$invalidate(5, fullScreen = $$props.fullScreen);
     		if ('ref' in $$props) $$invalidate(3, ref = $$props.ref);
     		if ('boundingBox' in $$props) boundingBox = $$props.boundingBox;
-    		if ('bodyRef' in $$props) $$invalidate(17, bodyRef = $$props.bodyRef);
+    		if ('bodyRef' in $$props) bodyRef = $$props.bodyRef;
     		if ('x' in $$props) $$invalidate(6, x = $$props.x);
     		if ('y' in $$props) $$invalidate(7, y = $$props.y);
     		if ('size' in $$props) $$invalidate(8, size = $$props.size);
+    		if ('interval' in $$props) interval = $$props.interval;
     		if ('dx' in $$props) dx = $$props.dx;
     		if ('dy' in $$props) dy = $$props.dy;
     		if ('m' in $$props) m = $$props.m;
@@ -3792,14 +3799,6 @@ var app = (function () {
 
     		if ($$self.$$.dirty & /*y, size*/ 384) {
     			centerY = y + size / 2;
-    		}
-
-    		if ($$self.$$.dirty & /*fullScreen, ref*/ 40) {
-    			if (bodyRef && fullScreen) {
-    				boundingBox = bodyRef.getBoundingClientRect();
-    			} else if (ref) {
-    				boundingBox = ref.parentElement.getBoundingClientRect();
-    			}
     		}
     	};
 
@@ -5383,34 +5382,34 @@ var app = (function () {
     			create_component(shape4.$$.fragment);
     			attr_dev(div0, "class", "shapes");
     			add_location(div0, file$1, 10, 2, 464);
-    			attr_dev(div1, "class", "grid-item svelte-191atm4");
+    			attr_dev(div1, "class", "grid-item svelte-1gbi7zt");
     			attr_dev(div1, "id", "center");
     			add_location(div1, file$1, 11, 2, 489);
     			attr_dev(a0, "href", a0_href_value = /*$url*/ ctx[0]("/projects"));
-    			attr_dev(a0, "class", "svelte-191atm4");
+    			attr_dev(a0, "class", "svelte-1gbi7zt");
     			add_location(a0, file$1, 15, 4, 567);
     			attr_dev(div2, "id", "tl");
-    			attr_dev(div2, "class", "svelte-191atm4");
+    			attr_dev(div2, "class", "svelte-1gbi7zt");
     			add_location(div2, file$1, 14, 2, 549);
     			attr_dev(a1, "href", a1_href_value = /*$url*/ ctx[0]("/about"));
-    			attr_dev(a1, "class", "svelte-191atm4");
+    			attr_dev(a1, "class", "svelte-1gbi7zt");
     			add_location(a1, file$1, 18, 4, 645);
     			attr_dev(div3, "id", "br");
-    			attr_dev(div3, "class", "svelte-191atm4");
+    			attr_dev(div3, "class", "svelte-1gbi7zt");
     			add_location(div3, file$1, 17, 2, 627);
     			attr_dev(a2, "href", a2_href_value = /*$url*/ ctx[0]("/courses"));
-    			attr_dev(a2, "class", "svelte-191atm4");
+    			attr_dev(a2, "class", "svelte-1gbi7zt");
     			add_location(a2, file$1, 21, 4, 720);
     			attr_dev(div4, "id", "right");
-    			attr_dev(div4, "class", "svelte-191atm4");
+    			attr_dev(div4, "class", "svelte-1gbi7zt");
     			add_location(div4, file$1, 20, 2, 699);
     			attr_dev(a3, "href", "https://github.com/benlubas");
-    			attr_dev(a3, "class", "svelte-191atm4");
+    			attr_dev(a3, "class", "svelte-1gbi7zt");
     			add_location(a3, file$1, 24, 4, 795);
     			attr_dev(div5, "id", "bl");
-    			attr_dev(div5, "class", "svelte-191atm4");
+    			attr_dev(div5, "class", "svelte-1gbi7zt");
     			add_location(div5, file$1, 23, 2, 777);
-    			attr_dev(div6, "class", "container svelte-191atm4");
+    			attr_dev(div6, "class", "container svelte-1gbi7zt");
     			add_location(div6, file$1, 9, 0, 438);
     		},
     		l: function claim(nodes) {
@@ -5438,16 +5437,16 @@ var app = (function () {
     			append_dev(div6, div5);
     			append_dev(div5, a3);
     			mount_component(githubbtn, a3, null);
-    			insert_dev(target, t5, anchor);
-    			mount_component(shape0, target, anchor);
-    			insert_dev(target, t6, anchor);
-    			mount_component(shape1, target, anchor);
-    			insert_dev(target, t7, anchor);
-    			mount_component(shape2, target, anchor);
-    			insert_dev(target, t8, anchor);
-    			mount_component(shape3, target, anchor);
-    			insert_dev(target, t9, anchor);
-    			mount_component(shape4, target, anchor);
+    			append_dev(div6, t5);
+    			mount_component(shape0, div6, null);
+    			append_dev(div6, t6);
+    			mount_component(shape1, div6, null);
+    			append_dev(div6, t7);
+    			mount_component(shape2, div6, null);
+    			append_dev(div6, t8);
+    			mount_component(shape3, div6, null);
+    			append_dev(div6, t9);
+    			mount_component(shape4, div6, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -5497,16 +5496,11 @@ var app = (function () {
     			destroy_component(aboutbtn);
     			destroy_component(coursesbtn);
     			destroy_component(githubbtn);
-    			if (detaching) detach_dev(t5);
-    			destroy_component(shape0, detaching);
-    			if (detaching) detach_dev(t6);
-    			destroy_component(shape1, detaching);
-    			if (detaching) detach_dev(t7);
-    			destroy_component(shape2, detaching);
-    			if (detaching) detach_dev(t8);
-    			destroy_component(shape3, detaching);
-    			if (detaching) detach_dev(t9);
-    			destroy_component(shape4, detaching);
+    			destroy_component(shape0);
+    			destroy_component(shape1);
+    			destroy_component(shape2);
+    			destroy_component(shape3);
+    			destroy_component(shape4);
     		}
     	};
 

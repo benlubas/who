@@ -19,6 +19,7 @@
   let x: number;
   let y: number;
   let size: number;
+  let interval: any;
 
   onMount(() => {
     // So the shapes don't flash at (0,0) before JS sets their position
@@ -36,6 +37,45 @@
     ref.style.height = size + "px";
     x = rand(boundingBox.left, boundingBox.width - size);
     y = rand(boundingBox.top, boundingBox.height - size);
+
+    // for shape movement
+    interval = setInterval(() => {
+      ref.style.left = `${x - boundingBox.left}px`;
+      ref.style.top = `${y - boundingBox.top}px`;
+      x += dx;
+      y += dy;
+      //COLLISION LOGIC
+      if (x >= boundingBox.right - size) {
+        dx *= -1;
+        x = boundingBox.right - size;
+      }
+      if (x <= boundingBox.left) {
+        dx *= -1;
+        x = boundingBox.left;
+      }
+      if (y >= boundingBox.bottom - size) {
+        dy *= -1;
+        y = boundingBox.bottom - size;
+      }
+      if (y <= boundingBox.top) {
+        dy *= -1;
+        y = boundingBox.top;
+      }
+
+      //decay to slower speed
+      if (dx > 2) {
+        dx -= DECAY;
+      }
+      if (dx < -2) {
+        dx += DECAY;
+      }
+      if (dy > 2) {
+        dy -= DECAY;
+      }
+      if (dy < -2) {
+        dx += DECAY;
+      }
+    }, 1000 / 30);
   });
 
   const rand = (min: number, max: number) => {
@@ -47,45 +87,6 @@
 
   let dx = rand(-10, 10) / 5;
   let dy = rand(-10, 10) / 5;
-
-  // for shape movement
-  const interval = setInterval(() => {
-    ref.style.left = `${x - boundingBox.left}px`;
-    ref.style.top = `${y - boundingBox.top}px`;
-    x += dx;
-    y += dy;
-    //COLLISION LOGIC
-    if (x >= boundingBox.right - size) {
-      dx *= -1;
-      x = boundingBox.right - size;
-    }
-    if (x <= boundingBox.left) {
-      dx *= -1;
-      x = boundingBox.left;
-    }
-    if (y >= boundingBox.bottom - size) {
-      dy *= -1;
-      y = boundingBox.bottom - size;
-    }
-    if (y <= boundingBox.top) {
-      dy *= -1;
-      y = boundingBox.top;
-    }
-
-    //decay to slower speed
-    if (dx > 2) {
-      dx -= DECAY;
-    }
-    if (dx < -2) {
-      dx += DECAY;
-    }
-    if (dy > 2) {
-      dy -= DECAY;
-    }
-    if (dy < -2) {
-      dx += DECAY;
-    }
-  }, 1000 / 30);
 
   // the absolute position of the mouse
   let m = { x: 0, y: 0 };
@@ -110,11 +111,11 @@
       dy += v.y * DAMPENING_CONST * dFact;
     }
   };
-  $: if (bodyRef && fullScreen) {
-    boundingBox = bodyRef.getBoundingClientRect();
-  } else if (ref) {
-    boundingBox = ref.parentElement.getBoundingClientRect();
-  }
+  // $: if (bodyRef && fullScreen) {
+  //   boundingBox = bodyRef.getBoundingClientRect();
+  // } else if (ref) {
+  //   boundingBox = ref.parentElement.getBoundingClientRect();
+  // }
   onDestroy(() => {
     clearInterval(interval);
   });
