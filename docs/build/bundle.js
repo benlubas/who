@@ -3527,11 +3527,11 @@ var app = (function () {
     		c: function create() {
     			t = space();
     			div = element("div");
-    			attr_dev(div, "class", "shape svelte-o2au6h");
+    			attr_dev(div, "class", "shape svelte-7vuhof");
     			toggle_class(div, "shapeColor", /*shapeColor*/ ctx[0]);
     			toggle_class(div, "shapeInvert", /*shapeInvert*/ ctx[1]);
     			toggle_class(div, "circle", /*circle*/ ctx[2]);
-    			add_location(div, file$b, 112, 0, 3400);
+    			add_location(div, file$b, 117, 0, 3466);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3539,10 +3539,14 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
     			insert_dev(target, div, anchor);
-    			/*div_binding*/ ctx[9](div);
+    			/*div_binding*/ ctx[10](div);
 
     			if (!mounted) {
-    				dispose = listen_dev(document.body, "mousemove", /*handleMouseMove*/ ctx[4], false, false, false);
+    				dispose = [
+    					listen_dev(window, "resize", /*handleResize*/ ctx[5], false, false, false),
+    					listen_dev(document.body, "mousemove", /*handleMouseMove*/ ctx[4], false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
@@ -3564,9 +3568,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
     			if (detaching) detach_dev(div);
-    			/*div_binding*/ ctx[9](null);
+    			/*div_binding*/ ctx[10](null);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -3618,42 +3622,42 @@ var app = (function () {
 
     		let lim = Math.min(boundingBox.width, boundingBox.height, 500);
 
-    		$$invalidate(8, size = circle
+    		$$invalidate(9, size = circle
     		? rand(0.25 * lim, 0.03 * lim)
     		: rand(0.25 * lim, 0.55 * lim));
 
     		$$invalidate(3, ref.style.width = size + "px", ref);
     		$$invalidate(3, ref.style.height = size + "px", ref);
-    		$$invalidate(6, x = rand(boundingBox.left, boundingBox.width - size));
-    		$$invalidate(7, y = rand(boundingBox.top, boundingBox.height - size));
+    		$$invalidate(7, x = rand(boundingBox.left, boundingBox.width - size));
+    		$$invalidate(8, y = rand(boundingBox.top, boundingBox.height - size));
 
     		// for shape movement
     		interval = setInterval(
     			() => {
     				$$invalidate(3, ref.style.left = `${x - boundingBox.left}px`, ref);
     				$$invalidate(3, ref.style.top = `${y - boundingBox.top}px`, ref);
-    				$$invalidate(6, x += dx);
-    				$$invalidate(7, y += dy);
+    				$$invalidate(7, x += dx);
+    				$$invalidate(8, y += dy);
 
     				//COLLISION LOGIC
     				if (x >= boundingBox.right - size) {
     					dx *= -1;
-    					$$invalidate(6, x = boundingBox.right - size);
+    					$$invalidate(7, x = boundingBox.right - size);
     				}
 
     				if (x <= boundingBox.left) {
     					dx *= -1;
-    					$$invalidate(6, x = boundingBox.left);
+    					$$invalidate(7, x = boundingBox.left);
     				}
 
     				if (y >= boundingBox.bottom - size) {
     					dy *= -1;
-    					$$invalidate(7, y = boundingBox.bottom - size);
+    					$$invalidate(8, y = boundingBox.bottom - size);
     				}
 
     				if (y <= boundingBox.top) {
     					dy *= -1;
-    					$$invalidate(7, y = boundingBox.top);
+    					$$invalidate(8, y = boundingBox.top);
     				}
 
     				//decay to slower speed
@@ -3711,11 +3715,14 @@ var app = (function () {
     		}
     	};
 
-    	// $: if (bodyRef && fullScreen) {
-    	//   boundingBox = bodyRef.getBoundingClientRect();
-    	// } else if (ref) {
-    	//   boundingBox = ref.parentElement.getBoundingClientRect();
-    	// }
+    	const handleResize = () => {
+    		if (fullScreen) {
+    			boundingBox = bodyRef.getBoundingClientRect();
+    		} else {
+    			boundingBox = ref.parentElement.getBoundingClientRect();
+    		}
+    	};
+
     	onDestroy(() => {
     		clearInterval(interval);
     	});
@@ -3737,7 +3744,7 @@ var app = (function () {
     		if ('shapeColor' in $$props) $$invalidate(0, shapeColor = $$props.shapeColor);
     		if ('shapeInvert' in $$props) $$invalidate(1, shapeInvert = $$props.shapeInvert);
     		if ('circle' in $$props) $$invalidate(2, circle = $$props.circle);
-    		if ('fullScreen' in $$props) $$invalidate(5, fullScreen = $$props.fullScreen);
+    		if ('fullScreen' in $$props) $$invalidate(6, fullScreen = $$props.fullScreen);
     	};
 
     	$$self.$capture_state = () => ({
@@ -3764,6 +3771,7 @@ var app = (function () {
     		m,
     		v,
     		handleMouseMove,
+    		handleResize,
     		centerY,
     		centerX
     	});
@@ -3772,13 +3780,13 @@ var app = (function () {
     		if ('shapeColor' in $$props) $$invalidate(0, shapeColor = $$props.shapeColor);
     		if ('shapeInvert' in $$props) $$invalidate(1, shapeInvert = $$props.shapeInvert);
     		if ('circle' in $$props) $$invalidate(2, circle = $$props.circle);
-    		if ('fullScreen' in $$props) $$invalidate(5, fullScreen = $$props.fullScreen);
+    		if ('fullScreen' in $$props) $$invalidate(6, fullScreen = $$props.fullScreen);
     		if ('ref' in $$props) $$invalidate(3, ref = $$props.ref);
     		if ('boundingBox' in $$props) boundingBox = $$props.boundingBox;
     		if ('bodyRef' in $$props) bodyRef = $$props.bodyRef;
-    		if ('x' in $$props) $$invalidate(6, x = $$props.x);
-    		if ('y' in $$props) $$invalidate(7, y = $$props.y);
-    		if ('size' in $$props) $$invalidate(8, size = $$props.size);
+    		if ('x' in $$props) $$invalidate(7, x = $$props.x);
+    		if ('y' in $$props) $$invalidate(8, y = $$props.y);
+    		if ('size' in $$props) $$invalidate(9, size = $$props.size);
     		if ('interval' in $$props) interval = $$props.interval;
     		if ('dx' in $$props) dx = $$props.dx;
     		if ('dy' in $$props) dy = $$props.dy;
@@ -3793,11 +3801,11 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*x, size*/ 320) {
+    		if ($$self.$$.dirty & /*x, size*/ 640) {
     			centerX = x + size / 2;
     		}
 
-    		if ($$self.$$.dirty & /*y, size*/ 384) {
+    		if ($$self.$$.dirty & /*y, size*/ 768) {
     			centerY = y + size / 2;
     		}
     	};
@@ -3808,6 +3816,7 @@ var app = (function () {
     		circle,
     		ref,
     		handleMouseMove,
+    		handleResize,
     		fullScreen,
     		x,
     		y,
@@ -3824,7 +3833,7 @@ var app = (function () {
     			shapeColor: 0,
     			shapeInvert: 1,
     			circle: 2,
-    			fullScreen: 5
+    			fullScreen: 6
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {

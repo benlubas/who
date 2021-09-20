@@ -111,15 +111,19 @@
       dy += v.y * DAMPENING_CONST * dFact;
     }
   };
-  // $: if (bodyRef && fullScreen) {
-  //   boundingBox = bodyRef.getBoundingClientRect();
-  // } else if (ref) {
-  //   boundingBox = ref.parentElement.getBoundingClientRect();
-  // }
+  const handleResize = () => {
+    if (fullScreen) {
+      boundingBox = bodyRef.getBoundingClientRect();
+    } else {
+      boundingBox = ref.parentElement.getBoundingClientRect();
+    }
+  };
   onDestroy(() => {
     clearInterval(interval);
   });
 </script>
+
+<svelte:window on:resize={handleResize} />
 
 <svelte:body bind:this={bodyRef} on:mousemove={handleMouseMove} />
 
@@ -141,15 +145,23 @@
     visibility: hidden;
     pointer-events: none;
   }
-  .shapeColor {
-    background: var(--accent);
-    opacity: 50%;
-    z-index: 5;
-  }
   .shapeInvert {
     backdrop-filter: invert(100%);
     -webkit-backdrop-filter: invert(100%);
     z-index: 10;
+  }
+  /* This is a CSS hack to target only firefox. Firefox doesn't support backdrop-filter, which makes it really annoying 
+  to use the effect */
+  @media (min--moz-device-pixel-ratio: 0) {
+    .shapeInvert {
+      background: white;
+      opacity: 0.3;
+    }
+  }
+  .shapeColor {
+    background: var(--accent);
+    opacity: 50%;
+    z-index: 11;
   }
   .circle {
     border-radius: 50%;
