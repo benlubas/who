@@ -5,7 +5,7 @@
   <div class="box">
     <div class="line" />
     <div class="bg" />
-    <div class="title">Projects</div>
+    <div class="btn-title">Projects</div>
   </div>
 </div>
 
@@ -81,16 +81,6 @@
     height: 75%;
   }
 
-  .title {
-    font-size: 4.5vw;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
   .container {
     padding: 1rem;
     height: 100%;

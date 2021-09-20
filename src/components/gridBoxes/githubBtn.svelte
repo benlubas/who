@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="clip-border box">
-    <div class="title">Github</div>
+    <div class="btn-title">Github</div>
   </div>
 </div>
 
@@ -47,17 +47,6 @@
     opacity: 0.15;
   }
 
-  .title {
-    font-size: 4.5vw;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
   .container {
     padding: 1rem;
     height: 100%;

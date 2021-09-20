@@ -4985,15 +4985,15 @@ var app = (function () {
     			t1 = space();
     			div2 = element("div");
     			div2.textContent = "Projects";
-    			attr_dev(div0, "class", "line svelte-19nvamq");
+    			attr_dev(div0, "class", "line svelte-zh1uoj");
     			add_location(div0, file$5, 4, 4, 77);
-    			attr_dev(div1, "class", "bg svelte-19nvamq");
+    			attr_dev(div1, "class", "bg svelte-zh1uoj");
     			add_location(div1, file$5, 5, 4, 102);
-    			attr_dev(div2, "class", "title svelte-19nvamq");
+    			attr_dev(div2, "class", "btn-title");
     			add_location(div2, file$5, 6, 4, 125);
-    			attr_dev(div3, "class", "box svelte-19nvamq");
+    			attr_dev(div3, "class", "box svelte-zh1uoj");
     			add_location(div3, file$5, 3, 2, 55);
-    			attr_dev(div4, "class", "container svelte-19nvamq");
+    			attr_dev(div4, "class", "container svelte-zh1uoj");
     			add_location(div4, file$5, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -5068,11 +5068,11 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			div0.textContent = "About";
-    			attr_dev(div0, "class", "title svelte-7o6svk");
+    			attr_dev(div0, "class", "btn-title");
     			add_location(div0, file$4, 4, 4, 77);
-    			attr_dev(div1, "class", "box svelte-7o6svk");
+    			attr_dev(div1, "class", "box svelte-jqhk2x");
     			add_location(div1, file$4, 3, 2, 55);
-    			attr_dev(div2, "class", "container svelte-7o6svk");
+    			attr_dev(div2, "class", "container svelte-jqhk2x");
     			add_location(div2, file$4, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -5143,11 +5143,11 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			div0.textContent = "Courses";
-    			attr_dev(div0, "class", "title svelte-1phy0f");
+    			attr_dev(div0, "class", "btn-title");
     			add_location(div0, file$3, 4, 4, 89);
-    			attr_dev(div1, "class", "clip-border box svelte-1phy0f");
+    			attr_dev(div1, "class", "clip-border box svelte-1nnhe61");
     			add_location(div1, file$3, 3, 2, 55);
-    			attr_dev(div2, "class", "container svelte-1phy0f");
+    			attr_dev(div2, "class", "container svelte-1nnhe61");
     			add_location(div2, file$3, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -5218,11 +5218,11 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			div0.textContent = "Github";
-    			attr_dev(div0, "class", "title svelte-1rniwa2");
+    			attr_dev(div0, "class", "btn-title");
     			add_location(div0, file$2, 4, 4, 89);
-    			attr_dev(div1, "class", "clip-border box svelte-1rniwa2");
+    			attr_dev(div1, "class", "clip-border box svelte-1m73yow");
     			add_location(div1, file$2, 3, 2, 55);
-    			attr_dev(div2, "class", "container svelte-1rniwa2");
+    			attr_dev(div2, "class", "container svelte-1m73yow");
     			add_location(div2, file$2, 2, 0, 29);
     		},
     		l: function claim(nodes) {

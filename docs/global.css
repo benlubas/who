@@ -79,3 +79,24 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 2px;
 }
+
+.btn-title {
+  font-size: 4.5vw;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 1012px), (orientation: portrait) {
+  .btn-title {
+    font-size: 8vw;
+  }
+}
+@media (max-width: 600px) {
+  .btn-title {
+    font-size: 15vw;
+  }
+}

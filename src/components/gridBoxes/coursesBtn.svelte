@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="clip-border box">
-    <div class="title">Courses</div>
+    <div class="btn-title">Courses</div>
   </div>
 </div>
 
@@ -42,17 +42,6 @@
   .box:hover::before {
     width: 100%;
     opacity: 0.15;
-  }
-  .title {
-    font-size: 4.5vw;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
   .container {
     padding: 1rem;

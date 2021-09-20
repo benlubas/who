@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="box">
-    <div class="title">About</div>
+    <div class="btn-title">About</div>
   </div>
 </div>
 
@@ -42,16 +42,6 @@
   .box:hover::before {
     bottom: 0px;
     opacity: 0.15;
-  }
-  .title {
-    font-size: 4.5vw;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
   .container {
     padding: 1rem;
