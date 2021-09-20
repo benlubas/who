@@ -18,11 +18,11 @@
     This class starts with search and graph basics, and continues into A*, reinforcement
     learning, and Bayesian Networks, among others.<br />
 
-    <div class="projectTitle">Fundementals of Cyber Security -</div>
-    How to not leave horribly obvious backdoors in systems.<br />
+    <div class="projectTitle">Fundamentals of Cyber Security -</div>
+    How to not leave horribly obvious back doors in systems.<br />
 
     <div class="subtitle">Fundies 1 & 2</div>
-    Fundementals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
+    Fundamentals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
     the first is taught in Racket (I had never heard of it either), the second was
     in Java. I learned about Functional and OO Programming, the differences, advantages,
     and disadvantages of each. I'll briefly mention a few of the more interesting
@@ -33,10 +33,10 @@
     <br />
 
     The more interesting projects came towards the end of the second course. We
-    made a maze generator and solver making use of Kruskals algorithm to
+    made a maze generator and solver making use of Kruskal's algorithm to
     generate a minimum spanning tree of grid cells that were connected with
     random weights. The tree that was generated became the path for the maze,
-    start and end cells were chosen in oposite corners. We built two solvers,
+    start and end cells were chosen in opposite corners. We built two solvers,
     one that used BFS, and another that used DFS. The thing was animated and it
     was just so satisfying to watch it run. Especially after hitting our heads
     against a few bugs.
@@ -46,14 +46,14 @@
     <br />
 
     Seam carving is a process of finding the least "important" line of pixels in
-    an image so that you can remove it to compress the image (horizonatally or
+    an image so that you can remove it to compress the image (horizontally or
     vertically) without warping the image (to some extent). The concept of
     "important" was defined by pixel color values in relation to surrounding
     pixels. We then used a dynamic programming approach to find the seam with
     minimum value and removed it from the image.
     <br />
     <br />
-    This process was also animated and increadibly satisfying to watch. The images
+    This process was also animated and incredibly satisfying to watch. The images
     got really distorted at the end, but I was surprised with how well the algorithm
     worked to keep the most interesting pixels in the image.
 

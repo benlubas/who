@@ -26,7 +26,32 @@
     I hope it is obvious why we chose the last one.
     <br /><br />
     After deciding on our project, we interviewed people who were involved in the
-    Disney trip to understand the scope of the task we were taking on.
+    Disney trip to understand the scope of the task we were taking on. This interview
+    process allowed us to understand more about our end users, so that we could make
+    a site that was more suited to them.
+    <br />
+    <br />
+    The next part of our task was design, for this, the class split into two groups,
+    and offered two competing designs. The better of the two was chosen and we moved
+    on to fleshing out the site's functionality which involved student permission
+    and medical information forms, student balance tracking, and a payment system
+    via PayPal, and a roommate system. In addition to this, we built an analytics
+    page, and a system for allowing the trip coordinators to update and view all
+    of the information. All of this was kept behind a sign in screen with Google's
+    oAuth API. While this list isn't exhaustive, I think it accurately covers the
+    bulk of the work that we did.
+    <br />
+    <br />
+    Once the site functionality was built out, we spent a few weeks testing and tweaking
+    before delivering our final presentation to the trip coordinators, and school
+    administrative staff.
+    <br /><br />
+    The next year, my class got to make use of the site. It seemed to be going great,
+    until COVID hit, and our trip got canceled...
+    <br /><br />
+    The most important thing that I took away from this experience was, well, the
+    experience. Working in a large group environment and managing work between multiple
+    people is something that you just need to learn by doing.
   </div>
 </div>
 

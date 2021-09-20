@@ -11,16 +11,16 @@
     I had a ton of fun making it. I'm going to split this about page into catagories,
     so feel free to skip over the parts that you don't care about. First up...
     <div class="subtitle">Programming Experience</div>
-    Woo, can you tell I'm writing this for employers? I got my start in comuper science
-    in high school, where I took two into to web dev courses, APCS A and APCS Princlples
-    (which was a capstone course at my school). In them, I learned HTML, CSS, JavaScript,
-    PHP, and SQL. I went on to take an independant study in computer scient titled
-    Advanced Web Dev. Durring that class time I taught myself React, Node/Express,
-    and ModgoDB and created another website for the school.
+    Woo, can you tell I'm writing this for employers? I got my start in computer
+    science in high school, where I took two intro to web dev courses, APCS A, and
+    APCS Principles (which was a capstone course at my school). In them, I learned
+    HTML, CSS, JavaScript, PHP, and SQL. I went on to take an independent study in
+    computer science titled Advanced Web Dev. During that class time I taught myself
+    React, Node/Express, and MongoDB and created another website for the school.
     <br />
     <br />
     As a side note, my senior year I also took a Math Python course that explored
-    basic mathematical modeling in Python, so I learned Python.
+    basic mathematical modeling in Python. So I learned Python.
     <br />
     <br />
     The next summer I learned about Svelte, and decided that I'd like to know how
@@ -41,7 +41,7 @@
     I have the Vim extension configured on every editor that allows it.
 
     <div class="subtitle">This Website and Svelte</div>
-    This site is built with Svelte, Svelte is basically a web framwork like React
+    This site is built with Svelte, Svelte is basically a web framework like React
     as far as writing components goes. The difference is in what happens next. Basically,
     Svelte just compiles what you write to optimized HTML, CSS, and JS. If you'd
     like to learn more, I'll link their
@@ -58,7 +58,7 @@
     <a href="https://routify.dev">Routify</a>
     for page routing. No additional external JS, no external CSS. I should note,
     that I am making use of some of Svelte's built in animation functionality for
-    the text carolsel. But everything else has been written by me.
+    the text carousel. But everything else has been written by me.
     <br /><br />
 
     This entire website is hosted on GitHub and the source code is visible there
@@ -67,11 +67,11 @@
 
     <div class="subtitle">Education&mdash;High School</div>
     I graduated from high school in 2020; I was around the top of my class. I had
-    a 4.958 weighted GPA, took a bunch of AP classes, and was the assitant captain
-    of the Varsity Ice Hockey team. As a freshman I took two intoductory CS courses,
+    a 4.958 weighted GPA, took a bunch of AP classes, and was the assistant captain
+    of the Varsity Ice Hockey team. As a freshman I took two introductory CS courses,
     CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS
     A. The year after I took APCS Principles (our capstone course), along side AP
-    Chem. Senior year I did an independant study in web development, AP Calc BC,
+    Chem. Senior year I did an independent study in web development, AP Calc BC,
     AP Stat, and AP Physics C.
     <br />
     <br />
@@ -84,7 +84,7 @@
     Masters&mdash;I don't see it as being very valuable, or cost effective at this
     time. Northeastern has a very 'focused' curriculum. That is to say, I take a
     lot of CS and CS adjacent courses, and not very many extra courses. Don't get
-    me wrong, I have my share of history and writting, but the majority of my coursework
+    me wrong, I have my share of history and writing, but the majority of my coursework
     is in the CS field. That's one of the reasons that I really like this school.
 
     <br />
@@ -92,7 +92,7 @@
     In addition to that, I have the co-op experience coming up (this is the reason
     that I'm making this website in the first place!). I'm really excited to go on
     co-op, I'm also a little nervous for interviews, but I'll get through it. I'm
-    extreamely gratefull that Northeastern has the co-op program.
+    extremely grateful that Northeastern has the co-op program.
 
     <br />
     <br />
