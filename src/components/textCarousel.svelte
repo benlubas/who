@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  export let list;
+  export let list: Array<String>;
 
   let shown = -1;
 
@@ -12,7 +12,7 @@
     in:fly={{ x: 200, duration: 1000 }}
     out:fly={{ x: -200, duration: 1000 }}
     class:hide={shown !== i}
-    class="carosel-text"
+    class="carousel-text"
   >
     {val}
   </div>
@@ -22,7 +22,7 @@
   .hide {
     display: none;
   }
-  .carosel-text {
+  .carousel-text {
     font-size: 1.5rem;
     font-family: Roboto, sans-serif;
     font-weight: 100;

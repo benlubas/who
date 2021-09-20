@@ -1,9 +1,9 @@
 <script lang="ts">
-  import TextCarosel from "./../textCarosel.svelte";
+  import TextCarousel from "../textCarousel.svelte";
 </script>
 
 <div class="title">Ben Lubas</div>
-<TextCarosel
+<TextCarousel
   list={[
     "Software Dev",
     "Web Dev",

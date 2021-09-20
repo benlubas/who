@@ -9,7 +9,7 @@
   // distance from the shape that your mouse will interact with it.
   const INTERACTION_DISTANCE = 5;
   const DAMPENING_CONST = 0.025;
-  // the factor that speed deacys (higher = faster decay = shapes slow down faster)
+  // the factor that speed decays (higher = faster decay = shapes slow down faster)
   const DECAY = 0.07;
 
   let ref: HTMLElement;
