@@ -100,4 +100,13 @@ textarea {
   .btn-title {
     font-size: 15vw;
   }
+  .text {
+    font-size: 1.1rem;
+  }
+  .subtitle {
+    font-size: 1.7rem;
+  }
+  .page-title {
+    font-size: 3rem;
+  }
 }
