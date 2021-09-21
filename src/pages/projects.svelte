@@ -9,12 +9,71 @@
     listed in reverse chronological order. In the future this page might become many,
     but for now, it will just be a scrolling archive of projects I've worked on.
     <div class="subtitle">Diving Sheets (Svelte)</div>
-    Something I made over the summer to fill an immediate need. It took me like 3
-    days, but it's probably one of the most useful things I've ever made.
+    This one is my most recent project, and it's much smaller than the other projects
+    on this page. I decided to make this thing one weekend and had a working prototype
+    in like three days. Fixed some bugs and it was 'done' in a week or two. That
+    being said, out of all the things I've made, this is probably the thing that
+    has gotten the most use, and has certainly saved the most time.
 
+    <br /><br />
+
+    To understand the project, I need to explain a little bit about diving. Not
+    scuba diving, but diving board diving (like at the Olympics). I coached
+    diving at my local pool over the summer (2021). For each dive meet, teams
+    must submit a dive sheet for each diver that lists their dives, along with
+    some other information. Most teams will just fill these out by hand, as it's
+    not that much work for ten divers. But when you have upwards of 40 divers
+    competing in one meet, you can see how even two minutes per sheet can
+    quickly add up.
+
+    <br /><br />
+
+    I didn't have any interest in writing these out by hand, and neither did any
+    of the other coaches. We already maintained a spreadsheet of our divers and
+    the dives they competed, so I figured that I could use that to generate the
+    sheets automatically.
+
+    <br /><br />
+
+    I knew of a few different ways to generate PDFs files, but because of my
+    background in web development, I was most comfortable with the Chrome
+    browser's ctrl + p -> 'save as PDF'. So I went about writing the HTML/CSS
+    required to generate a dive sheet. I chose to use Svelte for the easy code
+    reuse, and because I knew this would be a small project. Something like
+    React would have added an unnecessary amount of overhead.
+
+    <br /><br />
+
+    The technical challenge of this project was almost entirely getting HTML and
+    CSS to generate something identical to something you would create in MS
+    Word. It certainly developed my CSS skills further.
+
+    <br /><br />
+
+    This project also gave me a little more familiarity with CSS media rules and
+    the differences between browsers. Some of the things that I took for granted
+    would work in Chrome, just do not work or display in the same way on
+    Firefox. Luckily, I didn't have to deal with this for such a small project,
+    I knew that the end users (myself and the other coaches) all used Chromium
+    based browsers.
+
+    <br /><br />
+
+    I'm now more aware that modern browsers are not equal. The project is also
+    the reason that the floating shape effect still 'works' on Firefox (I had to
+    go out of my way to make the squares show up).
+
+    <br /><br />
+
+    This project also gave me great satisfaction; I was able to use it myself,
+    and I was able to watch others I was close to use it to save inordinate
+    amounts of time. And it only took me a week to make the thing!
+
+    <!-- PW POLL SITE -->
     <div class="subtitle">PW Poll (MERN stack)</div>
     The thing that I did my senior year. It never got hosted, RIP.
 
+    <!-- DISNEY TRIP SITE  -->
     <div class="subtitle">Disney Trip Website (PHP)</div>
     I worked on this project in my junior year of high school. My school's capstone
     course curriculum consisted mostly of creating a website for the school. First,
@@ -49,9 +108,10 @@
     The next year, my class got to make use of the site. It seemed to be going great,
     until COVID hit, and our trip got canceled...
     <br /><br />
-    The most important thing that I took away from this experience was, well, the
-    experience. Working in a large group environment and managing work between multiple
-    people is something that you just need to learn by doing.
+    Trip or not, I walked away with a ton of close to "real world" experience. Working
+    in a large group environment and managing work between multiple people is something
+    that you just need to learn by doing, and this project allowed me to do that
+    and more.
   </div>
 </div>
 

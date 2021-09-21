@@ -151,7 +151,7 @@
     z-index: 10;
   }
   /* This is a CSS hack to target only firefox. Firefox doesn't support backdrop-filter, which makes it really annoying 
-  to use the effect */
+  to use the effect, love what Mozilla stands for and does, but their browser kinda sucks these days.  */
   @media (min--moz-device-pixel-ratio: 0) {
     .shapeInvert {
       background: white;
