@@ -7,7 +7,7 @@
     <PageTitle title="Projects" />
     I plan to go into more depth on this page about each of my projects. They're
     listed in reverse chronological order. In the future this page might become many,
-    but for now, it will just be a scrolling archive of projects I've worked on.
+    but for now it will just be a scrolling archive of projects I've worked on.
     <div class="subtitle">Diving Sheets (Svelte)</div>
     This one is my most recent project, and it's much smaller than the other projects
     on this page. I decided to make this thing one weekend and had a working prototype

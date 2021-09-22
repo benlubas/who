@@ -9,14 +9,14 @@
     Hi, I'm Ben Lubas! I'm currently a student at Northeastern University studying
     computer science. Firstly, welcome to my website! I hope you enjoyed the homepage,
     I had a ton of fun making it. I'm going to split this about page into catagories,
-    so feel free to skip over the parts that you don't care about. First up...
+    so feel free to skip over the boring parts. First up...
     <div class="subtitle">Programming Experience</div>
-    Woo, can you tell I'm writing this for employers? I got my start in computer
-    science in high school, where I took two intro to web dev courses, APCS A, and
-    APCS Principles (which was a capstone course at my school). In them, I learned
-    HTML, CSS, JavaScript, PHP, and SQL. I went on to take an independent study in
-    computer science titled Advanced Web Dev. During that class time I taught myself
-    React, Node/Express, and MongoDB and created another website for the school.
+    I got my start in computer science in high school, where I took two intro to
+    web dev courses, APCS A, and APCS Principles (which was a capstone course at
+    my school). In them, I learned HTML, CSS, JavaScript, PHP, and SQL. I went on
+    to take an independent study in computer science titled Advanced Web Dev. During
+    that class time I taught myself React, Node/Express, and MongoDB and created
+    another website for the school.
     <br />
     <br />
     As a side note, my senior year I also took a Math Python course that explored
@@ -29,9 +29,9 @@
     <br />
     <br />
     Then I went off to college, learned a functional language called Racket that's
-    only used to teaching. After that mode of the course work has been in Java. In
+    only used to teaching. After that most of the course work has been in Java. In
     the Fall 2021 semester, I'm taking courses that start to use C, and a few courses
-    have sprinkled in some Python here or there.
+    have used a little bit of Python.
 
     <br />
     <br />
@@ -80,12 +80,11 @@
 
     <div class="subtitle">Education&mdash;College</div>
     I'm currently attending Northeastern University in Boston. I'm a CS major, graduating
-    in 2024 (assuming that nothing crazy happens). I'm not planning on getting a
-    Masters&mdash;I don't see it as being very valuable, or cost effective at this
-    time. Northeastern has a very 'focused' curriculum. That is to say, I take a
-    lot of CS and CS adjacent courses, and not very many extra courses. Don't get
-    me wrong, I have my share of history and writing, but the majority of my coursework
-    is in the CS field. That's one of the reasons that I really like this school.
+    in 2024 (assuming that nothing crazy happens). Northeastern has a very 'focused'
+    curriculum. That is to say, I take a lot of CS and CS adjacent courses, and not
+    very many extra courses. Don't get me wrong, I have my share of history and writing,
+    but the majority of my coursework is in the CS field. That's one of the reasons
+    that I really like this school.
 
     <br />
     <br />
