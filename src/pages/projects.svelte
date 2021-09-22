@@ -71,7 +71,46 @@
 
     <!-- PW POLL SITE -->
     <div class="subtitle">PW Poll (MERN stack)</div>
-    The thing that I did my senior year. It never got hosted, RIP.
+    My senior year, I took an independent study called Advanced Web Dev. The curriculum
+    required that I build a website that filled a need in the school. I chose to
+    build the site with React, Node and MongoDB&mdash;three technologies that I had
+    never used before.
+
+    <br /><br />
+
+    I wanted to use this class as a learning opportunity. I taught myself how
+    the MERN stack worked over the summer and put that knowledge to use in the
+    class. I also chose to write all of the CSS for this site from scratch. This
+    is something that I'm really glad I did. It forced me to really learn CSS.
+    Previously, we had used Bootstrap for almost everything, so I didn't truly
+    understand how CSS positions or z-index or box-sizing worked.
+
+    <br /><br />
+
+    My CSS experience with the Polling Project has been instrumental in every
+    website that I've worked on since.
+    <br /><br />
+    In addition to that, I got to learn about document databases through my use of
+    MongoDB. Previously, I had only ever used SQL, so this was a breath of fresh
+    air. I found Mongo really intuitive and easy to pick up. That being said, I don't
+    have a strong preference for one over the other.
+
+    <br /><br />
+
+    Then there is NodeJS. Node is really cool in that it lets you write a
+    backend in the same language you write your front end in. But I really see
+    no real need for this, and I kind of wish I had written a Java or C++
+    backend instead. I did enjoy the conveniences of working with a full JS
+    project, but at the same time, I was working with a full JS project.
+    Debugging was a nightmare sometimes.
+
+    <br /><br />
+
+    Looking back on this project, it definitely had the largest impact on the
+    way that I work on web based projects. I now almost exclusively use front
+    end frameworks instead of vanilla JS, and my interest in frameworks lead me
+    to start using TypeScript. I still like to write my own styles for websites
+    that I work on, and I actually enjoy writing CSS now (for the most part).
 
     <!-- DISNEY TRIP SITE  -->
     <div class="subtitle">Disney Trip Website (PHP)</div>
