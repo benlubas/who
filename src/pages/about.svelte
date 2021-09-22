@@ -45,7 +45,10 @@
     as far as writing components goes. The difference is in what happens next. Basically,
     Svelte just compiles what you write to optimized HTML, CSS, and JS. If you'd
     like to learn more, I'll link their
-    <a href="https://www.svelte.dev"> site</a> and you can look around.
+    <a href="https://www.svelte.dev" target="_blank" rel="noopener noreferrer">
+      site</a
+    >
+    and you can look around.
     <br />
     <br />
     I ran into Svelte when v3.0 was launched, and started to learn it. I had already
@@ -55,7 +58,9 @@
     <br /><br />
     More technical stuff about the site, it's just a front end, I wanted to be able
     to host it for free. I'm only using the Svelte framework with
-    <a href="https://routify.dev">Routify</a>
+    <a href="https://routify.dev" target="_blank" rel="noopener noreferrer"
+      >Routify</a
+    >
     for page routing. No additional external JS, no external CSS. I should note,
     that I am making use of some of Svelte's built in animation functionality for
     the text carousel. But everything else has been written by me.
@@ -63,7 +68,11 @@
 
     This entire website is hosted on GitHub and the source code is visible there
     as well.
-    <a href="https://www.github.com/benlubas/who">Link.</a>
+    <a
+      href="https://www.github.com/benlubas/who"
+      target="_blank"
+      rel="noopener noreferrer">Link.</a
+    >
 
     <div class="subtitle">Education&mdash;High School</div>
     I graduated from high school in 2020; I was around the top of my class. I had

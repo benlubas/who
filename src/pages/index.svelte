@@ -23,7 +23,11 @@
     <a href={$url("/courses")}><CoursesBtn /></a>
   </div>
   <div id="bl">
-    <a href="https://github.com/benlubas"><GithubBtn /></a>
+    <a
+      href="https://github.com/benlubas"
+      target="_blank"
+      rel="noopener noreferrer"><GithubBtn /></a
+    >
   </div>
   <Shape shapeInvert />
   <Shape shapeInvert />

@@ -23,7 +23,7 @@
 
   onMount(() => {
     // So the shapes don't flash at (0,0) before JS sets their position
-    setTimeout(() => (ref.style.visibility = "visible"), 400);
+    setTimeout(() => (ref.style.visibility = "visible"), 100);
     ref.parentElement.style.position = "relative";
 
     if (fullScreen) {
