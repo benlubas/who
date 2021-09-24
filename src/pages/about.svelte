@@ -53,8 +53,7 @@
     <br />
     I ran into Svelte when v3.0 was launched, and started to learn it. I had already
     used React, but I liked this much better. There's something about the way Svelte
-    components are written, they make more sense, they're cleaner. I also like that
-    it's not backed by Facebook/Google.
+    components are written, they make more sense, they're cleaner.
     <br /><br />
     More technical stuff about the site, it's just a front end, I wanted to be able
     to host it for free. I'm only using the Svelte framework with
