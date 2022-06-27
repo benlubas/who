@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.3
- * File generated Sat Sep 25 2021 20:56:07 GMT-0400 (Eastern Daylight Time)
+ * File generated Mon Apr 18 2022 19:26:48 GMT-0400 (Eastern Daylight Time)
  */
 
 export const __version = "2.18.3"
-export const __timestamp = "2021-09-26T00:56:07.152Z"
+export const __timestamp = "2022-04-18T23:26:48.292Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -15,6 +15,7 @@ import _about from '../src/pages/about.svelte'
 import _courses from '../src/pages/courses.svelte'
 import _index from '../src/pages/index.svelte'
 import _projects from '../src/pages/projects.svelte'
+import _work from '../src/pages/work.svelte'
 
 //options
 export const options = {}
@@ -126,6 +127,31 @@ export const _tree = {
       "path": "/projects",
       "id": "_projects",
       "component": () => _projects
+    },
+    {
+      "isFile": true,
+      "isDir": false,
+      "file": "work.svelte",
+      "filepath": "/work.svelte",
+      "name": "work",
+      "ext": "svelte",
+      "badExt": false,
+      "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/work.svelte",
+      "importPath": "../src/pages/work.svelte",
+      "isLayout": false,
+      "isReset": false,
+      "isIndex": false,
+      "isFallback": false,
+      "isPage": true,
+      "ownMeta": {},
+      "meta": {
+        "recursive": true,
+        "preload": false,
+        "prerender": true
+      },
+      "path": "/work",
+      "id": "_work",
+      "component": () => _work
     }
   ],
   "isLayout": false,

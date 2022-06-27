@@ -11,8 +11,10 @@
 
     <div class="subtitle">Currently Taking...</div>
     <div class="projectTitle">Systems -</div>
-    A class that teaches the low level systems of machines. We learn C and Assembly,
-    and that's as far as I've gotten as of writing this.<br />
+    A class that teaches the low level systems of machines. We learn about C, assembly 
+		and a little bit about compilers. This course also served as an introduction to the 
+		terminal and compilers. 
+    <br />
 
     <div class="projectTitle">Foundations of AI -</div>
     This class starts with search and graph basics, and continues into A*, reinforcement
