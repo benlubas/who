@@ -5,13 +5,8 @@
 <div class="title">Ben Lubas</div>
 <TextCarousel
   list={[
-    "Software Dev",
-    "Web Dev",
     "Student",
-    "Svelte",
-    "React",
-    "Java",
-    "Python",
+    "Software Dev",
     "Google Poweruser",
   ]}
 />

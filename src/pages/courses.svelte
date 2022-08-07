@@ -2,17 +2,18 @@
   import PageTitle from "../components/PageTitle.svelte";
 </script>
 
+I'm just going to scrap this page as a whole I think. Replace it with work. This is 
+both boring to read and write. On top of that, I remember very little from all of 
+these classes. 
 <div class="page-cont">
   <div class="text">
     <PageTitle title="Course Work" />
-    On this page I'll discuss my coursework, starting with courses that I'm currently
-    enrolled in. Then I go over my past courses and a few of the more interesting
-    projects that I've done.
+    On this page I'll briefly discuss the CS courses that I've taken at Northeastern. 
+    Note that apparent semester gaps are when I'm on co-op. 
 
-    <div class="subtitle">Currently Taking...</div>
+    <div class="subtitle">Fall 2021</div>
     <div class="projectTitle">Systems -</div>
-    A class that teaches the low level systems of machines. We learn C and Assembly,
-    and that's as far as I've gotten as of writing this.<br />
+    <br />
 
     <div class="projectTitle">Foundations of AI -</div>
     This class starts with search and graph basics, and continues into A*, reinforcement
@@ -21,7 +22,8 @@
     <div class="projectTitle">Fundamentals of Cyber Security -</div>
     How to not leave horribly obvious back doors in systems.<br />
 
-    <div class="subtitle">Fundies 1 & 2</div>
+    <div class="subtitle">Freshmen Year (2020-21)</div>
+    <div class="projectTitle">Fundies 1 & 2</div>
     Fundamentals of Computer Science 1 & 2 are the two entry level courses at Northeastern,
     the first is taught in Racket (I had never heard of it either), the second was
     in Java. I learned about Functional and OO Programming, the differences, advantages,

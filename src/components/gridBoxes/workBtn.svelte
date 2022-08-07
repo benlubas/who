@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="clip-border box">
-    <div class="btn-title">Courses</div>
+    <div class="btn-title">Work</div>
   </div>
 </div>
 
