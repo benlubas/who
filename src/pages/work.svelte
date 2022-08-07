@@ -32,8 +32,6 @@
 
     <br /> <br />
 
-    I also got aquainted with the agile sprint process. 
-
     <br /><br />
 
     During my time at Wayfair I got to meet and work with a ton of awesome
@@ -56,7 +54,7 @@
     from my manager: 
     <Quote>
       Ben is a full contributor to the SEO Impressions engineering team. He
-      quickly onboarded and fully contributed as a member of the squad for the
+      quickly on-boarded and fully contributed as a member of the squad for the
       majority of his coop. Ben stretched himself beyond just executing on
       tickets to fully leading epics for the team. He is consistently strong in
       his data driven communication and works well cross functionally. At this
