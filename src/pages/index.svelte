@@ -4,7 +4,7 @@
   import AboutBtn from "../components/gridBoxes/aboutBtn.svelte";
   import { url, prefetch } from "@roxi/routify";
   import Shape from "../components/shape.svelte";
-  import CoursesBtn from "../components/gridBoxes/coursesBtn.svelte";
+  import WorkBtn from "../components/gridBoxes/workBtn.svelte";
   import GithubBtn from "../components/gridBoxes/githubBtn.svelte";
 
   prefetch("/projects", { validFor: 24 * 60 });
@@ -24,7 +24,7 @@
     <a href={$url("/about")}> <AboutBtn /></a>
   </div>
   <div id="right">
-    <a href={$url("/courses")}><CoursesBtn /></a>
+    <a href={$url("/work")}><WorkBtn /></a>
   </div>
   <div id="bl">
     <a

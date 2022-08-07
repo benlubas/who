@@ -165,7 +165,7 @@ var app = (function () {
     function append_empty_stylesheet(node) {
         const style_element = element('style');
         append_stylesheet(get_root_for_style(node), style_element);
-        return style_element;
+        return style_element.sheet;
     }
     function append_stylesheet(node, style) {
         append(node.head || node, style);
@@ -202,18 +202,25 @@ var app = (function () {
         return Array.from(element.childNodes);
     }
     function set_style(node, key, value, important) {
-        node.style.setProperty(key, value, important ? 'important' : '');
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
     }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
-    function custom_event(type, detail, bubbles = false) {
+    function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
-        e.initCustomEvent(type, bubbles, false, detail);
+        e.initCustomEvent(type, bubbles, cancelable, detail);
         return e;
     }
 
-    const active_docs = new Set();
+    // we need to store the information for multiple documents because a Svelte application could also contain iframes
+    // https://github.com/sveltejs/svelte/issues/3624
+    const managed_styles = new Map();
     let active = 0;
     // https://github.com/darkskyapp/string-hash/blob/master/index.js
     function hash(str) {
@@ -222,6 +229,11 @@ var app = (function () {
         while (i--)
             hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
         return hash >>> 0;
+    }
+    function create_style_information(doc, node) {
+        const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+        managed_styles.set(doc, info);
+        return info;
     }
     function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
         const step = 16.666 / duration;
@@ -233,11 +245,9 @@ var app = (function () {
         const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
         const name = `__svelte_${hash(rule)}_${uid}`;
         const doc = get_root_for_style(node);
-        active_docs.add(doc);
-        const stylesheet = doc.__svelte_stylesheet || (doc.__svelte_stylesheet = append_empty_stylesheet(node).sheet);
-        const current_rules = doc.__svelte_rules || (doc.__svelte_rules = {});
-        if (!current_rules[name]) {
-            current_rules[name] = true;
+        const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+        if (!rules[name]) {
+            rules[name] = true;
             stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
         }
         const animation = node.style.animation || '';
@@ -263,14 +273,14 @@ var app = (function () {
         raf(() => {
             if (active)
                 return;
-            active_docs.forEach(doc => {
-                const stylesheet = doc.__svelte_stylesheet;
+            managed_styles.forEach(info => {
+                const { stylesheet } = info;
                 let i = stylesheet.cssRules.length;
                 while (i--)
                     stylesheet.deleteRule(i);
-                doc.__svelte_rules = {};
+                info.rules = {};
             });
-            active_docs.clear();
+            managed_styles.clear();
         });
     }
 
@@ -291,6 +301,7 @@ var app = (function () {
     }
     function setContext(key, context) {
         get_current_component().$$.context.set(key, context);
+        return context;
     }
     function getContext(key) {
         return get_current_component().$$.context.get(key);
@@ -315,22 +326,40 @@ var app = (function () {
     function add_render_callback(fn) {
         render_callbacks.push(fn);
     }
-    let flushing = false;
+    // flush() calls callbacks in this order:
+    // 1. All beforeUpdate callbacks, in order: parents before children
+    // 2. All bind:this callbacks, in reverse order: children before parents.
+    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
+    //    for afterUpdates called during the initial onMount, which are called in
+    //    reverse order: children before parents.
+    // Since callbacks might update component values, which could trigger another
+    // call to flush(), the following steps guard against this:
+    // 1. During beforeUpdate, any updated components will be added to the
+    //    dirty_components array and will cause a reentrant call to flush(). Because
+    //    the flush index is kept outside the function, the reentrant call will pick
+    //    up where the earlier call left off and go through all dirty components. The
+    //    current_component value is saved and restored so that the reentrant call will
+    //    not interfere with the "parent" flush() call.
+    // 2. bind:this callbacks cannot trigger new flush() calls.
+    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
+    //    callback called a second time; the seen_callbacks set, outside the flush()
+    //    function, guarantees this behavior.
     const seen_callbacks = new Set();
+    let flushidx = 0; // Do *not* move this inside the flush() function
     function flush() {
-        if (flushing)
-            return;
-        flushing = true;
+        const saved_component = current_component;
         do {
             // first, call beforeUpdate functions
             // and update components
-            for (let i = 0; i < dirty_components.length; i += 1) {
-                const component = dirty_components[i];
+            while (flushidx < dirty_components.length) {
+                const component = dirty_components[flushidx];
+                flushidx++;
                 set_current_component(component);
                 update(component.$$);
             }
             set_current_component(null);
             dirty_components.length = 0;
+            flushidx = 0;
             while (binding_callbacks.length)
                 binding_callbacks.pop()();
             // then, once components are updated, call
@@ -350,8 +379,8 @@ var app = (function () {
             flush_callbacks.pop()();
         }
         update_scheduled = false;
-        flushing = false;
         seen_callbacks.clear();
+        set_current_component(saved_component);
     }
     function update($$) {
         if ($$.fragment !== null) {
@@ -412,6 +441,9 @@ var app = (function () {
                 }
             });
             block.o(local);
+        }
+        else if (callback) {
+            callback();
         }
     }
     const null_transition = { duration: 0 };
@@ -731,7 +763,7 @@ var app = (function () {
             on_disconnect: [],
             before_update: [],
             after_update: [],
-            context: new Map(parent_component ? parent_component.$$.context : options.context || []),
+            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
             // everything else
             callbacks: blank_object(),
             dirty,
@@ -802,7 +834,7 @@ var app = (function () {
     }
 
     function dispatch_dev(type, detail) {
-        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.42.6' }, detail), true));
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.49.0' }, detail), { bubbles: true }));
     }
     function append_dev(target, node) {
         dispatch_dev('SvelteDOMInsert', { target, node });
@@ -1073,7 +1105,7 @@ var app = (function () {
       return defaultConfig.queryHandler.stringify(queryParams).replace(/\?$/, '')
     }
 
-    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.49.0 */
 
     function create_fragment$i(ctx) {
     	let current;
@@ -1433,7 +1465,7 @@ var app = (function () {
             .map(f => f && f[1])
     }
 
-    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.49.0 */
     const file$f = "node_modules/@roxi/routify/runtime/Prefetcher.svelte";
 
     function get_each_context$2(ctx, list, i) {
@@ -1947,7 +1979,7 @@ var app = (function () {
       }
     });
 
-    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.49.0 */
     const file$e = "node_modules/@roxi/routify/runtime/Route.svelte";
 
     function get_each_context$1(ctx, list, i) {
@@ -2866,7 +2898,7 @@ var app = (function () {
       return true
     }
 
-    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.49.0 */
 
     const { Object: Object_1 } = globals;
 
@@ -3522,7 +3554,7 @@ var app = (function () {
       return payload
     }
 
-    /* src/components/shape.svelte generated by Svelte v3.42.6 */
+    /* src/components/shape.svelte generated by Svelte v3.49.0 */
     const file$d = "src/components/shape.svelte";
 
     function create_fragment$e(ctx) {
@@ -3885,7 +3917,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/PageTitle.svelte generated by Svelte v3.42.6 */
+    /* src/components/PageTitle.svelte generated by Svelte v3.49.0 */
     const file$c = "src/components/PageTitle.svelte";
 
     function create_fragment$d(ctx) {
@@ -4074,7 +4106,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/about.svelte generated by Svelte v3.42.6 */
+    /* src/pages/about.svelte generated by Svelte v3.49.0 */
     const file$b = "src/pages/about.svelte";
 
     function create_fragment$c(ctx) {
@@ -4109,38 +4141,32 @@ var app = (function () {
     	let br9;
     	let t16;
     	let br10;
-    	let br11;
     	let t17;
+    	let br11;
+    	let t18;
     	let a1;
-    	let t19;
+    	let t20;
     	let br12;
     	let br13;
-    	let t20;
+    	let t21;
     	let a2;
-    	let t22;
+    	let t23;
     	let div2;
-    	let t24;
-    	let br14;
     	let t25;
-    	let br15;
+    	let br14;
     	let t26;
-    	let a3;
+    	let br15;
     	let t27;
-    	let a3_href_value;
+    	let a3;
     	let t28;
+    	let a3_href_value;
+    	let t29;
     	let div3;
-    	let t30;
-    	let br16;
     	let t31;
-    	let br17;
+    	let br16;
     	let t32;
-    	let br18;
+    	let br17;
     	let t33;
-    	let br19;
-    	let t34;
-    	let a4;
-    	let t35;
-    	let a4_href_value;
     	let current;
 
     	pagetitle = new PageTitle({
@@ -4156,112 +4182,103 @@ var app = (function () {
     			t0 = text("\n    Hi, I'm Ben Lubas! I'm currently a student at Northeastern University studying\n    computer science. Firstly, welcome to my website! I hope you enjoyed the homepage,\n    I had a ton of fun making it. I'm going to split this about page into catagories,\n    so feel free to skip over the boring parts. First up...\n    ");
     			div0 = element("div");
     			div0.textContent = "Programming Experience";
-    			t2 = text("\n    I got my start in computer science in high school, where I took two intro to\n    web dev courses, APCS A, and APCS Principles (which was a capstone course at\n    my school). In them, I learned HTML, CSS, JavaScript, PHP, and SQL. I went on\n    to take an independent study in computer science titled Advanced Web Dev. During\n    that class time I taught myself React, Node/Express, and MongoDB and created\n    another website for the school.\n    ");
+    			t2 = text("\n    I got my start in computer science in high school, where I took two intro to\n    web dev courses, APCS A, and APCS Principles (which was a capstone course at\n    my school). In them, I learned HTML, CSS, JavaScript, PHP, and SQL. I went on\n    to take an independent study in computer science titled Advanced Web Dev. During\n    that class time I taught myself React, Node/Express, and MongoDB and created\n    another website for the school.\n\n    ");
     			br0 = element("br");
     			t3 = space();
     			br1 = element("br");
-    			t4 = text("\n    As a side note, my senior year I also took a Math Python course that explored\n    basic mathematical modeling in Python. So I learned Python.\n    ");
+    			t4 = text("\n\n    As a side note, my senior year I also took a Math Python course that explored\n    basic mathematical modeling in Python. So I learned Python.\n\n    ");
     			br2 = element("br");
     			t5 = space();
     			br3 = element("br");
-    			t6 = text("\n    The next summer I learned about Svelte, and decided that I'd like to know how\n    that works. I made a small practice site and followed the tutorial, and I remade\n    parts of an older React project.\n    ");
+    			t6 = text("\n\n    The next summer I learned about Svelte, and decided that I'd like to know how\n    that works. I made a small practice site and followed the tutorial, and I remade\n    parts of an older React project.\n\n    ");
     			br4 = element("br");
     			t7 = space();
     			br5 = element("br");
-    			t8 = text("\n    Then I went off to college, learned a functional language called Racket that's\n    only used to teaching. After that most of the course work has been in Java. In\n    the Fall 2021 semester, I'm taking courses that start to use C, and a few courses\n    have used a little bit of Python.\n\n    ");
+    			t8 = text("\n\n    Then I went off to college, learned a functional language called Racket that's\n    only used to teaching. After that most of the course work has been in Java. In\n    the Fall 2021 semester, I'm taking courses that start to use C, and a few courses\n    have used a little bit of Python.\n\n    ");
     			br6 = element("br");
     			t9 = space();
     			br7 = element("br");
-    			t10 = text("\n    Of note, throughout highschool I was learning some Git, and I stored my entire\n    senior year project on GitHub (in a private repo). This helped me learn terminal\n    commands, and I'm learning even more of those this semester. I'm also a Vim user,\n    I have the Vim extension configured on every editor that allows it.\n\n    ");
+    			t10 = text("\n\n    Of note, throughout highschool I was learning some Git, and I stored my entire\n    senior year project on GitHub (in a private repo). This helped me learn terminal\n    commands, and I'm learning even more of those this semester. I'm also a Vim user,\n    I have the Vim extension configured on every editor that allows it.\n\n    ");
     			div1 = element("div");
     			div1.textContent = "This Website and Svelte";
     			t12 = text("\n    This site is built with Svelte, Svelte is basically a web framework like React\n    as far as writing components goes. The difference is in what happens next. Basically,\n    Svelte just compiles what you write to optimized HTML, CSS, and JS. If you'd\n    like to learn more, I'll link their\n    ");
     			a0 = element("a");
     			a0.textContent = "site";
-    			t14 = text("\n    and you can look around.\n    ");
+    			t14 = text("\n    and you can look around. Using svelte for a website like this is perhaps slight\n    overkill, but it's fun. \n\n    ");
     			br8 = element("br");
     			t15 = space();
     			br9 = element("br");
-    			t16 = text("\n    I ran into Svelte when v3.0 was launched, and started to learn it. I had already\n    used React, but I liked this much better. There's something about the way Svelte\n    components are written, they make more sense, they're cleaner.\n    ");
+    			t16 = text("\n\n    I ran into Svelte when v3.0 was launched, and started to learn it. I had already\n    used React, but I liked this much better. Svelte components are cleaner and make \n    more sense than React components.\n\n    ");
     			br10 = element("br");
+    			t17 = space();
     			br11 = element("br");
-    			t17 = text("\n    More technical stuff about the site, it's just a front end, I wanted to be able\n    to host it for free. I'm only using the Svelte framework with\n    ");
+    			t18 = text("\n\n    More technical stuff about the site, it's just a front end, I wanted to be able\n    to host it for free. I'm only using the Svelte framework with\n    ");
     			a1 = element("a");
     			a1.textContent = "Routify";
-    			t19 = text("\n    for page routing. No additional external JS, no external CSS. I should note,\n    that I am making use of some of Svelte's built in animation functionality for\n    the text carousel. But everything else has been written by me.\n    ");
+    			t20 = text("\n    for page routing. No additional external JS, no external CSS. I should note,\n    that I am making use of some of Svelte's built in animation functionality for\n    the text carousel. But everything else has been written by me.\n\n    ");
     			br12 = element("br");
     			br13 = element("br");
-    			t20 = text("\n\n    This entire website is hosted on GitHub and the source code is visible there\n    as well.\n    ");
+    			t21 = text("\n\n    This entire website is hosted on GitHub and the source code is visible there\n    as well.\n    ");
     			a2 = element("a");
     			a2.textContent = "Link.";
-    			t22 = space();
+    			t23 = space();
     			div2 = element("div");
     			div2.textContent = "Education—High School";
-    			t24 = text("\n    I graduated from high school in 2020; I was around the top of my class. I had\n    a 4.958 weighted GPA, took a bunch of AP classes, and was the assistant captain\n    of the Varsity Ice Hockey team. As a freshman I took two introductory CS courses,\n    CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS\n    A. The year after I took APCS Principles (our capstone course), along side AP\n    Chem. Senior year I did an independent study in web development, AP Calc BC,\n    AP Stat, and AP Physics C.\n    ");
+    			t25 = text("\n    I graduated from high school in 2020; I was around the top of my class. I had\n    a 4.958 weighted GPA, took a bunch of AP classes, and was the assistant captain\n    of the Varsity Ice Hockey team. As a freshman I took two introductory CS courses,\n    CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS\n    A (a course in Java). The year after I took APCS Principles (our capstone course), \n    along side AP Chem. Senior year I did an independent study in web development, AP \n    Calc BC, AP Stat (it was statistics was 'stat' at my highschool the same way \n    mathematics was 'math'), and AP Physics C.\n\n    ");
     			br14 = element("br");
-    			t25 = space();
+    			t26 = space();
     			br15 = element("br");
-    			t26 = text("\n    You can read more about the projects that I did in my time in high school on\n    the ");
+    			t27 = text("\n\n    You can read more about the projects that I did in my time in high school on\n    the ");
     			a3 = element("a");
-    			t27 = text("projects page.");
-    			t28 = space();
+    			t28 = text("projects page.");
+    			t29 = space();
     			div3 = element("div");
     			div3.textContent = "Education—College";
-    			t30 = text("\n    I'm currently attending Northeastern University in Boston. I'm a CS major, graduating\n    in 2024 (assuming that nothing crazy happens). Northeastern has a very 'focused'\n    curriculum. That is to say, I take a lot of CS and CS adjacent courses, and not\n    very many extra courses. Don't get me wrong, I have my share of history and writing,\n    but the majority of my coursework is in the CS field. That's one of the reasons\n    that I really like this school.\n\n    ");
+    			t31 = text("\n    I'm currently attending Northeastern University in Boston. I'm a CS major, graduating\n    in 2024 (assuming that nothing crazy happens). Northeastern has a very 'focused'\n    curriculum. That is to say, I take a lot of CS and CS adjacent courses, and not\n    very many extra courses. Don't get me wrong, I have my share of history and writing,\n    but the majority of my coursework is in the CS field. That's one of the reasons\n    that I really like this school.\n\n    ");
     			br16 = element("br");
-    			t31 = space();
+    			t32 = space();
     			br17 = element("br");
-    			t32 = text("\n    In addition to that, I have the co-op experience coming up (this is the reason\n    that I'm making this website in the first place!). I'm really excited to go on\n    co-op, I'm also a little nervous for interviews, but I'll get through it. I'm\n    extremely grateful that Northeastern has the co-op program.\n\n    ");
-    			br18 = element("br");
-    			t33 = space();
-    			br19 = element("br");
-    			t34 = text("\n    If you want to read about my course work at Northeastern,\n    ");
-    			a4 = element("a");
-    			t35 = text("click here.");
+    			t33 = text("\n\n    In addition to that, I have the co-op experience coming up (this is the reason\n    that I'm making this website in the first place!). I'm really excited to go on\n    co-op, I'm also a little nervous for interviews, but I'll get through it. I'm\n    extremely grateful that Northeastern has the co-op program.");
     			attr_dev(div0, "class", "subtitle");
     			add_location(div0, file$b, 11, 4, 519);
-    			add_location(br0, file$b, 18, 4, 1020);
-    			add_location(br1, file$b, 19, 4, 1031);
-    			add_location(br2, file$b, 22, 4, 1188);
-    			add_location(br3, file$b, 23, 4, 1199);
-    			add_location(br4, file$b, 27, 4, 1414);
-    			add_location(br5, file$b, 28, 4, 1425);
-    			add_location(br6, file$b, 34, 4, 1727);
-    			add_location(br7, file$b, 35, 4, 1738);
+    			add_location(br0, file$b, 19, 4, 1021);
+    			add_location(br1, file$b, 19, 11, 1028);
+    			add_location(br2, file$b, 24, 4, 1187);
+    			add_location(br3, file$b, 24, 11, 1194);
+    			add_location(br4, file$b, 30, 4, 1411);
+    			add_location(br5, file$b, 30, 11, 1418);
+    			add_location(br6, file$b, 37, 4, 1721);
+    			add_location(br7, file$b, 37, 11, 1728);
     			attr_dev(div1, "class", "subtitle");
-    			add_location(div1, file$b, 41, 4, 2076);
+    			add_location(div1, file$b, 44, 4, 2067);
     			attr_dev(a0, "href", "https://www.svelte.dev");
     			attr_dev(a0, "target", "_blank");
     			attr_dev(a0, "rel", "noopener noreferrer");
-    			add_location(a0, file$b, 46, 4, 2426);
-    			add_location(br8, file$b, 50, 4, 2555);
-    			add_location(br9, file$b, 51, 4, 2566);
-    			add_location(br10, file$b, 55, 4, 2814);
-    			add_location(br11, file$b, 55, 10, 2820);
+    			add_location(a0, file$b, 49, 4, 2417);
+    			add_location(br8, file$b, 55, 4, 2631);
+    			add_location(br9, file$b, 55, 11, 2638);
+    			add_location(br10, file$b, 61, 4, 2860);
+    			add_location(br11, file$b, 61, 11, 2867);
     			attr_dev(a1, "href", "https://routify.dev");
     			attr_dev(a1, "target", "_blank");
     			attr_dev(a1, "rel", "noopener noreferrer");
-    			add_location(a1, file$b, 58, 4, 2981);
-    			add_location(br12, file$b, 64, 4, 3311);
-    			add_location(br13, file$b, 64, 10, 3317);
+    			add_location(a1, file$b, 65, 4, 3029);
+    			add_location(br12, file$b, 72, 4, 3360);
+    			add_location(br13, file$b, 72, 10, 3366);
     			attr_dev(a2, "href", "https://www.github.com/benlubas/who");
     			attr_dev(a2, "target", "_blank");
     			attr_dev(a2, "rel", "noopener noreferrer");
-    			add_location(a2, file$b, 68, 4, 3423);
+    			add_location(a2, file$b, 76, 4, 3472);
     			attr_dev(div2, "class", "subtitle");
-    			add_location(div2, file$b, 74, 4, 3549);
-    			add_location(br14, file$b, 82, 4, 4136);
-    			add_location(br15, file$b, 83, 4, 4147);
+    			add_location(div2, file$b, 82, 4, 3598);
+    			add_location(br14, file$b, 92, 4, 4296);
+    			add_location(br15, file$b, 92, 11, 4303);
     			attr_dev(a3, "href", a3_href_value = /*$url*/ ctx[0]("/projects"));
-    			add_location(a3, file$b, 85, 8, 4243);
+    			add_location(a3, file$b, 95, 8, 4400);
     			attr_dev(div3, "class", "subtitle");
-    			add_location(div3, file$b, 87, 4, 4296);
-    			add_location(br16, file$b, 95, 4, 4821);
-    			add_location(br17, file$b, 96, 4, 4832);
-    			add_location(br18, file$b, 102, 4, 5156);
-    			add_location(br19, file$b, 103, 4, 5167);
-    			attr_dev(a4, "href", a4_href_value = /*$url*/ ctx[0]("/courses"));
-    			add_location(a4, file$b, 105, 4, 5240);
+    			add_location(div3, file$b, 97, 4, 4453);
+    			add_location(br16, file$b, 105, 4, 4978);
+    			add_location(br17, file$b, 105, 11, 4985);
     			attr_dev(div4, "class", "text");
     			add_location(div4, file$b, 5, 2, 148);
     			attr_dev(div5, "class", "page-cont");
@@ -4302,45 +4319,36 @@ var app = (function () {
     			append_dev(div4, br9);
     			append_dev(div4, t16);
     			append_dev(div4, br10);
-    			append_dev(div4, br11);
     			append_dev(div4, t17);
+    			append_dev(div4, br11);
+    			append_dev(div4, t18);
     			append_dev(div4, a1);
-    			append_dev(div4, t19);
+    			append_dev(div4, t20);
     			append_dev(div4, br12);
     			append_dev(div4, br13);
-    			append_dev(div4, t20);
+    			append_dev(div4, t21);
     			append_dev(div4, a2);
-    			append_dev(div4, t22);
+    			append_dev(div4, t23);
     			append_dev(div4, div2);
-    			append_dev(div4, t24);
-    			append_dev(div4, br14);
     			append_dev(div4, t25);
-    			append_dev(div4, br15);
+    			append_dev(div4, br14);
     			append_dev(div4, t26);
+    			append_dev(div4, br15);
+    			append_dev(div4, t27);
     			append_dev(div4, a3);
-    			append_dev(a3, t27);
-    			append_dev(div4, t28);
+    			append_dev(a3, t28);
+    			append_dev(div4, t29);
     			append_dev(div4, div3);
-    			append_dev(div4, t30);
-    			append_dev(div4, br16);
     			append_dev(div4, t31);
-    			append_dev(div4, br17);
+    			append_dev(div4, br16);
     			append_dev(div4, t32);
-    			append_dev(div4, br18);
+    			append_dev(div4, br17);
     			append_dev(div4, t33);
-    			append_dev(div4, br19);
-    			append_dev(div4, t34);
-    			append_dev(div4, a4);
-    			append_dev(a4, t35);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
     			if (!current || dirty & /*$url*/ 1 && a3_href_value !== (a3_href_value = /*$url*/ ctx[0]("/projects"))) {
     				attr_dev(a3, "href", a3_href_value);
-    			}
-
-    			if (!current || dirty & /*$url*/ 1 && a4_href_value !== (a4_href_value = /*$url*/ ctx[0]("/courses"))) {
-    				attr_dev(a4, "href", a4_href_value);
     			}
     		},
     		i: function intro(local) {
@@ -4399,54 +4407,57 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/courses.svelte generated by Svelte v3.42.6 */
+    /* src/pages/courses.svelte generated by Svelte v3.49.0 */
     const file$a = "src/pages/courses.svelte";
 
     function create_fragment$b(ctx) {
-    	let div10;
-    	let div9;
-    	let pagetitle;
     	let t0;
+    	let div11;
+    	let div10;
+    	let pagetitle;
+    	let t1;
     	let div0;
-    	let t2;
+    	let t3;
     	let div1;
-    	let t4;
-    	let br0;
     	let t5;
+    	let br0;
+    	let t6;
     	let div2;
-    	let t7;
-    	let br1;
     	let t8;
+    	let br1;
+    	let t9;
     	let div3;
-    	let t10;
-    	let br2;
     	let t11;
+    	let br2;
+    	let t12;
     	let div4;
-    	let t13;
-    	let br3;
     	let t14;
     	let div5;
     	let t16;
-    	let br4;
+    	let br3;
     	let t17;
-    	let br5;
-    	let t18;
     	let div6;
+    	let t19;
+    	let br4;
     	let t20;
-    	let br6;
+    	let br5;
     	let t21;
-    	let br7;
-    	let t22;
-    	let br8;
-    	let t23;
     	let div7;
+    	let t23;
+    	let br6;
+    	let t24;
+    	let br7;
     	let t25;
-    	let br9;
+    	let br8;
     	let t26;
     	let div8;
     	let t28;
-    	let br10;
+    	let br9;
     	let t29;
+    	let div9;
+    	let t31;
+    	let br10;
+    	let t32;
     	let current;
 
     	pagetitle = new PageTitle({
@@ -4456,141 +4467,150 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			t0 = text("I'm just going to scrap this page as a whole I think. Replace it with work. This is \nboth boring to read and write. On top of that, I remember very little from all of \nthese classes. \n");
+    			div11 = element("div");
     			div10 = element("div");
-    			div9 = element("div");
     			create_component(pagetitle.$$.fragment);
-    			t0 = text("\n    On this page I'll discuss my coursework, starting with courses that I'm currently\n    enrolled in. Then I go over my past courses and a few of the more interesting\n    projects that I've done.\n\n    ");
+    			t1 = text("\n    On this page I'll briefly discuss the CS courses that I've taken at Northeastern. \n    Note that apparent semester gaps are when I'm on co-op. \n\n    ");
     			div0 = element("div");
-    			div0.textContent = "Currently Taking...";
-    			t2 = space();
+    			div0.textContent = "Fall 2021";
+    			t3 = space();
     			div1 = element("div");
     			div1.textContent = "Systems -";
-    			t4 = text("\n    A class that teaches the low level systems of machines. We learn about C, assembly \n\t\tand a little bit about compilers. This course also served as an introduction to the \n\t\tterminal and compilers. \n    ");
-    			br0 = element("br");
     			t5 = space();
+    			br0 = element("br");
+    			t6 = space();
     			div2 = element("div");
     			div2.textContent = "Foundations of AI -";
-    			t7 = text("\n    This class starts with search and graph basics, and continues into A*, reinforcement\n    learning, and Bayesian Networks, among others.");
+    			t8 = text("\n    This class starts with search and graph basics, and continues into A*, reinforcement\n    learning, and Bayesian Networks, among others.");
     			br1 = element("br");
-    			t8 = space();
+    			t9 = space();
     			div3 = element("div");
     			div3.textContent = "Fundamentals of Cyber Security -";
-    			t10 = text("\n    How to not leave horribly obvious back doors in systems.");
+    			t11 = text("\n    How to not leave horribly obvious back doors in systems.");
     			br2 = element("br");
-    			t11 = space();
+    			t12 = space();
     			div4 = element("div");
-    			div4.textContent = "Fundies 1 & 2";
-    			t13 = text("\n    Fundamentals of Computer Science 1 & 2 are the two entry level courses at Northeastern,\n    the first is taught in Racket (I had never heard of it either), the second was\n    in Java. I learned about Functional and OO Programming, the differences, advantages,\n    and disadvantages of each. I'll briefly mention a few of the more interesting\n    projects from Fundies 2.\n\n    ");
-    			br3 = element("br");
+    			div4.textContent = "Freshmen Year (2020-21)";
     			t14 = space();
     			div5 = element("div");
-    			div5.textContent = "Maze Solver";
-    			t16 = space();
-    			br4 = element("br");
-    			t17 = text("\n\n    The more interesting projects came towards the end of the second course. We\n    made a maze generator and solver making use of Kruskal's algorithm to\n    generate a minimum spanning tree of grid cells that were connected with\n    random weights. The tree that was generated became the path for the maze,\n    start and end cells were chosen in opposite corners. We built two solvers,\n    one that used BFS, and another that used DFS. The thing was animated and it\n    was just so satisfying to watch it run. Especially after hitting our heads\n    against a few bugs.\n\n    ");
-    			br5 = element("br");
-    			t18 = space();
+    			div5.textContent = "Fundies 1 & 2";
+    			t16 = text("\n    Fundamentals of Computer Science 1 & 2 are the two entry level courses at Northeastern,\n    the first is taught in Racket (I had never heard of it either), the second was\n    in Java. I learned about Functional and OO Programming, the differences, advantages,\n    and disadvantages of each. I'll briefly mention a few of the more interesting\n    projects from Fundies 2.\n\n    ");
+    			br3 = element("br");
+    			t17 = space();
     			div6 = element("div");
-    			div6.textContent = "Seam Carving";
-    			t20 = space();
-    			br6 = element("br");
-    			t21 = text("\n\n    Seam carving is a process of finding the least \"important\" line of pixels in\n    an image so that you can remove it to compress the image (horizontally or\n    vertically) without warping the image (to some extent). The concept of\n    \"important\" was defined by pixel color values in relation to surrounding\n    pixels. We then used a dynamic programming approach to find the seam with\n    minimum value and removed it from the image.\n    ");
-    			br7 = element("br");
-    			t22 = space();
-    			br8 = element("br");
-    			t23 = text("\n    This process was also animated and incredibly satisfying to watch. The images\n    got really distorted at the end, but I was surprised with how well the algorithm\n    worked to keep the most interesting pixels in the image.\n\n    ");
+    			div6.textContent = "Maze Solver";
+    			t19 = space();
+    			br4 = element("br");
+    			t20 = text("\n\n    The more interesting projects came towards the end of the second course. We\n    made a maze generator and solver making use of Kruskal's algorithm to\n    generate a minimum spanning tree of grid cells that were connected with\n    random weights. The tree that was generated became the path for the maze,\n    start and end cells were chosen in opposite corners. We built two solvers,\n    one that used BFS, and another that used DFS. The thing was animated and it\n    was just so satisfying to watch it run. Especially after hitting our heads\n    against a few bugs.\n\n    ");
+    			br5 = element("br");
+    			t21 = space();
     			div7 = element("div");
-    			div7.textContent = "Object Oriented Design";
-    			t25 = text("\n    Fun course, lots of work, took it over the summer. Fun projects illustrated below:\n\n    ");
-    			br9 = element("br");
-    			t26 = space();
+    			div7.textContent = "Seam Carving";
+    			t23 = space();
+    			br6 = element("br");
+    			t24 = text("\n\n    Seam carving is a process of finding the least \"important\" line of pixels in\n    an image so that you can remove it to compress the image (horizontally or\n    vertically) without warping the image (to some extent). The concept of\n    \"important\" was defined by pixel color values in relation to surrounding\n    pixels. We then used a dynamic programming approach to find the seam with\n    minimum value and removed it from the image.\n    ");
+    			br7 = element("br");
+    			t25 = space();
+    			br8 = element("br");
+    			t26 = text("\n    This process was also animated and incredibly satisfying to watch. The images\n    got really distorted at the end, but I was surprised with how well the algorithm\n    worked to keep the most interesting pixels in the image.\n\n    ");
     			div8 = element("div");
-    			div8.textContent = "Image Editing GUI";
-    			t28 = space();
+    			div8.textContent = "Object Oriented Design";
+    			t28 = text("\n    Fun course, lots of work, took it over the summer. Fun projects illustrated below:\n\n    ");
+    			br9 = element("br");
+    			t29 = space();
+    			div9 = element("div");
+    			div9.textContent = "Image Editing GUI";
+    			t31 = space();
     			br10 = element("br");
-    			t29 = text("\n    This was the last project that we did, it was the culmination of the year of\n    work. We basically created a very primitive image editor that was capable of\n    scaling images down, applying basic filters and effects, and then exporting those\n    images. We used Java Spring to build the UI. This, unlike the other two projects,\n    was not very satisfying, it was slow and clunky, and it looked really bad.");
+    			t32 = text("\n    This was the last project that we did, it was the culmination of the year of\n    work. We basically created a very primitive image editor that was capable of\n    scaling images down, applying basic filters and effects, and then exporting those\n    images. We used Java Spring to build the UI. This, unlike the other two projects,\n    was not very satisfying, it was slow and clunky, and it looked really bad.");
     			attr_dev(div0, "class", "subtitle");
-    			add_location(div0, file$a, 10, 4, 370);
+    			add_location(div0, file$a, 12, 4, 505);
     			attr_dev(div1, "class", "projectTitle svelte-r9uva9");
-    			add_location(div1, file$a, 11, 4, 422);
-    			add_location(br0, file$a, 15, 4, 670);
+    			add_location(div1, file$a, 13, 4, 547);
+    			add_location(br0, file$a, 14, 4, 593);
     			attr_dev(div2, "class", "projectTitle svelte-r9uva9");
-    			add_location(div2, file$a, 17, 4, 682);
-    			add_location(br1, file$a, 19, 50, 873);
+    			add_location(div2, file$a, 16, 4, 605);
+    			add_location(br1, file$a, 18, 50, 796);
     			attr_dev(div3, "class", "projectTitle svelte-r9uva9");
-    			add_location(div3, file$a, 21, 4, 885);
-    			add_location(br2, file$a, 22, 60, 1010);
+    			add_location(div3, file$a, 20, 4, 808);
+    			add_location(br2, file$a, 21, 60, 933);
     			attr_dev(div4, "class", "subtitle");
-    			add_location(div4, file$a, 24, 4, 1022);
-    			add_location(br3, file$a, 31, 4, 1444);
+    			add_location(div4, file$a, 23, 4, 945);
     			attr_dev(div5, "class", "projectTitle svelte-r9uva9");
-    			add_location(div5, file$a, 32, 4, 1455);
-    			add_location(br4, file$a, 33, 4, 1503);
-    			add_location(br5, file$a, 44, 4, 2086);
+    			add_location(div5, file$a, 24, 4, 1001);
+    			add_location(br3, file$a, 31, 4, 1427);
     			attr_dev(div6, "class", "projectTitle svelte-r9uva9");
-    			add_location(div6, file$a, 45, 4, 2097);
-    			add_location(br6, file$a, 46, 4, 2146);
-    			add_location(br7, file$a, 54, 4, 2596);
-    			add_location(br8, file$a, 55, 4, 2607);
-    			attr_dev(div7, "class", "subtitle");
-    			add_location(div7, file$a, 60, 4, 2847);
-    			add_location(br9, file$a, 63, 4, 2990);
-    			attr_dev(div8, "class", "projectTitle svelte-r9uva9");
-    			add_location(div8, file$a, 64, 4, 3001);
-    			add_location(br10, file$a, 65, 4, 3055);
-    			attr_dev(div9, "class", "text");
-    			add_location(div9, file$a, 4, 2, 111);
-    			attr_dev(div10, "class", "page-cont");
-    			add_location(div10, file$a, 3, 0, 85);
+    			add_location(div6, file$a, 32, 4, 1438);
+    			add_location(br4, file$a, 33, 4, 1486);
+    			add_location(br5, file$a, 44, 4, 2069);
+    			attr_dev(div7, "class", "projectTitle svelte-r9uva9");
+    			add_location(div7, file$a, 45, 4, 2080);
+    			add_location(br6, file$a, 46, 4, 2129);
+    			add_location(br7, file$a, 54, 4, 2579);
+    			add_location(br8, file$a, 55, 4, 2590);
+    			attr_dev(div8, "class", "subtitle");
+    			add_location(div8, file$a, 60, 4, 2830);
+    			add_location(br9, file$a, 63, 4, 2973);
+    			attr_dev(div9, "class", "projectTitle svelte-r9uva9");
+    			add_location(div9, file$a, 64, 4, 2984);
+    			add_location(br10, file$a, 65, 4, 3038);
+    			attr_dev(div10, "class", "text");
+    			add_location(div10, file$a, 7, 2, 295);
+    			attr_dev(div11, "class", "page-cont");
+    			add_location(div11, file$a, 6, 0, 269);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div10, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, div11, anchor);
+    			append_dev(div11, div10);
+    			mount_component(pagetitle, div10, null);
+    			append_dev(div10, t1);
+    			append_dev(div10, div0);
+    			append_dev(div10, t3);
+    			append_dev(div10, div1);
+    			append_dev(div10, t5);
+    			append_dev(div10, br0);
+    			append_dev(div10, t6);
+    			append_dev(div10, div2);
+    			append_dev(div10, t8);
+    			append_dev(div10, br1);
+    			append_dev(div10, t9);
+    			append_dev(div10, div3);
+    			append_dev(div10, t11);
+    			append_dev(div10, br2);
+    			append_dev(div10, t12);
+    			append_dev(div10, div4);
+    			append_dev(div10, t14);
+    			append_dev(div10, div5);
+    			append_dev(div10, t16);
+    			append_dev(div10, br3);
+    			append_dev(div10, t17);
+    			append_dev(div10, div6);
+    			append_dev(div10, t19);
+    			append_dev(div10, br4);
+    			append_dev(div10, t20);
+    			append_dev(div10, br5);
+    			append_dev(div10, t21);
+    			append_dev(div10, div7);
+    			append_dev(div10, t23);
+    			append_dev(div10, br6);
+    			append_dev(div10, t24);
+    			append_dev(div10, br7);
+    			append_dev(div10, t25);
+    			append_dev(div10, br8);
+    			append_dev(div10, t26);
+    			append_dev(div10, div8);
+    			append_dev(div10, t28);
+    			append_dev(div10, br9);
+    			append_dev(div10, t29);
     			append_dev(div10, div9);
-    			mount_component(pagetitle, div9, null);
-    			append_dev(div9, t0);
-    			append_dev(div9, div0);
-    			append_dev(div9, t2);
-    			append_dev(div9, div1);
-    			append_dev(div9, t4);
-    			append_dev(div9, br0);
-    			append_dev(div9, t5);
-    			append_dev(div9, div2);
-    			append_dev(div9, t7);
-    			append_dev(div9, br1);
-    			append_dev(div9, t8);
-    			append_dev(div9, div3);
-    			append_dev(div9, t10);
-    			append_dev(div9, br2);
-    			append_dev(div9, t11);
-    			append_dev(div9, div4);
-    			append_dev(div9, t13);
-    			append_dev(div9, br3);
-    			append_dev(div9, t14);
-    			append_dev(div9, div5);
-    			append_dev(div9, t16);
-    			append_dev(div9, br4);
-    			append_dev(div9, t17);
-    			append_dev(div9, br5);
-    			append_dev(div9, t18);
-    			append_dev(div9, div6);
-    			append_dev(div9, t20);
-    			append_dev(div9, br6);
-    			append_dev(div9, t21);
-    			append_dev(div9, br7);
-    			append_dev(div9, t22);
-    			append_dev(div9, br8);
-    			append_dev(div9, t23);
-    			append_dev(div9, div7);
-    			append_dev(div9, t25);
-    			append_dev(div9, br9);
-    			append_dev(div9, t26);
-    			append_dev(div9, div8);
-    			append_dev(div9, t28);
-    			append_dev(div9, br10);
-    			append_dev(div9, t29);
+    			append_dev(div10, t31);
+    			append_dev(div10, br10);
+    			append_dev(div10, t32);
     			current = true;
     		},
     		p: noop,
@@ -4604,7 +4624,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div10);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div11);
     			destroy_component(pagetitle);
     		}
     	};
@@ -4667,7 +4688,7 @@ var app = (function () {
         };
     }
 
-    /* src/components/textCarousel.svelte generated by Svelte v3.42.6 */
+    /* src/components/textCarousel.svelte generated by Svelte v3.49.0 */
     const file$9 = "src/components/textCarousel.svelte";
 
     function get_each_context(ctx, list, i) {
@@ -4886,7 +4907,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/name.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/name.svelte generated by Svelte v3.49.0 */
     const file$8 = "src/components/gridBoxes/name.svelte";
 
     function create_fragment$9(ctx) {
@@ -4897,16 +4918,7 @@ var app = (function () {
 
     	textcarousel = new TextCarousel({
     			props: {
-    				list: [
-    					"Software Dev",
-    					"Web Dev",
-    					"Student",
-    					"Svelte",
-    					"React",
-    					"Java",
-    					"Python",
-    					"Google Poweruser"
-    				]
+    				list: ["Student", "Software Dev", "Google Poweruser"]
     			},
     			$$inline: true
     		});
@@ -4984,7 +4996,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.49.0 */
 
     const file$7 = "src/components/gridBoxes/projectsBtn.svelte";
 
@@ -5075,7 +5087,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.49.0 */
 
     const file$6 = "src/components/gridBoxes/aboutBtn.svelte";
 
@@ -5150,9 +5162,9 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/coursesBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/workBtn.svelte generated by Svelte v3.49.0 */
 
-    const file$5 = "src/components/gridBoxes/coursesBtn.svelte";
+    const file$5 = "src/components/gridBoxes/workBtn.svelte";
 
     function create_fragment$6(ctx) {
     	let div2;
@@ -5164,7 +5176,7 @@ var app = (function () {
     			div2 = element("div");
     			div1 = element("div");
     			div0 = element("div");
-    			div0.textContent = "Courses";
+    			div0.textContent = "Work";
     			attr_dev(div0, "class", "btn-title");
     			add_location(div0, file$5, 4, 4, 89);
     			attr_dev(div1, "class", "clip-border box svelte-1nnhe61");
@@ -5201,31 +5213,31 @@ var app = (function () {
 
     function instance$6($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('CoursesBtn', slots, []);
+    	validate_slots('WorkBtn', slots, []);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CoursesBtn> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<WorkBtn> was created with unknown prop '${key}'`);
     	});
 
     	return [];
     }
 
-    class CoursesBtn extends SvelteComponentDev {
+    class WorkBtn extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init$1(this, options, instance$6, create_fragment$6, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "CoursesBtn",
+    			tagName: "WorkBtn",
     			options,
     			id: create_fragment$6.name
     		});
     	}
     }
 
-    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.49.0 */
 
     const file$4 = "src/components/gridBoxes/githubBtn.svelte";
 
@@ -5300,7 +5312,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/index.svelte generated by Svelte v3.42.6 */
+    /* src/pages/index.svelte generated by Svelte v3.49.0 */
     const file$3 = "src/pages/index.svelte";
 
     function create_fragment$4(ctx) {
@@ -5322,7 +5334,7 @@ var app = (function () {
     	let t3;
     	let div4;
     	let a2;
-    	let coursesbtn;
+    	let workbtn;
     	let a2_href_value;
     	let t4;
     	let div5;
@@ -5342,7 +5354,7 @@ var app = (function () {
     	name = new Name({ $$inline: true });
     	projectsbtn = new ProjectsBtn({ $$inline: true });
     	aboutbtn = new AboutBtn({ $$inline: true });
-    	coursesbtn = new CoursesBtn({ $$inline: true });
+    	workbtn = new WorkBtn({ $$inline: true });
     	githubbtn = new GithubBtn({ $$inline: true });
 
     	shape0 = new Shape({
@@ -5388,7 +5400,7 @@ var app = (function () {
     			t3 = space();
     			div4 = element("div");
     			a2 = element("a");
-    			create_component(coursesbtn.$$.fragment);
+    			create_component(workbtn.$$.fragment);
     			t4 = space();
     			div5 = element("div");
     			a3 = element("a");
@@ -5404,38 +5416,38 @@ var app = (function () {
     			t9 = space();
     			create_component(shape4.$$.fragment);
     			attr_dev(div0, "class", "shapes");
-    			add_location(div0, file$3, 13, 2, 608);
+    			add_location(div0, file$3, 13, 2, 602);
     			attr_dev(div1, "class", "grid-item svelte-1gbi7zt");
     			attr_dev(div1, "id", "center");
-    			add_location(div1, file$3, 14, 2, 633);
+    			add_location(div1, file$3, 14, 2, 627);
     			attr_dev(a0, "href", a0_href_value = /*$url*/ ctx[0]("/projects"));
     			attr_dev(a0, "class", "svelte-1gbi7zt");
-    			add_location(a0, file$3, 18, 4, 711);
+    			add_location(a0, file$3, 18, 4, 705);
     			attr_dev(div2, "id", "tl");
     			attr_dev(div2, "class", "svelte-1gbi7zt");
-    			add_location(div2, file$3, 17, 2, 693);
+    			add_location(div2, file$3, 17, 2, 687);
     			attr_dev(a1, "href", a1_href_value = /*$url*/ ctx[0]("/about"));
     			attr_dev(a1, "class", "svelte-1gbi7zt");
-    			add_location(a1, file$3, 21, 4, 789);
+    			add_location(a1, file$3, 21, 4, 783);
     			attr_dev(div3, "id", "br");
     			attr_dev(div3, "class", "svelte-1gbi7zt");
-    			add_location(div3, file$3, 20, 2, 771);
-    			attr_dev(a2, "href", a2_href_value = /*$url*/ ctx[0]("/courses"));
+    			add_location(div3, file$3, 20, 2, 765);
+    			attr_dev(a2, "href", a2_href_value = /*$url*/ ctx[0]("/work"));
     			attr_dev(a2, "class", "svelte-1gbi7zt");
-    			add_location(a2, file$3, 24, 4, 864);
+    			add_location(a2, file$3, 24, 4, 858);
     			attr_dev(div4, "id", "right");
     			attr_dev(div4, "class", "svelte-1gbi7zt");
-    			add_location(div4, file$3, 23, 2, 843);
+    			add_location(div4, file$3, 23, 2, 837);
     			attr_dev(a3, "href", "https://github.com/benlubas");
     			attr_dev(a3, "target", "_blank");
     			attr_dev(a3, "rel", "noopener noreferrer");
     			attr_dev(a3, "class", "svelte-1gbi7zt");
-    			add_location(a3, file$3, 27, 4, 939);
+    			add_location(a3, file$3, 27, 4, 927);
     			attr_dev(div5, "id", "bl");
     			attr_dev(div5, "class", "svelte-1gbi7zt");
-    			add_location(div5, file$3, 26, 2, 921);
+    			add_location(div5, file$3, 26, 2, 909);
     			attr_dev(div6, "class", "container svelte-1gbi7zt");
-    			add_location(div6, file$3, 12, 0, 582);
+    			add_location(div6, file$3, 12, 0, 576);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -5457,7 +5469,7 @@ var app = (function () {
     			append_dev(div6, t3);
     			append_dev(div6, div4);
     			append_dev(div4, a2);
-    			mount_component(coursesbtn, a2, null);
+    			mount_component(workbtn, a2, null);
     			append_dev(div6, t4);
     			append_dev(div6, div5);
     			append_dev(div5, a3);
@@ -5483,7 +5495,7 @@ var app = (function () {
     				attr_dev(a1, "href", a1_href_value);
     			}
 
-    			if (!current || dirty & /*$url*/ 1 && a2_href_value !== (a2_href_value = /*$url*/ ctx[0]("/courses"))) {
+    			if (!current || dirty & /*$url*/ 1 && a2_href_value !== (a2_href_value = /*$url*/ ctx[0]("/work"))) {
     				attr_dev(a2, "href", a2_href_value);
     			}
     		},
@@ -5492,7 +5504,7 @@ var app = (function () {
     			transition_in(name.$$.fragment, local);
     			transition_in(projectsbtn.$$.fragment, local);
     			transition_in(aboutbtn.$$.fragment, local);
-    			transition_in(coursesbtn.$$.fragment, local);
+    			transition_in(workbtn.$$.fragment, local);
     			transition_in(githubbtn.$$.fragment, local);
     			transition_in(shape0.$$.fragment, local);
     			transition_in(shape1.$$.fragment, local);
@@ -5505,7 +5517,7 @@ var app = (function () {
     			transition_out(name.$$.fragment, local);
     			transition_out(projectsbtn.$$.fragment, local);
     			transition_out(aboutbtn.$$.fragment, local);
-    			transition_out(coursesbtn.$$.fragment, local);
+    			transition_out(workbtn.$$.fragment, local);
     			transition_out(githubbtn.$$.fragment, local);
     			transition_out(shape0.$$.fragment, local);
     			transition_out(shape1.$$.fragment, local);
@@ -5519,7 +5531,7 @@ var app = (function () {
     			destroy_component(name);
     			destroy_component(projectsbtn);
     			destroy_component(aboutbtn);
-    			destroy_component(coursesbtn);
+    			destroy_component(workbtn);
     			destroy_component(githubbtn);
     			destroy_component(shape0);
     			destroy_component(shape1);
@@ -5562,7 +5574,7 @@ var app = (function () {
     		url,
     		prefetch,
     		Shape,
-    		CoursesBtn,
+    		WorkBtn,
     		GithubBtn,
     		$url
     	});
@@ -5584,7 +5596,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/projects.svelte generated by Svelte v3.42.6 */
+    /* src/pages/projects.svelte generated by Svelte v3.49.0 */
     const file$2 = "src/pages/projects.svelte";
 
     function create_fragment$3(ctx) {
@@ -5905,7 +5917,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/quote.svelte generated by Svelte v3.42.6 */
+    /* src/components/quote.svelte generated by Svelte v3.49.0 */
 
     const file$1 = "src/components/quote.svelte";
 
@@ -5919,7 +5931,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if (default_slot) default_slot.c();
-    			attr_dev(div, "class", "quote svelte-1i6xuw7");
+    			attr_dev(div, "class", "quote svelte-po7vtr");
     			add_location(div, file$1, 0, 0, 0);
     		},
     		l: function claim(nodes) {
@@ -6006,10 +6018,10 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/work.svelte generated by Svelte v3.42.6 */
+    /* src/pages/work.svelte generated by Svelte v3.49.0 */
     const file = "src/pages/work.svelte";
 
-    // (79:4) <Quote>
+    // (56:4) <Quote>
     function create_default_slot(ctx) {
     	let t;
 
@@ -6029,7 +6041,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(79:4) <Quote>",
+    		source: "(56:4) <Quote>",
     		ctx
     	});
 
@@ -6073,16 +6085,8 @@ var app = (function () {
     	let br6;
     	let t23;
     	let br7;
-    	let t24;
     	let br8;
-    	let t25;
-    	let br9;
-    	let t26;
-    	let br10;
-    	let t27;
-    	let br11;
-    	let br12;
-    	let t28;
+    	let t24;
     	let quote;
     	let current;
 
@@ -6107,7 +6111,7 @@ var app = (function () {
     			t0 = space();
     			div0 = element("div");
     			div0.textContent = "Wayfair (2022/01/10 - 2022/06/24)";
-    			t2 = text("\n    I worked at Wayfair as a software engineer. This job was a co-op that ran from\n    December 10th to June 24th. I was a part of SEO Pod on the Impression team. The\n    Impressions team at Wayfair solves a lot of different and interesting problems,\n    and they do so using a lot of different technologies. This is perfect for me\n    — a student that's trying to learn as much as possible. Over the course\n    of the 6 months that I was working at Wayfair, there was always something new\n    for me to learn.\n\n    ");
+    			t2 = text("\n    I worked at Wayfair as a software engineer. This job was a co-op that ran from\n    December 10th to June 24th. I was a part of SEO Pod on the Impression team. The\n    Impressions team at Wayfair solves a lot of different and interesting problems,\n    and they do so using a lot of different technologies. This is perfect for me\n    — a student that's trying to learn as much as possible. During the 6 \n    months that I worked at Wayfair, there was always something new for me to \n    learn.\n\n    ");
     			br0 = element("br");
     			t3 = text("\n\n    Here is a list of technologies that I gained experience with at Wayfair:\n\n    ");
     			ul = element("ul");
@@ -6138,50 +6142,38 @@ var app = (function () {
     			br1 = element("br");
     			t20 = space();
     			br2 = element("br");
-    			t21 = text("\n    Additionally, I learned what it is like to work on a small team within a large\n    corporation. I was able to get a feel for the structure and the way things operated.\n\n    ");
+    			t21 = text("\n\n    I also got aquainted with the agile sprint process. \n\n    ");
     			br3 = element("br");
     			br4 = element("br");
-    			t22 = text("\n\n    Most of what I saw was expected (ie. corporations aren't that great but the\n    people there are awesome). But there were some surprising things. I was most\n    surprised to see the balancing act between figuring out how long it would\n    take to do things and actually doing things. I've always worked on personal\n    projects or homework assignments by just jumping in and doing them. If it\n    took me a week or a month it didn't really matter, and if I have more than\n    one idea at once, I can just work on whatever seems more fun and switch\n    between them whenever I want. To me, time spent thinking about how long\n    something would take was just time not spent planning or coding or\n    researching the way to actually do it.\n\n    ");
+    			t22 = text("\n\n    During my time at Wayfair I got to meet and work with a ton of awesome\n    people, some of whom I'm sure I'll keep in touch with. I'm looking forward \n    to my next co-op, as this experience was really great.\n\n    ");
     			br5 = element("br");
     			br6 = element("br");
-    			t23 = text("\n\n    I some ways. I don't have a choice. I have to go in blind because I don't\n    have enough prior knowledge or data to look at in order to estimate how much\n    time something will take. But in a business setting, when everyone needs to\n    know what is going to get done. And when it will get done. And we need to\n    commit to deadlines. And we're working on things that affect millions.\n    There's suddenly immense value in taking that extra time to plan, and good\n    estimates are incredibly valuable.\n\n    ");
+    			t23 = text("\n\n    This part is for recruiters—I'm going to talk about my performance at\n    the company. While working for Wayfair I got a mid co-op review around the\n    90 day mark, and a final review right before I left. Both reviews were\n    written by my direct manager who I interacted with daily. The first\n    review was fairly positive, however, I had only been there for 90 days, so I\n    had only just started to get up to speed, and there were still a ton of\n    things to learn.\n\n    ");
     			br7 = element("br");
-    			t24 = space();
     			br8 = element("br");
-    			t25 = text("\n\n    During my time at Wayfair I got to meet and work with a ton of awesome\n    people, some of whom I'm sure I'll keep in touch with, and others who will\n    most certainly become references on my resume. I'm looking forward to my\n    next co-op, as this experience was really great.\n\n    ");
-    			br9 = element("br");
-    			t26 = space();
-    			br10 = element("br");
-    			t27 = text("\n\n    This part is for recruiters—I'm going to talk about my performance at\n    the company. While working for Wayfair I got a mid co-op review around the\n    90 day mark, and a final review right before I left. Both reviews were\n    written by my direct manager who I interacted with alost daily. The first\n    review was fairly positive, however, I had only been there for 90 days, so I\n    had only just started to get up to speed, and there were still a ton of\n    things to learn.\n    ");
-    			br11 = element("br");
-    			br12 = element("br");
-    			t28 = text("\n    Final Review:\n    ");
+    			t24 = text("\n    \n    I'll let the final review speak for itself. This is the opening paragraph\n    from my manager: \n    ");
     			create_component(quote.$$.fragment);
     			attr_dev(div0, "class", "subtitle");
     			add_location(div0, file, 7, 4, 224);
-    			add_location(br0, file, 16, 4, 808);
-    			add_location(li0, file, 21, 6, 934);
-    			add_location(li1, file, 22, 6, 962);
-    			add_location(li2, file, 23, 6, 989);
-    			add_location(li3, file, 24, 6, 1028);
-    			add_location(li4, file, 25, 6, 1051);
-    			add_location(li5, file, 26, 6, 1073);
-    			add_location(li6, file, 27, 6, 1093);
-    			add_location(li7, file, 28, 6, 1132);
+    			add_location(br0, file, 16, 4, 793);
+    			add_location(li0, file, 21, 6, 919);
+    			add_location(li1, file, 22, 6, 947);
+    			add_location(li2, file, 23, 6, 974);
+    			add_location(li3, file, 24, 6, 1013);
+    			add_location(li4, file, 25, 6, 1036);
+    			add_location(li5, file, 26, 6, 1058);
+    			add_location(li6, file, 27, 6, 1078);
+    			add_location(li7, file, 28, 6, 1117);
     			set_style(ul, "margin-left", "2rem");
-    			add_location(ul, file, 20, 4, 898);
-    			add_location(br1, file, 30, 4, 1177);
-    			add_location(br2, file, 31, 4, 1188);
-    			add_location(br3, file, 35, 4, 1372);
-    			add_location(br4, file, 35, 10, 1378);
-    			add_location(br5, file, 48, 4, 2133);
-    			add_location(br6, file, 48, 10, 2139);
-    			add_location(br7, file, 58, 4, 2662);
-    			add_location(br8, file, 59, 4, 2673);
-    			add_location(br9, file, 66, 4, 2970);
-    			add_location(br10, file, 67, 4, 2981);
-    			add_location(br11, file, 76, 4, 3483);
-    			add_location(br12, file, 76, 10, 3489);
+    			add_location(ul, file, 20, 4, 883);
+    			add_location(br1, file, 31, 4, 1163);
+    			add_location(br2, file, 31, 11, 1170);
+    			add_location(br3, file, 35, 4, 1240);
+    			add_location(br4, file, 35, 10, 1246);
+    			add_location(br5, file, 41, 4, 1473);
+    			add_location(br6, file, 41, 10, 1479);
+    			add_location(br7, file, 51, 4, 1976);
+    			add_location(br8, file, 51, 10, 1982);
     			attr_dev(div1, "class", "text");
     			add_location(div1, file, 5, 2, 159);
     			attr_dev(div2, "class", "page-cont");
@@ -6227,16 +6219,8 @@ var app = (function () {
     			append_dev(div1, br6);
     			append_dev(div1, t23);
     			append_dev(div1, br7);
-    			append_dev(div1, t24);
     			append_dev(div1, br8);
-    			append_dev(div1, t25);
-    			append_dev(div1, br9);
-    			append_dev(div1, t26);
-    			append_dev(div1, br10);
-    			append_dev(div1, t27);
-    			append_dev(div1, br11);
-    			append_dev(div1, br12);
-    			append_dev(div1, t28);
+    			append_dev(div1, t24);
     			mount_component(quote, div1, null);
     			current = true;
     		},
@@ -6321,7 +6305,7 @@ var app = (function () {
           "name": "about",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/about.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
           "importPath": "../src/pages/about.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6346,7 +6330,7 @@ var app = (function () {
           "name": "courses",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/courses.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/courses.svelte",
           "importPath": "../src/pages/courses.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6371,7 +6355,7 @@ var app = (function () {
           "name": "index",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/index.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
           "importPath": "../src/pages/index.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6396,7 +6380,7 @@ var app = (function () {
           "name": "projects",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/projects.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
           "importPath": "../src/pages/projects.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6421,7 +6405,7 @@ var app = (function () {
           "name": "work",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/Documents/GitHub/who/src/pages/work.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
           "importPath": "../src/pages/work.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6454,7 +6438,7 @@ var app = (function () {
 
     const {tree, routes} = buildClientTree(_tree);
 
-    /* src/App.svelte generated by Svelte v3.42.6 */
+    /* src/App.svelte generated by Svelte v3.49.0 */
 
     function create_fragment(ctx) {
     	let router;

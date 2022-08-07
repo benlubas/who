@@ -11,9 +11,9 @@
     December 10th to June 24th. I was a part of SEO Pod on the Impression team. The
     Impressions team at Wayfair solves a lot of different and interesting problems,
     and they do so using a lot of different technologies. This is perfect for me
-    &mdash; a student that's trying to learn as much as possible. Over the course
-    of the 6 months that I was working at Wayfair, there was always something new
-    for me to learn.
+    &mdash; a student that's trying to learn as much as possible. During the 6 
+    months that I worked at Wayfair, there was always something new for me to 
+    learn.
 
     <br />
 
@@ -29,54 +29,31 @@
       <li>Buildkite and Sonarcube</li>
       <li>Little bit of Cypress</li>
     </ul>
-    <br />
-    <br />
-    Additionally, I learned what it is like to work on a small team within a large
-    corporation. I was able to get a feel for the structure and the way things operated.
+
+    <br /> <br />
+
+    I also got aquainted with the agile sprint process. 
 
     <br /><br />
-
-    Most of what I saw was expected (ie. corporations aren't that great but the
-    people there are awesome). But there were some surprising things. I was most
-    surprised to see the balancing act between figuring out how long it would
-    take to do things and actually doing things. I've always worked on personal
-    projects or homework assignments by just jumping in and doing them. If it
-    took me a week or a month it didn't really matter, and if I have more than
-    one idea at once, I can just work on whatever seems more fun and switch
-    between them whenever I want. To me, time spent thinking about how long
-    something would take was just time not spent planning or coding or
-    researching the way to actually do it.
-
-    <br /><br />
-
-    I some ways. I don't have a choice. I have to go in blind because I don't
-    have enough prior knowledge or data to look at in order to estimate how much
-    time something will take. But in a business setting, when everyone needs to
-    know what is going to get done. And when it will get done. And we need to
-    commit to deadlines. And we're working on things that affect millions.
-    There's suddenly immense value in taking that extra time to plan, and good
-    estimates are incredibly valuable.
-
-    <br />
-    <br />
 
     During my time at Wayfair I got to meet and work with a ton of awesome
-    people, some of whom I'm sure I'll keep in touch with, and others who will
-    most certainly become references on my resume. I'm looking forward to my
-    next co-op, as this experience was really great.
+    people, some of whom I'm sure I'll keep in touch with. I'm looking forward 
+    to my next co-op, as this experience was really great.
 
-    <br />
-    <br />
+    <br /><br />
 
     This part is for recruiters&mdash;I'm going to talk about my performance at
     the company. While working for Wayfair I got a mid co-op review around the
     90 day mark, and a final review right before I left. Both reviews were
-    written by my direct manager who I interacted with alost daily. The first
+    written by my direct manager who I interacted with daily. The first
     review was fairly positive, however, I had only been there for 90 days, so I
     had only just started to get up to speed, and there were still a ton of
     things to learn.
+
     <br /><br />
-    Final Review:
+    
+    I'll let the final review speak for itself. This is the opening paragraph
+    from my manager: 
     <Quote>
       Ben is a full contributor to the SEO Impressions engineering team. He
       quickly onboarded and fully contributed as a member of the squad for the

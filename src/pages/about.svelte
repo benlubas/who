@@ -17,24 +17,27 @@
     to take an independent study in computer science titled Advanced Web Dev. During
     that class time I taught myself React, Node/Express, and MongoDB and created
     another website for the school.
-    <br />
-    <br />
+
+    <br /> <br />
+
     As a side note, my senior year I also took a Math Python course that explored
     basic mathematical modeling in Python. So I learned Python.
-    <br />
-    <br />
+
+    <br /> <br />
+
     The next summer I learned about Svelte, and decided that I'd like to know how
     that works. I made a small practice site and followed the tutorial, and I remade
     parts of an older React project.
-    <br />
-    <br />
+
+    <br /> <br />
+
     Then I went off to college, learned a functional language called Racket that's
     only used to teaching. After that most of the course work has been in Java. In
     the Fall 2021 semester, I'm taking courses that start to use C, and a few courses
     have used a little bit of Python.
 
-    <br />
-    <br />
+    <br /> <br />
+
     Of note, throughout highschool I was learning some Git, and I stored my entire
     senior year project on GitHub (in a private repo). This helped me learn terminal
     commands, and I'm learning even more of those this semester. I'm also a Vim user,
@@ -48,13 +51,17 @@
     <a href="https://www.svelte.dev" target="_blank" rel="noopener noreferrer">
       site</a
     >
-    and you can look around.
-    <br />
-    <br />
+    and you can look around. Using svelte for a website like this is perhaps slight
+    overkill, but it's fun. 
+
+    <br /> <br />
+
     I ran into Svelte when v3.0 was launched, and started to learn it. I had already
-    used React, but I liked this much better. There's something about the way Svelte
-    components are written, they make more sense, they're cleaner.
-    <br /><br />
+    used React, but I liked this much better. Svelte components are cleaner and make 
+    more sense than React components.
+
+    <br /> <br />
+
     More technical stuff about the site, it's just a front end, I wanted to be able
     to host it for free. I'm only using the Svelte framework with
     <a href="https://routify.dev" target="_blank" rel="noopener noreferrer"
@@ -63,6 +70,7 @@
     for page routing. No additional external JS, no external CSS. I should note,
     that I am making use of some of Svelte's built in animation functionality for
     the text carousel. But everything else has been written by me.
+
     <br /><br />
 
     This entire website is hosted on GitHub and the source code is visible there
@@ -78,11 +86,13 @@
     a 4.958 weighted GPA, took a bunch of AP classes, and was the assistant captain
     of the Varsity Ice Hockey team. As a freshman I took two introductory CS courses,
     CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS
-    A. The year after I took APCS Principles (our capstone course), along side AP
-    Chem. Senior year I did an independent study in web development, AP Calc BC,
-    AP Stat, and AP Physics C.
-    <br />
-    <br />
+    A (a course in Java). The year after I took APCS Principles (our capstone course), 
+    along side AP Chem. Senior year I did an independent study in web development, AP 
+    Calc BC, AP Stat (it was statistics was 'stat' at my highschool the same way 
+    mathematics was 'math'), and AP Physics C.
+
+    <br /> <br />
+
     You can read more about the projects that I did in my time in high school on
     the <a href={$url("/projects")}> projects page.</a>
 
@@ -94,16 +104,12 @@
     but the majority of my coursework is in the CS field. That's one of the reasons
     that I really like this school.
 
-    <br />
-    <br />
+    <br /> <br />
+
     In addition to that, I have the co-op experience coming up (this is the reason
     that I'm making this website in the first place!). I'm really excited to go on
     co-op, I'm also a little nervous for interviews, but I'll get through it. I'm
     extremely grateful that Northeastern has the co-op program.
 
-    <br />
-    <br />
-    If you want to read about my course work at Northeastern,
-    <a href={$url("/courses")}> click here.</a>
   </div>
 </div>
