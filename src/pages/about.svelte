@@ -8,7 +8,7 @@
     <PageTitle title="About" />
     Hi, I'm Ben Lubas! I'm currently a student at Northeastern University studying
     computer science. Firstly, welcome to my website! I hope you enjoyed the homepage,
-    I had a ton of fun making it. I'm going to split this about page into catagories,
+    I had a ton of fun making it. I'm going to split this about page into categories,
     so feel free to skip over the boring parts. First up...
     <div class="subtitle">Programming Experience</div>
     I got my start in computer science in high school, where I took two intro to
@@ -38,7 +38,7 @@
 
     <br /> <br />
 
-    Of note, throughout highschool I was learning some Git, and I stored my entire
+    Of note, throughout high school I was learning some Git, and I stored my entire
     senior year project on GitHub (in a private repo). This helped me learn terminal
     commands, and I'm learning even more of those this semester. I'm also a Vim user,
     I have the Vim extension configured on every editor that allows it.
@@ -88,7 +88,7 @@
     CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS
     A (a course in Java). The year after I took APCS Principles (our capstone course), 
     along side AP Chem. Senior year I did an independent study in web development, AP 
-    Calc BC, AP Stat (it was statistics was 'stat' at my highschool the same way 
+    Calc BC, AP Stat (it was statistics was 'stat' at my high school the same way 
     mathematics was 'math'), and AP Physics C.
 
     <br /> <br />
