@@ -30,6 +30,9 @@ body {
   color: var(--primary);
 }
 
+ul {
+  margin-left: 2rem;
+}
 .page-cont {
   padding: 3rem;
 }
