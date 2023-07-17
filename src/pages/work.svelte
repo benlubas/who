@@ -6,36 +6,62 @@
 <div class="page-cont">
   <div class="text">
     <PageTitle title="Work Experience" />
+    <div class="subtitle">Pubmark (2023/01/09 - 2023/07/07)</div>
+    I worked for Pubmark as a software engineer. This was a co-op that ran from early
+    January to early June, 2023. I was on the Partner Products team, where we developed
+    and maintained web services for BookBub partners (authors and publishers). The
+    team also maintained their own ads platform.
+
+    <br />
+
+    Some new technologies I worked with while at Pubmark include: <br />
+
+    <ul>
+      <li>Ruby on Rails</li>
+      <li>Clojure</li>
+      <li>Nix</li>
+      <li>Snowflake (data warehouse)</li>
+      <li>Apache Airflow</li>
+      <li>AWS</li>
+    </ul>
+
+    <br />
+    Pubmark was an amazing experience for me, I got exposure to a large new technology
+    in Rails, and I got access to some amazing and knowledgable people for questions.
+    I feel like I really furthered my skills and knowledge as a developer, I picked
+    up some new tools, and improved my workflow greatly.
+    <br />
+
     <div class="subtitle">Wayfair (2022/01/10 - 2022/06/24)</div>
     I worked at Wayfair as a software engineer. This job was a co-op that ran from
-    December 10th to June 24th. I was a part of SEO Pod on the Impressions team.
-    The SEO Impressions team at Wayfair solves a lot of different and interesting
-    problems, and they do so using a lot of different technologies. This was perfect
-    for me as a student that's trying to learn as much as possible. During the 6
-    months that I worked at Wayfair, there was always something new to learn.
+    January 10th to June 24th. I was a part of SEO Pod on the Impressions team. The
+    SEO Impressions team at Wayfair solves a lot of different and interesting problems,
+    and they do so using a lot of different technologies. This was perfect for me
+    as a student that's trying to learn as much as possible. During the 6 months
+    that I worked at Wayfair, there was always something new to learn.
 
     <br />
 
     Here is a list of technologies that I gained experience with at Wayfair:
-
-    <br /><br />
+    <br />
 
     <ul>
       <li>Docker & K8s</li>
       <li>Spring Boot</li>
       <li>Kafka with Avro Schemas</li>
       <li>DataDog</li>
+      <li>Google Cloud Platform</li>
       <li>Kibana</li>
       <li>Jira</li>
       <li>Buildkite and Sonarcube</li>
       <li>Little bit of Cypress</li>
     </ul>
 
-    <br /><br />
+    <br />
 
     During my time at Wayfair I got to meet and work with a ton of awesome
-    people, some of whom I'm sure I'll keep in touch with. I'm looking forward
-    to my next co-op, as this experience was really great.
+    people. I got to experience what it's like to work for a large tech company,
+    and I learned more than I can really articulate.
 
     <br /><br />
 
@@ -49,8 +75,8 @@
 
     <br /><br />
 
-    And I'll let the final review speak for itself. This is the opening paragraph
-    from my final review at Wayfair. 
+    And I'll let the final review speak for itself. This is the opening
+    paragraph from my final review at Wayfair.
     <Quote>
       Ben is a full contributor to the SEO Impressions engineering team. He
       quickly on-boarded and fully contributed as a member of the squad for the

@@ -28,13 +28,10 @@
 
     <br /> <br />
 
-    Then I went off to college, learned a functional language called Racket
-    that's only used for teaching. After that most of the early course work was
-    in Java. Luckily, in my seconds and third year I've been taking more courses
-    that move away from Java. At the time of writing, I have three different
-    courses all in different languages: Software Engineering in TypeScript;
-    Machine Learning and Data Mining in Python; and Networks and Distributed
-    Systems, which is language agnostic, so I chose Rust.
+    Then I went off to college at Northeastern University. In my time here I've
+    learned Racket (a function language), and deepened my knowledge of Python,
+    JavaScript/TypeScript Java, and React. I also picked up Rust, and used it in
+    a language agnostic class for a little while.
 
     <br /> <br />
 
@@ -43,39 +40,54 @@
     sections of my resume.
     <ul>
       <li>
-        Python - One of my most comfortable languages. Used Python for school
-        for years, I've done AI/ML projects, and I worked in a large production
-        Python codebase at Wayfair.
+        Python - One of my most comfortable languages. I've used Python in
+        school for years, I've done AI/ML projects, and I've worked in large
+        production Python codebases at both Wayfair and Pubmark.
       </li>
       <li>
         Java (Spring Boot) - Java is frankly a language that I would prefer not
         to work with but know very well. Worked with backend micro-services
-        setup with Spring Boot at Wayfair.
+        setup with Spring Boot at Wayfair. If I work in a Java project again I
+        would highly prefer to write Kotlin instead.
       </li>
       <li>
-        TypeScript - JS was my first programming language, and for a long time
-        was my most comfortable programming language. TypeScript just takes JS
-        and makes it so much harder to shoot yourself in the foot.
+        TypeScript - JavaScript was my first programming language, and for a
+        long time was my most comfortable programming language. TypeScript just
+        takes JS and makes it so much harder to shoot yourself in the foot, and
+        so much easier to tell what's happening.
       </li>
       <li>
-        Rust - Rust is my favorite language (apparently so much so that it was
-        on an earlier version of resume twice...whoops), but also the one that
-        I've picked up most recently. I'm taking a Networks class and using Rust
-        for all the assignments, and it's been really enjoyable to work in.
+        Rust - Rust is currently my favorite language, but also one that I've
+        picked up only recently. I took a course that let you choose your
+        language, and I chose Rust. It was very enjoyable to work in. I also
+        interviewed in Rust for my co-op at Pubmark!
       </li>
       <li>
         HTML/CSS, Svelte, and React - I'm grouping these together because, yeah.
-        Svelte &gt; React. And I actually enjoy writing custom CSS (sometimes).
+        I prefer Svelte to React. And I actually enjoy writing custom CSS
+        (sometimes). I know both class-based react and functional react. Both
+        Pubmark and Wayfair had React-based frontends.
       </li>
       <li>
-        SQL - Learned MySQL originally. Since then, I've used Google Big Query
+        SQL - Learned MySQL originally, since then, I've used Google Big Query
         and Microsoft SQL server at Wayfair. I worked with some 100+ line GBQ
-        queries somewhat regularly at Wayfair.
+        queries somewhat regularly at Wayfair. I've used Snowflake at Pubmark.
       </li>
       <li>
         Docker and K8s - My experience here is, admittedly, limited. I worked
         with Docker and Kubernetes at Wayfair. The team I was one maintained
         multiple micro-services distributed using Docker/K8s.
+      </li>
+      <li>
+        Vim - I've used vim keybinds since late 2017, and I'm now daily driving
+        NeoVim. I've found that I can work much faster in vim than even VS Code
+        with the vim extension.
+      </li>
+      <li>
+        Nix - This is so much better than Docker (for dev environments) that I
+        was actually shocked by it. We used Nix at Pubmark, and I think this was
+        unanimously liked by everyone. I was told how good it was before I was
+        even hired there.
       </li>
     </ul>
 
@@ -85,34 +97,30 @@
 
     <ul>
       <li>
-        Keyboards:
-        <br />
-        Long story short: I use a keyboard with 36 keys on it. Each hand has a column-staggered
-        3x5 grid + 3 thumb keys. A lot of people are surprised that I can actually
-        work on a keyboard this small and still type around 100 wpm, and I'm surprised
-        that I was ever able to work for long periods of time on a laptop keyboard.
+        Keyboards - Long story short, I use a split keyboard with 36 keys on it.
+        Each hand gets a column-staggered 3x5 grid + 3 thumb keys. A lot of
+        people are surprised that I can actually work on a keyboard this small,
+        and I'm surprised that I was ever able to work for long periods of time
+        on a laptop keyboard.
       </li>
       <li>
-        Neovim:
-        <br />
-        Actually going to list this as an interest even though it's under the "Software"
-        section of my resume. <br />
-        I picked up Neovim during the summer after my Wayfair co-op. I've used Vim
-        bindings for a long time, but I always just used the VS Code extension. I
-        didn't even realize you could actually use Vim full-time. I didn't think
-        you would still have all the convince of LSP or autocomplete or snippets
-        or spellcheck etc. Of course, the configuration is a lot of work, but I had
-        a lot of free time, and now that I'm setup, I really enjoy working in Neovim.
-        It's fast, it's lightweight, and I don't feel like I'm making compromises.
+        Neovim - (Even though this is a software, I'm also interested in it) I
+        picked up Neovim during the summer after my Wayfair co-op. I've used Vim
+        bindings since high school, but I always just used the VS Code
+        extension. After some heavy configuration, I could never go back to VS
+        Code. NeoVim is fast, it's lightweight, and incredibly powerful. As a
+        bonus, the core of how I edit (vim) is present on every server by
+        default.
       </li>
-      <li>Gaming: <br /> I mainly play Rocket League these days.</li>
+      <li>Gaming - I mainly play Rocket League these days.</li>
       <li>
-        Hockey: <br /> I played in high school and I still enjoy watching and skating
+        Hockey - I played in high school and I still enjoy watching and skating
         whenever I can.
       </li>
       <li>
-        Artificial Intelligence: <br /> Honestly, as time goes on I'm less interested
-        and more paying attention because it's both awe-inspiring and terrifying.
+        Artificial Intelligence - Honestly, as time goes on this is less
+        something that I'm interested in and more something I'm paying attention
+        to because it's both awe-inspiring and terrifying.
       </li>
     </ul>
 
@@ -129,8 +137,8 @@
     <br /> <br />
 
     I ran into Svelte when v3.0 was launched, and started to learn it. I had
-    already used React, but I liked this much better. Svelte components are
-    cleaner and make more sense than React components.
+    already used React, but I liked this much better. In my opinion, Svelte
+    components are cleaner and make more sense than React components.
 
     <br /> <br />
 
@@ -141,7 +149,7 @@
     >
     for page routing. No additional external JS, no external CSS. I should note,
     that I am making use of some of Svelte's built in animation functionality for
-    the text carousel. But everything else has been written by me.
+    the text carousel. But everything else was written by me.
 
     <br /><br />
 
@@ -160,8 +168,8 @@
     CS1 & CS2. These introduced HTML, CSS, and JavaScript. Next year I took APCS
     A (a course in Java). The year after I took APCS Principles (our capstone course),
     along side AP Chem. Senior year I did an independent study in web development,
-    AP Calc BC, AP Stat (it was statistics was 'stat' at my high school the same
-    way mathematics was 'math'), and AP Physics C.
+    AP Calc BC, AP Stat (statistics was 'stat' at my high school the same way mathematics
+    was 'math'), and AP Physics C.
 
     <br /> <br />
 
@@ -169,19 +177,18 @@
     the <a href={$url("/projects")}> projects page.</a>
 
     <div class="subtitle">Education&mdash;College</div>
-    I'm currently attending Northeastern University in Boston. I'm a CS major, graduating
-    in 2024 (assuming that nothing crazy happens). Northeastern has a very 'focused'
-    curriculum. That is to say, I take a lot of CS and CS adjacent courses, and not
-    very many extra courses. Don't get me wrong, I have my share of history and writing,
-    but the majority of my coursework is in the CS field. That's one of the reasons
-    that I really like this school.
+    I'm currently attending Northeastern University in Boston. I'm a Computer Science
+    major, graduating in 2024. Northeastern has a very 'focused' curriculum. That
+    is to say, I take a lot of CS and CS adjacent courses, and not very many extra
+    courses. Don't get me wrong, I have my share of history and writing, but the
+    majority of my coursework is in the CS field. That's one of the reasons that
+    I really like this school.
 
     <br /> <br />
 
     Additionally, this school has a co-op program, so the second semesters of my
     second and third years, I don't have classes and I just work a full time job
-    in the CS field instead. The first co-op I took was at Wayfair, and I'm in
-    the process of searching for the second at the time of writing. You can read
-    more about how that went on the <a href={$url("/work")}> work page.</a>
+    in the CS field instead. I've already taken two co-ops! You can read more
+    about how they went on the <a href={$url("/work")}> work page.</a>
   </div>
 </div>

@@ -1,18 +1,17 @@
 
 /**
  * @roxi/routify 2.18.3
- * File generated Sat Sep 24 2022 10:25:54 GMT-0400 (Eastern Daylight Time)
+ * File generated Mon Jul 17 2023 13:45:27 GMT-0400 (Eastern Daylight Time)
  */
 
 export const __version = "2.18.3"
-export const __timestamp = "2022-09-24T14:25:54.609Z"
+export const __timestamp = "2023-07-17T17:45:27.885Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
 
 //imports
 import _about from '../src/pages/about.svelte'
-import _courses from '../src/pages/courses.svelte'
 import _index from '../src/pages/index.svelte'
 import _projects from '../src/pages/projects.svelte'
 import _work from '../src/pages/work.svelte'
@@ -36,7 +35,7 @@ export const _tree = {
       "name": "about",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
+      "absolutePath": "/Users/benlubas/github/who/src/pages/about.svelte",
       "importPath": "../src/pages/about.svelte",
       "isLayout": false,
       "isReset": false,
@@ -56,37 +55,12 @@ export const _tree = {
     {
       "isFile": true,
       "isDir": false,
-      "file": "courses.svelte",
-      "filepath": "/courses.svelte",
-      "name": "courses",
-      "ext": "svelte",
-      "badExt": false,
-      "absolutePath": "/home/benlubas/github/who/src/pages/courses.svelte",
-      "importPath": "../src/pages/courses.svelte",
-      "isLayout": false,
-      "isReset": false,
-      "isIndex": false,
-      "isFallback": false,
-      "isPage": true,
-      "ownMeta": {},
-      "meta": {
-        "recursive": true,
-        "preload": false,
-        "prerender": true
-      },
-      "path": "/courses",
-      "id": "_courses",
-      "component": () => _courses
-    },
-    {
-      "isFile": true,
-      "isDir": false,
       "file": "index.svelte",
       "filepath": "/index.svelte",
       "name": "index",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
+      "absolutePath": "/Users/benlubas/github/who/src/pages/index.svelte",
       "importPath": "../src/pages/index.svelte",
       "isLayout": false,
       "isReset": false,
@@ -111,7 +85,7 @@ export const _tree = {
       "name": "projects",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
+      "absolutePath": "/Users/benlubas/github/who/src/pages/projects.svelte",
       "importPath": "../src/pages/projects.svelte",
       "isLayout": false,
       "isReset": false,
@@ -136,7 +110,7 @@ export const _tree = {
       "name": "work",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
+      "absolutePath": "/Users/benlubas/github/who/src/pages/work.svelte",
       "importPath": "../src/pages/work.svelte",
       "isLayout": false,
       "isReset": false,

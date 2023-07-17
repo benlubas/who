@@ -147,7 +147,7 @@
     The next year, my class got to make use of the site. It seemed to be going great,
     until COVID hit, and our trip got canceled...
     <br /><br />
-    Trip or not, I walked away with a ton of close to "real world" experience. Working
+    Trip or not, I walked away with a ton of close-to-real-world experience. Working
     in a large group environment and managing work between multiple people is something
     that you just need to learn by doing, and this project allowed me to do that
     and more.
