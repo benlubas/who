@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.3
- * File generated Mon Jul 17 2023 13:45:27 GMT-0400 (Eastern Daylight Time)
+ * File generated Mon Jul 17 2023 13:50:07 GMT-0400 (Eastern Daylight Time)
  */
 
 export const __version = "2.18.3"
-export const __timestamp = "2023-07-17T17:45:27.885Z"
+export const __timestamp = "2023-07-17T17:50:07.205Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -14,6 +14,7 @@ import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
 import _about from '../src/pages/about.svelte'
 import _index from '../src/pages/index.svelte'
 import _projects from '../src/pages/projects.svelte'
+import _resume from '../src/pages/resume.svelte'
 import _work from '../src/pages/work.svelte'
 
 //options
@@ -101,6 +102,31 @@ export const _tree = {
       "path": "/projects",
       "id": "_projects",
       "component": () => _projects
+    },
+    {
+      "isFile": true,
+      "isDir": false,
+      "file": "resume.svelte",
+      "filepath": "/resume.svelte",
+      "name": "resume",
+      "ext": "svelte",
+      "badExt": false,
+      "absolutePath": "/Users/benlubas/github/who/src/pages/resume.svelte",
+      "importPath": "../src/pages/resume.svelte",
+      "isLayout": false,
+      "isReset": false,
+      "isIndex": false,
+      "isFallback": false,
+      "isPage": true,
+      "ownMeta": {},
+      "meta": {
+        "recursive": true,
+        "preload": false,
+        "prerender": true
+      },
+      "path": "/resume",
+      "id": "_resume",
+      "component": () => _resume
     },
     {
       "isFile": true,

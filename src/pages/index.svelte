@@ -6,10 +6,12 @@
   import Shape from "../components/shape.svelte";
   import WorkBtn from "../components/gridBoxes/workBtn.svelte";
   import GithubBtn from "../components/gridBoxes/githubBtn.svelte";
+  import ResumeBtn from "../components/gridBoxes/resumeBtn.svelte";
 
   prefetch("/projects", { validFor: 24 * 60 });
   prefetch("/about", { validFor: 24 * 60 });
   prefetch("/courses", { validFor: 24 * 60 });
+  prefetch("/resume", { validFor: 24 * 60 });
 </script>
 
 <div class="container">
@@ -18,10 +20,13 @@
     <Name />
   </div>
   <div id="tl">
-    <a href={$url("/projects")}> <ProjectsBtn /></a>
+    <a href={$url("/projects")}><ProjectsBtn /></a>
+  </div>
+  <div class="tr">
+    <a href={$url("/resume")}><ResumeBtn /></a>
   </div>
   <div id="br">
-    <a href={$url("/about")}> <AboutBtn /></a>
+    <a href={$url("/about")}><AboutBtn /></a>
   </div>
   <div id="right">
     <a href={$url("/work")}><WorkBtn /></a>
