@@ -4,7 +4,6 @@
 <div class="container">
   <div class="outer-box">
     <div class="box">
-      <!-- <div class="line" /> -->
       <div class="bg" />
       <div class="btn-title">Projects</div>
     </div>

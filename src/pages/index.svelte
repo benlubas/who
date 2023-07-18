@@ -20,13 +20,10 @@
     <Name />
   </div>
   <div id="tl">
-    <a href={$url("/projects")}><ProjectsBtn /></a>
-  </div>
-  <div class="tr">
-    <a href={$url("/resume")}><ResumeBtn /></a>
-  </div>
-  <div id="br">
     <a href={$url("/about")}><AboutBtn /></a>
+  </div>
+  <div id="tr">
+    <a href={$url("/resume")}><ResumeBtn /></a>
   </div>
   <div id="right">
     <a href={$url("/work")}><WorkBtn /></a>
@@ -37,6 +34,9 @@
       target="_blank"
       rel="noopener noreferrer"><GithubBtn /></a
     >
+  </div>
+  <div id="br">
+    <a href={$url("/projects")}><ProjectsBtn /></a>
   </div>
   <Shape shapeInvert />
   <Shape shapeInvert />
@@ -101,9 +101,10 @@
   @media (max-width: 1012px), (orientation: portrait) {
     .container {
       grid:
-        [row1-start] "center center" calc(100vh / 3) [row1-end]
-        [row2-start] "br tl" calc(100vh / 3) [row2-end]
-        [row3-start] "bl right" calc(100vh / 3) [row3-end]
+        [row1-start] "center center" calc(100vh / 4) [row1-end]
+        [row2-start] "tl tr" calc(100vh / 4) [row2-end]
+        [row3-start] "right bl" calc(100vh / 4) [row3-end]
+        [row4-start] "br br" calc(100vh / 4) [row4-end]
         / 1fr 1fr;
     }
   }
@@ -112,10 +113,11 @@
       height: unset;
       grid:
         [row1-start] "center" calc(100vh / 3) [row1-end]
-        [row2-start] "br" calc(100vh / 3) [row2-end]
-        [row3-start] "tl" calc(100vh / 3) [row3-end]
-        [row4-start] "bl" calc(100vh / 3) [row4-end]
-        [row5-start] "right" calc(100vh / 3) [row5-end]
+        [row2-start] "tl" calc(100vh / 3) [row2-end]
+        [row3-start] "tr" calc(100vh / 3) [row3-end]
+        [row4-start] "right" calc(100vh / 3) [row4-end]
+        [row5-start] "br" calc(100vh / 3) [row5-end]
+        [row6-start] "bl" calc(100vh / 3) [row6-end]
         / 1fr;
     }
   }

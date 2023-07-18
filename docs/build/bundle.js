@@ -4894,9 +4894,9 @@ var app = (function () {
     			div1 = element("div");
     			div1.textContent = "Projects";
     			attr_dev(div0, "class", "bg svelte-gju94k");
-    			add_location(div0, file$9, 6, 6, 143);
+    			add_location(div0, file$9, 5, 6, 107);
     			attr_dev(div1, "class", "btn-title");
-    			add_location(div1, file$9, 7, 6, 168);
+    			add_location(div1, file$9, 6, 6, 132);
     			attr_dev(div2, "class", "box svelte-gju94k");
     			add_location(div2, file$9, 4, 4, 83);
     			attr_dev(div3, "class", "outer-box svelte-gju94k");
@@ -5272,7 +5272,7 @@ var app = (function () {
     	let t1;
     	let div2;
     	let a0;
-    	let projectsbtn;
+    	let aboutbtn;
     	let a0_href_value;
     	let t2;
     	let div3;
@@ -5282,17 +5282,17 @@ var app = (function () {
     	let t3;
     	let div4;
     	let a2;
-    	let aboutbtn;
+    	let workbtn;
     	let a2_href_value;
     	let t4;
     	let div5;
     	let a3;
-    	let workbtn;
-    	let a3_href_value;
+    	let githubbtn;
     	let t5;
     	let div6;
     	let a4;
-    	let githubbtn;
+    	let projectsbtn;
+    	let a4_href_value;
     	let t6;
     	let shape0;
     	let t7;
@@ -5305,11 +5305,11 @@ var app = (function () {
     	let shape4;
     	let current;
     	name = new Name({ $$inline: true });
-    	projectsbtn = new ProjectsBtn({ $$inline: true });
-    	resumebtn = new ResumeBtn({ $$inline: true });
     	aboutbtn = new AboutBtn({ $$inline: true });
+    	resumebtn = new ResumeBtn({ $$inline: true });
     	workbtn = new WorkBtn({ $$inline: true });
     	githubbtn = new GithubBtn({ $$inline: true });
+    	projectsbtn = new ProjectsBtn({ $$inline: true });
 
     	shape0 = new Shape({
     			props: { shapeInvert: true },
@@ -5346,7 +5346,7 @@ var app = (function () {
     			t1 = space();
     			div2 = element("div");
     			a0 = element("a");
-    			create_component(projectsbtn.$$.fragment);
+    			create_component(aboutbtn.$$.fragment);
     			t2 = space();
     			div3 = element("div");
     			a1 = element("a");
@@ -5354,15 +5354,15 @@ var app = (function () {
     			t3 = space();
     			div4 = element("div");
     			a2 = element("a");
-    			create_component(aboutbtn.$$.fragment);
+    			create_component(workbtn.$$.fragment);
     			t4 = space();
     			div5 = element("div");
     			a3 = element("a");
-    			create_component(workbtn.$$.fragment);
+    			create_component(githubbtn.$$.fragment);
     			t5 = space();
     			div6 = element("div");
     			a4 = element("a");
-    			create_component(githubbtn.$$.fragment);
+    			create_component(projectsbtn.$$.fragment);
     			t6 = space();
     			create_component(shape0.$$.fragment);
     			t7 = space();
@@ -5375,41 +5375,42 @@ var app = (function () {
     			create_component(shape4.$$.fragment);
     			attr_dev(div0, "class", "shapes");
     			add_location(div0, file$4, 15, 2, 712);
-    			attr_dev(div1, "class", "grid-item svelte-1gbi7zt");
+    			attr_dev(div1, "class", "grid-item svelte-10zb649");
     			attr_dev(div1, "id", "center");
     			add_location(div1, file$4, 16, 2, 737);
-    			attr_dev(a0, "href", a0_href_value = /*$url*/ ctx[0]("/projects"));
-    			attr_dev(a0, "class", "svelte-1gbi7zt");
+    			attr_dev(a0, "href", a0_href_value = /*$url*/ ctx[0]("/about"));
+    			attr_dev(a0, "class", "svelte-10zb649");
     			add_location(a0, file$4, 20, 4, 815);
     			attr_dev(div2, "id", "tl");
-    			attr_dev(div2, "class", "svelte-1gbi7zt");
+    			attr_dev(div2, "class", "svelte-10zb649");
     			add_location(div2, file$4, 19, 2, 797);
     			attr_dev(a1, "href", a1_href_value = /*$url*/ ctx[0]("/resume"));
-    			attr_dev(a1, "class", "svelte-1gbi7zt");
-    			add_location(a1, file$4, 23, 4, 895);
-    			attr_dev(div3, "class", "tr");
-    			add_location(div3, file$4, 22, 2, 874);
-    			attr_dev(a2, "href", a2_href_value = /*$url*/ ctx[0]("/about"));
-    			attr_dev(a2, "class", "svelte-1gbi7zt");
-    			add_location(a2, file$4, 26, 4, 968);
-    			attr_dev(div4, "id", "br");
-    			attr_dev(div4, "class", "svelte-1gbi7zt");
-    			add_location(div4, file$4, 25, 2, 950);
-    			attr_dev(a3, "href", a3_href_value = /*$url*/ ctx[0]("/work"));
-    			attr_dev(a3, "class", "svelte-1gbi7zt");
-    			add_location(a3, file$4, 29, 4, 1042);
-    			attr_dev(div5, "id", "right");
-    			attr_dev(div5, "class", "svelte-1gbi7zt");
-    			add_location(div5, file$4, 28, 2, 1021);
-    			attr_dev(a4, "href", "https://github.com/benlubas");
-    			attr_dev(a4, "target", "_blank");
-    			attr_dev(a4, "rel", "noopener noreferrer");
-    			attr_dev(a4, "class", "svelte-1gbi7zt");
-    			add_location(a4, file$4, 32, 4, 1111);
-    			attr_dev(div6, "id", "bl");
-    			attr_dev(div6, "class", "svelte-1gbi7zt");
-    			add_location(div6, file$4, 31, 2, 1093);
-    			attr_dev(div7, "class", "container svelte-1gbi7zt");
+    			attr_dev(a1, "class", "svelte-10zb649");
+    			add_location(a1, file$4, 23, 4, 886);
+    			attr_dev(div3, "id", "tr");
+    			attr_dev(div3, "class", "svelte-10zb649");
+    			add_location(div3, file$4, 22, 2, 868);
+    			attr_dev(a2, "href", a2_href_value = /*$url*/ ctx[0]("/work"));
+    			attr_dev(a2, "class", "svelte-10zb649");
+    			add_location(a2, file$4, 26, 4, 962);
+    			attr_dev(div4, "id", "right");
+    			attr_dev(div4, "class", "svelte-10zb649");
+    			add_location(div4, file$4, 25, 2, 941);
+    			attr_dev(a3, "href", "https://github.com/benlubas");
+    			attr_dev(a3, "target", "_blank");
+    			attr_dev(a3, "rel", "noopener noreferrer");
+    			attr_dev(a3, "class", "svelte-10zb649");
+    			add_location(a3, file$4, 29, 4, 1031);
+    			attr_dev(div5, "id", "bl");
+    			attr_dev(div5, "class", "svelte-10zb649");
+    			add_location(div5, file$4, 28, 2, 1013);
+    			attr_dev(a4, "href", a4_href_value = /*$url*/ ctx[0]("/projects"));
+    			attr_dev(a4, "class", "svelte-10zb649");
+    			add_location(a4, file$4, 36, 4, 1181);
+    			attr_dev(div6, "id", "br");
+    			attr_dev(div6, "class", "svelte-10zb649");
+    			add_location(div6, file$4, 35, 2, 1163);
+    			attr_dev(div7, "class", "container svelte-10zb649");
     			add_location(div7, file$4, 14, 0, 686);
     		},
     		l: function claim(nodes) {
@@ -5424,7 +5425,7 @@ var app = (function () {
     			append_dev(div7, t1);
     			append_dev(div7, div2);
     			append_dev(div2, a0);
-    			mount_component(projectsbtn, a0, null);
+    			mount_component(aboutbtn, a0, null);
     			append_dev(div7, t2);
     			append_dev(div7, div3);
     			append_dev(div3, a1);
@@ -5432,15 +5433,15 @@ var app = (function () {
     			append_dev(div7, t3);
     			append_dev(div7, div4);
     			append_dev(div4, a2);
-    			mount_component(aboutbtn, a2, null);
+    			mount_component(workbtn, a2, null);
     			append_dev(div7, t4);
     			append_dev(div7, div5);
     			append_dev(div5, a3);
-    			mount_component(workbtn, a3, null);
+    			mount_component(githubbtn, a3, null);
     			append_dev(div7, t5);
     			append_dev(div7, div6);
     			append_dev(div6, a4);
-    			mount_component(githubbtn, a4, null);
+    			mount_component(projectsbtn, a4, null);
     			append_dev(div7, t6);
     			mount_component(shape0, div7, null);
     			append_dev(div7, t7);
@@ -5454,7 +5455,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*$url*/ 1 && a0_href_value !== (a0_href_value = /*$url*/ ctx[0]("/projects"))) {
+    			if (!current || dirty & /*$url*/ 1 && a0_href_value !== (a0_href_value = /*$url*/ ctx[0]("/about"))) {
     				attr_dev(a0, "href", a0_href_value);
     			}
 
@@ -5462,22 +5463,22 @@ var app = (function () {
     				attr_dev(a1, "href", a1_href_value);
     			}
 
-    			if (!current || dirty & /*$url*/ 1 && a2_href_value !== (a2_href_value = /*$url*/ ctx[0]("/about"))) {
+    			if (!current || dirty & /*$url*/ 1 && a2_href_value !== (a2_href_value = /*$url*/ ctx[0]("/work"))) {
     				attr_dev(a2, "href", a2_href_value);
     			}
 
-    			if (!current || dirty & /*$url*/ 1 && a3_href_value !== (a3_href_value = /*$url*/ ctx[0]("/work"))) {
-    				attr_dev(a3, "href", a3_href_value);
+    			if (!current || dirty & /*$url*/ 1 && a4_href_value !== (a4_href_value = /*$url*/ ctx[0]("/projects"))) {
+    				attr_dev(a4, "href", a4_href_value);
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(name.$$.fragment, local);
-    			transition_in(projectsbtn.$$.fragment, local);
-    			transition_in(resumebtn.$$.fragment, local);
     			transition_in(aboutbtn.$$.fragment, local);
+    			transition_in(resumebtn.$$.fragment, local);
     			transition_in(workbtn.$$.fragment, local);
     			transition_in(githubbtn.$$.fragment, local);
+    			transition_in(projectsbtn.$$.fragment, local);
     			transition_in(shape0.$$.fragment, local);
     			transition_in(shape1.$$.fragment, local);
     			transition_in(shape2.$$.fragment, local);
@@ -5487,11 +5488,11 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(name.$$.fragment, local);
-    			transition_out(projectsbtn.$$.fragment, local);
-    			transition_out(resumebtn.$$.fragment, local);
     			transition_out(aboutbtn.$$.fragment, local);
+    			transition_out(resumebtn.$$.fragment, local);
     			transition_out(workbtn.$$.fragment, local);
     			transition_out(githubbtn.$$.fragment, local);
+    			transition_out(projectsbtn.$$.fragment, local);
     			transition_out(shape0.$$.fragment, local);
     			transition_out(shape1.$$.fragment, local);
     			transition_out(shape2.$$.fragment, local);
@@ -5502,11 +5503,11 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div7);
     			destroy_component(name);
-    			destroy_component(projectsbtn);
-    			destroy_component(resumebtn);
     			destroy_component(aboutbtn);
+    			destroy_component(resumebtn);
     			destroy_component(workbtn);
     			destroy_component(githubbtn);
+    			destroy_component(projectsbtn);
     			destroy_component(shape0);
     			destroy_component(shape1);
     			destroy_component(shape2);
@@ -5934,7 +5935,7 @@ var app = (function () {
     	let t1;
     	let p1;
     	let t3;
-    	let div9;
+    	let div11;
     	let div8;
     	let div3;
     	let div1;
@@ -5951,6 +5952,10 @@ var app = (function () {
     	let t12;
     	let div6;
     	let t13;
+    	let t14;
+    	let div10;
+    	let div9;
+    	let t16;
     	let mounted;
     	let dispose;
     	let if_block = /*availability*/ ctx[3] && create_if_block(ctx);
@@ -5964,7 +5969,7 @@ var app = (function () {
     			p1 = element("p");
     			p1.textContent = "Because this is a webpage, it's interactive! You can click links, hover for\n    more info, and even edit parts of the page. It's also printable!";
     			t3 = space();
-    			div9 = element("div");
+    			div11 = element("div");
     			div8 = element("div");
     			div3 = element("div");
     			div1 = element("div");
@@ -5984,6 +5989,11 @@ var app = (function () {
     			t12 = space();
     			div6 = element("div");
     			t13 = text(/*website*/ ctx[2]);
+    			t14 = space();
+    			div10 = element("div");
+    			div9 = element("div");
+    			div9.textContent = "Education";
+    			t16 = text("\n    I am a cs major at Northeastern University. I have a 3.7 GPA and graduate in 2024.");
     			add_location(p0, file$2, 9, 2, 248);
     			add_location(p1, file$2, 13, 2, 363);
     			attr_dev(div0, "class", "no-print svelte-aa5l3d");
@@ -6010,8 +6020,12 @@ var app = (function () {
     			add_location(div7, file$2, 32, 4, 823);
     			attr_dev(div8, "class", "head svelte-aa5l3d");
     			add_location(div8, file$2, 20, 2, 554);
-    			attr_dev(div9, "class", "resume svelte-aa5l3d");
-    			add_location(div9, file$2, 19, 0, 531);
+    			attr_dev(div9, "class", "r-section-title");
+    			add_location(div9, file$2, 39, 4, 1135);
+    			attr_dev(div10, "class", "education");
+    			add_location(div10, file$2, 38, 2, 1107);
+    			attr_dev(div11, "class", "resume svelte-aa5l3d");
+    			add_location(div11, file$2, 19, 0, 531);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6022,8 +6036,8 @@ var app = (function () {
     			append_dev(div0, t1);
     			append_dev(div0, p1);
     			insert_dev(target, t3, anchor);
-    			insert_dev(target, div9, anchor);
-    			append_dev(div9, div8);
+    			insert_dev(target, div11, anchor);
+    			append_dev(div11, div8);
     			append_dev(div8, div3);
     			append_dev(div3, div1);
     			append_dev(div3, t5);
@@ -6054,6 +6068,11 @@ var app = (function () {
     			if (/*website*/ ctx[2] !== void 0) {
     				div6.innerHTML = /*website*/ ctx[2];
     			}
+
+    			append_dev(div11, t14);
+    			append_dev(div11, div10);
+    			append_dev(div10, div9);
+    			append_dev(div10, t16);
 
     			if (!mounted) {
     				dispose = [
@@ -6090,7 +6109,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div0);
     			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(div9);
+    			if (detaching) detach_dev(div11);
     			if (if_block) if_block.d();
     			mounted = false;
     			run_all(dispose);

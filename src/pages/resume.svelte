@@ -37,6 +37,12 @@
       <div class="website" contenteditable bind:innerHTML={website}>{website}</div>
     </div>
   </div>
+  <div class="education">
+    <div class="r-section-title">
+      Education
+    </div>
+    I am a cs major at Northeastern University. I have a 3.7 GPA and graduate in 2024.
+  </div>
 </div>
 
 <style>
