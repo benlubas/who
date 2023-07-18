@@ -165,7 +165,7 @@ var app = (function () {
     function append_empty_stylesheet(node) {
         const style_element = element('style');
         append_stylesheet(get_root_for_style(node), style_element);
-        return style_element;
+        return style_element.sheet;
     }
     function append_stylesheet(node, style) {
         append(node.head || node, style);
@@ -202,18 +202,25 @@ var app = (function () {
         return Array.from(element.childNodes);
     }
     function set_style(node, key, value, important) {
-        node.style.setProperty(key, value, important ? 'important' : '');
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
     }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
-    function custom_event(type, detail, bubbles = false) {
+    function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
-        e.initCustomEvent(type, bubbles, false, detail);
+        e.initCustomEvent(type, bubbles, cancelable, detail);
         return e;
     }
 
-    const active_docs = new Set();
+    // we need to store the information for multiple documents because a Svelte application could also contain iframes
+    // https://github.com/sveltejs/svelte/issues/3624
+    const managed_styles = new Map();
     let active = 0;
     // https://github.com/darkskyapp/string-hash/blob/master/index.js
     function hash(str) {
@@ -222,6 +229,11 @@ var app = (function () {
         while (i--)
             hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
         return hash >>> 0;
+    }
+    function create_style_information(doc, node) {
+        const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+        managed_styles.set(doc, info);
+        return info;
     }
     function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
         const step = 16.666 / duration;
@@ -233,11 +245,9 @@ var app = (function () {
         const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
         const name = `__svelte_${hash(rule)}_${uid}`;
         const doc = get_root_for_style(node);
-        active_docs.add(doc);
-        const stylesheet = doc.__svelte_stylesheet || (doc.__svelte_stylesheet = append_empty_stylesheet(node).sheet);
-        const current_rules = doc.__svelte_rules || (doc.__svelte_rules = {});
-        if (!current_rules[name]) {
-            current_rules[name] = true;
+        const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+        if (!rules[name]) {
+            rules[name] = true;
             stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
         }
         const animation = node.style.animation || '';
@@ -263,14 +273,14 @@ var app = (function () {
         raf(() => {
             if (active)
                 return;
-            active_docs.forEach(doc => {
-                const stylesheet = doc.__svelte_stylesheet;
+            managed_styles.forEach(info => {
+                const { stylesheet } = info;
                 let i = stylesheet.cssRules.length;
                 while (i--)
                     stylesheet.deleteRule(i);
-                doc.__svelte_rules = {};
+                info.rules = {};
             });
-            active_docs.clear();
+            managed_styles.clear();
         });
     }
 
@@ -291,6 +301,7 @@ var app = (function () {
     }
     function setContext(key, context) {
         get_current_component().$$.context.set(key, context);
+        return context;
     }
     function getContext(key) {
         return get_current_component().$$.context.get(key);
@@ -315,22 +326,40 @@ var app = (function () {
     function add_render_callback(fn) {
         render_callbacks.push(fn);
     }
-    let flushing = false;
+    // flush() calls callbacks in this order:
+    // 1. All beforeUpdate callbacks, in order: parents before children
+    // 2. All bind:this callbacks, in reverse order: children before parents.
+    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
+    //    for afterUpdates called during the initial onMount, which are called in
+    //    reverse order: children before parents.
+    // Since callbacks might update component values, which could trigger another
+    // call to flush(), the following steps guard against this:
+    // 1. During beforeUpdate, any updated components will be added to the
+    //    dirty_components array and will cause a reentrant call to flush(). Because
+    //    the flush index is kept outside the function, the reentrant call will pick
+    //    up where the earlier call left off and go through all dirty components. The
+    //    current_component value is saved and restored so that the reentrant call will
+    //    not interfere with the "parent" flush() call.
+    // 2. bind:this callbacks cannot trigger new flush() calls.
+    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
+    //    callback called a second time; the seen_callbacks set, outside the flush()
+    //    function, guarantees this behavior.
     const seen_callbacks = new Set();
+    let flushidx = 0; // Do *not* move this inside the flush() function
     function flush() {
-        if (flushing)
-            return;
-        flushing = true;
+        const saved_component = current_component;
         do {
             // first, call beforeUpdate functions
             // and update components
-            for (let i = 0; i < dirty_components.length; i += 1) {
-                const component = dirty_components[i];
+            while (flushidx < dirty_components.length) {
+                const component = dirty_components[flushidx];
+                flushidx++;
                 set_current_component(component);
                 update(component.$$);
             }
             set_current_component(null);
             dirty_components.length = 0;
+            flushidx = 0;
             while (binding_callbacks.length)
                 binding_callbacks.pop()();
             // then, once components are updated, call
@@ -350,8 +379,8 @@ var app = (function () {
             flush_callbacks.pop()();
         }
         update_scheduled = false;
-        flushing = false;
         seen_callbacks.clear();
+        set_current_component(saved_component);
     }
     function update($$) {
         if ($$.fragment !== null) {
@@ -412,6 +441,9 @@ var app = (function () {
                 }
             });
             block.o(local);
+        }
+        else if (callback) {
+            callback();
         }
     }
     const null_transition = { duration: 0 };
@@ -731,7 +763,7 @@ var app = (function () {
             on_disconnect: [],
             before_update: [],
             after_update: [],
-            context: new Map(parent_component ? parent_component.$$.context : options.context || []),
+            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
             // everything else
             callbacks: blank_object(),
             dirty,
@@ -802,7 +834,7 @@ var app = (function () {
     }
 
     function dispatch_dev(type, detail) {
-        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.42.6' }, detail), true));
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.49.0' }, detail), { bubbles: true }));
     }
     function append_dev(target, node) {
         dispatch_dev('SvelteDOMInsert', { target, node });
@@ -1073,7 +1105,7 @@ var app = (function () {
       return defaultConfig.queryHandler.stringify(queryParams).replace(/\?$/, '')
     }
 
-    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.49.0 */
 
     function create_fragment$j(ctx) {
     	let current;
@@ -1433,7 +1465,7 @@ var app = (function () {
             .map(f => f && f[1])
     }
 
-    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.49.0 */
     const file$g = "node_modules/@roxi/routify/runtime/Prefetcher.svelte";
 
     function get_each_context$2(ctx, list, i) {
@@ -1947,7 +1979,7 @@ var app = (function () {
       }
     });
 
-    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.49.0 */
     const file$f = "node_modules/@roxi/routify/runtime/Route.svelte";
 
     function get_each_context$1(ctx, list, i) {
@@ -2866,7 +2898,7 @@ var app = (function () {
       return true
     }
 
-    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.42.6 */
+    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.49.0 */
 
     const { Object: Object_1 } = globals;
 
@@ -3522,7 +3554,7 @@ var app = (function () {
       return payload
     }
 
-    /* src/components/shape.svelte generated by Svelte v3.42.6 */
+    /* src/components/shape.svelte generated by Svelte v3.49.0 */
     const file$e = "src/components/shape.svelte";
 
     function create_fragment$f(ctx) {
@@ -3885,7 +3917,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/PageTitle.svelte generated by Svelte v3.42.6 */
+    /* src/components/PageTitle.svelte generated by Svelte v3.49.0 */
     const file$d = "src/components/PageTitle.svelte";
 
     function create_fragment$e(ctx) {
@@ -4074,7 +4106,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/about.svelte generated by Svelte v3.42.6 */
+    /* src/pages/about.svelte generated by Svelte v3.49.0 */
     const file$c = "src/pages/about.svelte";
 
     function create_fragment$d(ctx) {
@@ -4532,7 +4564,7 @@ var app = (function () {
         };
     }
 
-    /* src/components/textCarousel.svelte generated by Svelte v3.42.6 */
+    /* src/components/textCarousel.svelte generated by Svelte v3.49.0 */
     const file$b = "src/components/textCarousel.svelte";
 
     function get_each_context(ctx, list, i) {
@@ -4751,7 +4783,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/name.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/name.svelte generated by Svelte v3.49.0 */
     const file$a = "src/components/gridBoxes/name.svelte";
 
     function create_fragment$b(ctx) {
@@ -4840,38 +4872,36 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.49.0 */
 
     const file$9 = "src/components/gridBoxes/projectsBtn.svelte";
 
     function create_fragment$a(ctx) {
     	let div4;
     	let div3;
+    	let div2;
     	let div0;
     	let t0;
     	let div1;
-    	let t1;
-    	let div2;
 
     	const block = {
     		c: function create() {
     			div4 = element("div");
     			div3 = element("div");
+    			div2 = element("div");
     			div0 = element("div");
     			t0 = space();
     			div1 = element("div");
-    			t1 = space();
-    			div2 = element("div");
-    			div2.textContent = "Projects";
-    			attr_dev(div0, "class", "line svelte-zh1uoj");
-    			add_location(div0, file$9, 4, 4, 77);
-    			attr_dev(div1, "class", "bg svelte-zh1uoj");
-    			add_location(div1, file$9, 5, 4, 102);
-    			attr_dev(div2, "class", "btn-title");
-    			add_location(div2, file$9, 6, 4, 125);
-    			attr_dev(div3, "class", "box svelte-zh1uoj");
+    			div1.textContent = "Projects";
+    			attr_dev(div0, "class", "bg svelte-gju94k");
+    			add_location(div0, file$9, 6, 6, 143);
+    			attr_dev(div1, "class", "btn-title");
+    			add_location(div1, file$9, 7, 6, 168);
+    			attr_dev(div2, "class", "box svelte-gju94k");
+    			add_location(div2, file$9, 4, 4, 83);
+    			attr_dev(div3, "class", "outer-box svelte-gju94k");
     			add_location(div3, file$9, 3, 2, 55);
-    			attr_dev(div4, "class", "container svelte-zh1uoj");
+    			attr_dev(div4, "class", "container svelte-gju94k");
     			add_location(div4, file$9, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -4880,11 +4910,10 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
     			append_dev(div4, div3);
-    			append_dev(div3, div0);
-    			append_dev(div3, t0);
-    			append_dev(div3, div1);
-    			append_dev(div3, t1);
     			append_dev(div3, div2);
+    			append_dev(div2, div0);
+    			append_dev(div2, t0);
+    			append_dev(div2, div1);
     		},
     		p: noop,
     		i: noop,
@@ -4931,7 +4960,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.49.0 */
 
     const file$8 = "src/components/gridBoxes/aboutBtn.svelte";
 
@@ -5006,7 +5035,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/workBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/workBtn.svelte generated by Svelte v3.49.0 */
 
     const file$7 = "src/components/gridBoxes/workBtn.svelte";
 
@@ -5081,7 +5110,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.49.0 */
 
     const file$6 = "src/components/gridBoxes/githubBtn.svelte";
 
@@ -5156,7 +5185,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/resumeBtn.svelte generated by Svelte v3.42.6 */
+    /* src/components/gridBoxes/resumeBtn.svelte generated by Svelte v3.49.0 */
 
     const file$5 = "src/components/gridBoxes/resumeBtn.svelte";
 
@@ -5231,7 +5260,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/index.svelte generated by Svelte v3.42.6 */
+    /* src/pages/index.svelte generated by Svelte v3.49.0 */
     const file$4 = "src/pages/index.svelte";
 
     function create_fragment$5(ctx) {
@@ -5543,7 +5572,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/projects.svelte generated by Svelte v3.42.6 */
+    /* src/pages/projects.svelte generated by Svelte v3.49.0 */
     const file$3 = "src/pages/projects.svelte";
 
     function create_fragment$4(ctx) {
@@ -5864,7 +5893,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/resume.svelte generated by Svelte v3.42.6 */
+    /* src/pages/resume.svelte generated by Svelte v3.49.0 */
 
     const file$2 = "src/pages/resume.svelte";
 
@@ -6154,7 +6183,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/quote.svelte generated by Svelte v3.42.6 */
+    /* src/components/quote.svelte generated by Svelte v3.49.0 */
 
     const file$1 = "src/components/quote.svelte";
 
@@ -6255,7 +6284,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/work.svelte generated by Svelte v3.42.6 */
+    /* src/pages/work.svelte generated by Svelte v3.49.0 */
     const file = "src/pages/work.svelte";
 
     // (79:4) <Quote>
@@ -6627,7 +6656,7 @@ var app = (function () {
           "name": "about",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/about.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
           "importPath": "../src/pages/about.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6652,7 +6681,7 @@ var app = (function () {
           "name": "index",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/index.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
           "importPath": "../src/pages/index.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6677,7 +6706,7 @@ var app = (function () {
           "name": "projects",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/projects.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
           "importPath": "../src/pages/projects.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6702,7 +6731,7 @@ var app = (function () {
           "name": "resume",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/resume.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/resume.svelte",
           "importPath": "../src/pages/resume.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6727,7 +6756,7 @@ var app = (function () {
           "name": "work",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/work.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
           "importPath": "../src/pages/work.svelte",
           "isLayout": false,
           "isReset": false,
@@ -6760,7 +6789,7 @@ var app = (function () {
 
     const {tree, routes} = buildClientTree(_tree);
 
-    /* src/App.svelte generated by Svelte v3.42.6 */
+    /* src/App.svelte generated by Svelte v3.49.0 */
 
     function create_fragment(ctx) {
     	let router;
