@@ -34,19 +34,84 @@
     <div class="contact">
       <div class="phone" contenteditable bind:innerHTML={phone}>{phone}</div>
       <div class="email" contenteditable bind:innerHTML={email}>{email}</div>
-      <div class="website" contenteditable bind:innerHTML={website}>{website}</div>
+      <div class="website" contenteditable bind:innerHTML={website}>
+        {website}
+      </div>
     </div>
   </div>
-  <div class="education">
-    <div class="r-section-title">
-      Education
+  <div class="r-body">
+    <div class="top-body">
+      <div id="education">
+        <div class="r-section-title">Education</div>
+        <div class="edu-section">
+          <div class="edu-head">
+            <div class="school-name">Northeastern University</div>
+            <div class="activity-date">2020-2024</div>
+          </div>
+          <p>Khoury College of Computer Science</p>
+          <p>Candidate for Bachelor of Science Computer Science, 2024</p>
+          <p>Dean’s List | GPA: 3.68/4.00</p>
+        </div>
+        <div class="edu-section">
+          <div class="edu-head">
+            <div class="school-name">Plymouth Whitemarsh High School</div>
+            <div class="activity-date">2016-2020</div>
+          </div>
+          <p>4x Honor Roll | GPA: 3.97/4.00</p>
+        </div>
+      </div>
+      <div id="knowledge-interests">
+        <div class="tech-knowledge">
+          <div class="r-section-title">Technical Knowledge</div>
+          <div class="skill-list">
+            Rails | TypeScript | React | Rust | HTML/CSS | Svelte | Clojure |
+            SQL | Docker | K8s | Airflow
+          </div>
+        </div>
+        <div class="interests">
+          <div class="r-section-title">Interests</div>
+          <ul>
+            <li>Keyboards (with 36 keys)</li>
+            <li>Gaming</li>
+            <li>Hockey</li>
+            <li>Artificial Intelligence</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    I am a cs major at Northeastern University. I have a 3.7 GPA and graduate in 2024.
+    <div id="work">
+      <div class="r-section-title">Work Experience</div>
+      <div class="job">
+        <div class="job-heading">
+          <div class="job-title">
+            <strong>Software Engineering Co-op</strong>, BookBub
+          </div>
+          <div class="activity-date">2022</div>
+        </div>
+        <ul>
+          <li class="job-bullet">I did pretty well here</li>
+          <li class="job-bullet">I did something else too</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-heading">
+          <div class="job-title">
+            <strong>Software Engineering Co-op</strong>, Wayfair
+          </div>
+          <div class="activity-date">2022</div>
+        </div>
+        <ul>
+          <li class="job-bullet">I did pretty well here</li>
+          <li class="job-bullet">I did something else too</li>
+        </ul>
+      </div>
+    </div>
+    <div id="projects">This is the projects section</div>
   </div>
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&family=Roboto+Condensed:wght@300&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&family=Roboto+Condensed:wght@300&display=swap");
   .resume {
     border: 1px solid white;
     width: 960px;
@@ -64,19 +129,63 @@
     border-bottom: 2px solid var(--resume-accent);
   }
 
+  .job-heading {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .activity-date {
+    font-style: italic;
+  }
+
   .name {
-    font-family: 'Lora', serif;
+    font-family: "Lora", serif;
     font-size: 28pt;
+  }
+
+  #knowledge-interests {
+    display: flex;
+    flex-direction: column;
   }
 
   .resume-subtitle {
     text-transform: uppercase;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
+  }
+
+  .r-section-title {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 14pt;
+  }
+  .r-section-title::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--resume-accent);
   }
 
   .contact div {
     text-align: right;
+  }
+
+  .edu-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .edu-head::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--resume-accent);
+    position: absolute;
+    bottom: -2px;
   }
 
   @page {
