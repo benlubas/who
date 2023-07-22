@@ -165,7 +165,7 @@ var app = (function () {
     function append_empty_stylesheet(node) {
         const style_element = element('style');
         append_stylesheet(get_root_for_style(node), style_element);
-        return style_element.sheet;
+        return style_element;
     }
     function append_stylesheet(node, style) {
         append(node.head || node, style);
@@ -202,25 +202,18 @@ var app = (function () {
         return Array.from(element.childNodes);
     }
     function set_style(node, key, value, important) {
-        if (value === null) {
-            node.style.removeProperty(key);
-        }
-        else {
-            node.style.setProperty(key, value, important ? 'important' : '');
-        }
+        node.style.setProperty(key, value, important ? 'important' : '');
     }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
-    function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
-        e.initCustomEvent(type, bubbles, cancelable, detail);
+        e.initCustomEvent(type, bubbles, false, detail);
         return e;
     }
 
-    // we need to store the information for multiple documents because a Svelte application could also contain iframes
-    // https://github.com/sveltejs/svelte/issues/3624
-    const managed_styles = new Map();
+    const active_docs = new Set();
     let active = 0;
     // https://github.com/darkskyapp/string-hash/blob/master/index.js
     function hash(str) {
@@ -229,11 +222,6 @@ var app = (function () {
         while (i--)
             hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
         return hash >>> 0;
-    }
-    function create_style_information(doc, node) {
-        const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
-        managed_styles.set(doc, info);
-        return info;
     }
     function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
         const step = 16.666 / duration;
@@ -245,9 +233,11 @@ var app = (function () {
         const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
         const name = `__svelte_${hash(rule)}_${uid}`;
         const doc = get_root_for_style(node);
-        const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
-        if (!rules[name]) {
-            rules[name] = true;
+        active_docs.add(doc);
+        const stylesheet = doc.__svelte_stylesheet || (doc.__svelte_stylesheet = append_empty_stylesheet(node).sheet);
+        const current_rules = doc.__svelte_rules || (doc.__svelte_rules = {});
+        if (!current_rules[name]) {
+            current_rules[name] = true;
             stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
         }
         const animation = node.style.animation || '';
@@ -273,14 +263,14 @@ var app = (function () {
         raf(() => {
             if (active)
                 return;
-            managed_styles.forEach(info => {
-                const { stylesheet } = info;
+            active_docs.forEach(doc => {
+                const stylesheet = doc.__svelte_stylesheet;
                 let i = stylesheet.cssRules.length;
                 while (i--)
                     stylesheet.deleteRule(i);
-                info.rules = {};
+                doc.__svelte_rules = {};
             });
-            managed_styles.clear();
+            active_docs.clear();
         });
     }
 
@@ -301,7 +291,6 @@ var app = (function () {
     }
     function setContext(key, context) {
         get_current_component().$$.context.set(key, context);
-        return context;
     }
     function getContext(key) {
         return get_current_component().$$.context.get(key);
@@ -326,40 +315,22 @@ var app = (function () {
     function add_render_callback(fn) {
         render_callbacks.push(fn);
     }
-    // flush() calls callbacks in this order:
-    // 1. All beforeUpdate callbacks, in order: parents before children
-    // 2. All bind:this callbacks, in reverse order: children before parents.
-    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
-    //    for afterUpdates called during the initial onMount, which are called in
-    //    reverse order: children before parents.
-    // Since callbacks might update component values, which could trigger another
-    // call to flush(), the following steps guard against this:
-    // 1. During beforeUpdate, any updated components will be added to the
-    //    dirty_components array and will cause a reentrant call to flush(). Because
-    //    the flush index is kept outside the function, the reentrant call will pick
-    //    up where the earlier call left off and go through all dirty components. The
-    //    current_component value is saved and restored so that the reentrant call will
-    //    not interfere with the "parent" flush() call.
-    // 2. bind:this callbacks cannot trigger new flush() calls.
-    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
-    //    callback called a second time; the seen_callbacks set, outside the flush()
-    //    function, guarantees this behavior.
+    let flushing = false;
     const seen_callbacks = new Set();
-    let flushidx = 0; // Do *not* move this inside the flush() function
     function flush() {
-        const saved_component = current_component;
+        if (flushing)
+            return;
+        flushing = true;
         do {
             // first, call beforeUpdate functions
             // and update components
-            while (flushidx < dirty_components.length) {
-                const component = dirty_components[flushidx];
-                flushidx++;
+            for (let i = 0; i < dirty_components.length; i += 1) {
+                const component = dirty_components[i];
                 set_current_component(component);
                 update(component.$$);
             }
             set_current_component(null);
             dirty_components.length = 0;
-            flushidx = 0;
             while (binding_callbacks.length)
                 binding_callbacks.pop()();
             // then, once components are updated, call
@@ -379,8 +350,8 @@ var app = (function () {
             flush_callbacks.pop()();
         }
         update_scheduled = false;
+        flushing = false;
         seen_callbacks.clear();
-        set_current_component(saved_component);
     }
     function update($$) {
         if ($$.fragment !== null) {
@@ -441,9 +412,6 @@ var app = (function () {
                 }
             });
             block.o(local);
-        }
-        else if (callback) {
-            callback();
         }
     }
     const null_transition = { duration: 0 };
@@ -763,7 +731,7 @@ var app = (function () {
             on_disconnect: [],
             before_update: [],
             after_update: [],
-            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+            context: new Map(parent_component ? parent_component.$$.context : options.context || []),
             // everything else
             callbacks: blank_object(),
             dirty,
@@ -834,7 +802,7 @@ var app = (function () {
     }
 
     function dispatch_dev(type, detail) {
-        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.49.0' }, detail), { bubbles: true }));
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.42.6' }, detail), true));
     }
     function append_dev(target, node) {
         dispatch_dev('SvelteDOMInsert', { target, node });
@@ -1105,7 +1073,7 @@ var app = (function () {
       return defaultConfig.queryHandler.stringify(queryParams).replace(/\?$/, '')
     }
 
-    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.49.0 */
+    /* node_modules/@roxi/routify/runtime/decorators/Noop.svelte generated by Svelte v3.42.6 */
 
     function create_fragment$j(ctx) {
     	let current;
@@ -1465,7 +1433,7 @@ var app = (function () {
             .map(f => f && f[1])
     }
 
-    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.49.0 */
+    /* node_modules/@roxi/routify/runtime/Prefetcher.svelte generated by Svelte v3.42.6 */
     const file$g = "node_modules/@roxi/routify/runtime/Prefetcher.svelte";
 
     function get_each_context$2(ctx, list, i) {
@@ -1979,7 +1947,7 @@ var app = (function () {
       }
     });
 
-    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.49.0 */
+    /* node_modules/@roxi/routify/runtime/Route.svelte generated by Svelte v3.42.6 */
     const file$f = "node_modules/@roxi/routify/runtime/Route.svelte";
 
     function get_each_context$1(ctx, list, i) {
@@ -2898,7 +2866,7 @@ var app = (function () {
       return true
     }
 
-    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.49.0 */
+    /* node_modules/@roxi/routify/runtime/Router.svelte generated by Svelte v3.42.6 */
 
     const { Object: Object_1 } = globals;
 
@@ -3554,7 +3522,7 @@ var app = (function () {
       return payload
     }
 
-    /* src/components/shape.svelte generated by Svelte v3.49.0 */
+    /* src/components/shape.svelte generated by Svelte v3.42.6 */
     const file$e = "src/components/shape.svelte";
 
     function create_fragment$f(ctx) {
@@ -3917,7 +3885,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/PageTitle.svelte generated by Svelte v3.49.0 */
+    /* src/components/PageTitle.svelte generated by Svelte v3.42.6 */
     const file$d = "src/components/PageTitle.svelte";
 
     function create_fragment$e(ctx) {
@@ -4106,7 +4074,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/about.svelte generated by Svelte v3.49.0 */
+    /* src/pages/about.svelte generated by Svelte v3.42.6 */
     const file$c = "src/pages/about.svelte";
 
     function create_fragment$d(ctx) {
@@ -4564,7 +4532,7 @@ var app = (function () {
         };
     }
 
-    /* src/components/textCarousel.svelte generated by Svelte v3.49.0 */
+    /* src/components/textCarousel.svelte generated by Svelte v3.42.6 */
     const file$b = "src/components/textCarousel.svelte";
 
     function get_each_context(ctx, list, i) {
@@ -4783,7 +4751,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/name.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/name.svelte generated by Svelte v3.42.6 */
     const file$a = "src/components/gridBoxes/name.svelte";
 
     function create_fragment$b(ctx) {
@@ -4872,7 +4840,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/projectsBtn.svelte generated by Svelte v3.42.6 */
 
     const file$9 = "src/components/gridBoxes/projectsBtn.svelte";
 
@@ -4960,7 +4928,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/aboutBtn.svelte generated by Svelte v3.42.6 */
 
     const file$8 = "src/components/gridBoxes/aboutBtn.svelte";
 
@@ -5035,7 +5003,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/workBtn.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/workBtn.svelte generated by Svelte v3.42.6 */
 
     const file$7 = "src/components/gridBoxes/workBtn.svelte";
 
@@ -5110,7 +5078,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/githubBtn.svelte generated by Svelte v3.42.6 */
 
     const file$6 = "src/components/gridBoxes/githubBtn.svelte";
 
@@ -5185,7 +5153,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/gridBoxes/resumeBtn.svelte generated by Svelte v3.49.0 */
+    /* src/components/gridBoxes/resumeBtn.svelte generated by Svelte v3.42.6 */
 
     const file$5 = "src/components/gridBoxes/resumeBtn.svelte";
 
@@ -5260,7 +5228,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/index.svelte generated by Svelte v3.49.0 */
+    /* src/pages/index.svelte generated by Svelte v3.42.6 */
     const file$4 = "src/pages/index.svelte";
 
     function create_fragment$5(ctx) {
@@ -5573,7 +5541,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/projects.svelte generated by Svelte v3.49.0 */
+    /* src/pages/projects.svelte generated by Svelte v3.42.6 */
     const file$3 = "src/pages/projects.svelte";
 
     function create_fragment$4(ctx) {
@@ -5894,7 +5862,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/resume.svelte generated by Svelte v3.49.0 */
+    /* src/pages/resume.svelte generated by Svelte v3.42.6 */
 
     const file$2 = "src/pages/resume.svelte";
 
@@ -5935,7 +5903,7 @@ var app = (function () {
     	let t1;
     	let p1;
     	let t3;
-    	let div38;
+    	let div47;
     	let div8;
     	let div3;
     	let div1;
@@ -5953,7 +5921,7 @@ var app = (function () {
     	let div6;
     	let t13;
     	let t14;
-    	let div37;
+    	let div46;
     	let div25;
     	let div18;
     	let div9;
@@ -6025,7 +5993,34 @@ var app = (function () {
     	let t64;
     	let li7;
     	let t66;
+    	let div45;
     	let div36;
+    	let t68;
+    	let div40;
+    	let div39;
+    	let div37;
+    	let strong2;
+    	let t70;
+    	let t71;
+    	let div38;
+    	let t73;
+    	let ul3;
+    	let li8;
+    	let t75;
+    	let li9;
+    	let t77;
+    	let div44;
+    	let div43;
+    	let div41;
+    	let strong3;
+    	let t79;
+    	let t80;
+    	let div42;
+    	let t82;
+    	let ul4;
+    	let li10;
+    	let t84;
+    	let li11;
     	let mounted;
     	let dispose;
     	let if_block = /*availability*/ ctx[3] && create_if_block(ctx);
@@ -6039,7 +6034,7 @@ var app = (function () {
     			p1 = element("p");
     			p1.textContent = "Because this is a webpage, it's interactive! You can click links, hover for\n    more info, and even edit parts of the page. It's also printable!";
     			t3 = space();
-    			div38 = element("div");
+    			div47 = element("div");
     			div8 = element("div");
     			div3 = element("div");
     			div1 = element("div");
@@ -6060,7 +6055,7 @@ var app = (function () {
     			div6 = element("div");
     			t13 = text(/*website*/ ctx[2]);
     			t14 = space();
-    			div37 = element("div");
+    			div46 = element("div");
     			div25 = element("div");
     			div18 = element("div");
     			div9 = element("div");
@@ -6157,116 +6152,181 @@ var app = (function () {
     			li7 = element("li");
     			li7.textContent = "I did something else too";
     			t66 = space();
+    			div45 = element("div");
     			div36 = element("div");
-    			div36.textContent = "This is the projects section";
+    			div36.textContent = "Projects";
+    			t68 = space();
+    			div40 = element("div");
+    			div39 = element("div");
+    			div37 = element("div");
+    			strong2 = element("strong");
+    			strong2.textContent = "Dive Sheet Generator";
+    			t70 = text(", Svelte | CSS");
+    			t71 = space();
+    			div38 = element("div");
+    			div38.textContent = "August 2021";
+    			t73 = space();
+    			ul3 = element("ul");
+    			li8 = element("li");
+    			li8.textContent = "Developed a web-based application that converts a CSV file to\n            printable, league standard dive sheets";
+    			t75 = space();
+    			li9 = element("li");
+    			li9.textContent = "Saved approximately three minutes per diver‐upwards of 75\n            minutes in total, per dive meet";
+    			t77 = space();
+    			div44 = element("div");
+    			div43 = element("div");
+    			div41 = element("div");
+    			strong3 = element("strong");
+    			strong3.textContent = "PW Voting Site";
+    			t79 = text(", React | Node | MongoDB");
+    			t80 = space();
+    			div42 = element("div");
+    			div42.textContent = "Jan-Jun, 2020";
+    			t82 = space();
+    			ul4 = element("ul");
+    			li10 = element("li");
+    			li10.textContent = "Designed, prototyped, and developed a website capable of generating\n            and distributing secure polls for the student body";
+    			t84 = space();
+    			li11 = element("li");
+    			li11.textContent = "Explained site usage and benefits to staff members";
     			add_location(p0, file$2, 9, 2, 248);
     			add_location(p1, file$2, 13, 2, 363);
-    			attr_dev(div0, "class", "no-print svelte-i9kpnu");
+    			attr_dev(div0, "class", "no-print svelte-fsilhq");
     			add_location(div0, file$2, 8, 0, 223);
-    			attr_dev(div1, "class", "name svelte-i9kpnu");
+    			attr_dev(div1, "class", "name svelte-fsilhq");
     			add_location(div1, file$2, 22, 6, 607);
-    			attr_dev(div2, "class", "resume-subtitle svelte-i9kpnu");
+    			attr_dev(div2, "class", "resume-subtitle svelte-fsilhq");
     			add_location(div2, file$2, 25, 6, 660);
     			attr_dev(div3, "class", "title-box");
     			add_location(div3, file$2, 21, 4, 577);
-    			attr_dev(div4, "class", "phone svelte-i9kpnu");
+    			attr_dev(div4, "class", "phone svelte-fsilhq");
     			attr_dev(div4, "contenteditable", "");
     			if (/*phone*/ ctx[0] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[4].call(div4));
     			add_location(div4, file$2, 33, 6, 851);
-    			attr_dev(div5, "class", "email svelte-i9kpnu");
+    			attr_dev(div5, "class", "email svelte-fsilhq");
     			attr_dev(div5, "contenteditable", "");
     			if (/*email*/ ctx[1] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[5].call(div5));
     			add_location(div5, file$2, 34, 6, 929);
-    			attr_dev(div6, "class", "website svelte-i9kpnu");
+    			attr_dev(div6, "class", "website svelte-fsilhq");
     			attr_dev(div6, "contenteditable", "");
     			if (/*website*/ ctx[2] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[6].call(div6));
     			add_location(div6, file$2, 35, 6, 1007);
-    			attr_dev(div7, "class", "contact svelte-i9kpnu");
+    			attr_dev(div7, "class", "contact svelte-fsilhq");
     			add_location(div7, file$2, 32, 4, 823);
-    			attr_dev(div8, "class", "head svelte-i9kpnu");
+    			attr_dev(div8, "class", "head svelte-fsilhq");
     			add_location(div8, file$2, 20, 2, 554);
-    			attr_dev(div9, "class", "r-section-title svelte-i9kpnu");
+    			attr_dev(div9, "class", "r-section-title svelte-fsilhq");
     			add_location(div9, file$2, 43, 8, 1206);
-    			attr_dev(div10, "class", "school-name");
-    			add_location(div10, file$2, 46, 12, 1330);
-    			attr_dev(div11, "class", "activity-date svelte-i9kpnu");
-    			add_location(div11, file$2, 47, 12, 1397);
-    			attr_dev(div12, "class", "edu-head svelte-i9kpnu");
+    			attr_dev(div10, "class", "job-heading svelte-fsilhq");
+    			add_location(div10, file$2, 46, 12, 1333);
+    			attr_dev(div11, "class", "activity-date svelte-fsilhq");
+    			add_location(div11, file$2, 47, 12, 1400);
+    			attr_dev(div12, "class", "job-heading svelte-fsilhq");
     			add_location(div12, file$2, 45, 10, 1295);
-    			add_location(p2, file$2, 49, 10, 1467);
-    			add_location(p3, file$2, 50, 10, 1519);
-    			add_location(p4, file$2, 51, 10, 1593);
+    			add_location(p2, file$2, 49, 10, 1470);
+    			add_location(p3, file$2, 50, 10, 1522);
+    			add_location(p4, file$2, 51, 10, 1596);
     			attr_dev(div13, "class", "edu-section");
     			add_location(div13, file$2, 44, 8, 1259);
-    			attr_dev(div14, "class", "school-name");
-    			add_location(div14, file$2, 55, 12, 1723);
-    			attr_dev(div15, "class", "activity-date svelte-i9kpnu");
-    			add_location(div15, file$2, 56, 12, 1798);
-    			attr_dev(div16, "class", "edu-head svelte-i9kpnu");
-    			add_location(div16, file$2, 54, 10, 1688);
-    			add_location(p5, file$2, 58, 10, 1868);
+    			attr_dev(div14, "class", "job-heading svelte-fsilhq");
+    			add_location(div14, file$2, 55, 12, 1726);
+    			attr_dev(div15, "class", "activity-date svelte-fsilhq");
+    			add_location(div15, file$2, 56, 12, 1801);
+    			attr_dev(div16, "class", "edu-head");
+    			add_location(div16, file$2, 54, 10, 1691);
+    			add_location(p5, file$2, 58, 10, 1871);
     			attr_dev(div17, "class", "edu-section");
-    			add_location(div17, file$2, 53, 8, 1652);
+    			add_location(div17, file$2, 53, 8, 1655);
     			attr_dev(div18, "id", "education");
     			add_location(div18, file$2, 42, 6, 1177);
-    			attr_dev(div19, "class", "r-section-title svelte-i9kpnu");
-    			add_location(div19, file$2, 63, 10, 2018);
+    			attr_dev(div19, "class", "r-section-title svelte-fsilhq");
+    			add_location(div19, file$2, 63, 10, 2021);
     			attr_dev(div20, "class", "skill-list");
-    			add_location(div20, file$2, 64, 10, 2083);
+    			add_location(div20, file$2, 64, 10, 2086);
     			attr_dev(div21, "class", "tech-knowledge");
-    			add_location(div21, file$2, 62, 8, 1979);
-    			attr_dev(div22, "class", "r-section-title svelte-i9kpnu");
-    			add_location(div22, file$2, 70, 10, 2301);
-    			add_location(li0, file$2, 72, 12, 2373);
-    			add_location(li1, file$2, 73, 12, 2419);
-    			add_location(li2, file$2, 74, 12, 2447);
-    			add_location(li3, file$2, 75, 12, 2475);
-    			add_location(ul0, file$2, 71, 10, 2356);
+    			add_location(div21, file$2, 62, 8, 1982);
+    			attr_dev(div22, "class", "r-section-title svelte-fsilhq");
+    			add_location(div22, file$2, 70, 10, 2304);
+    			add_location(li0, file$2, 72, 12, 2376);
+    			add_location(li1, file$2, 73, 12, 2422);
+    			add_location(li2, file$2, 74, 12, 2450);
+    			add_location(li3, file$2, 75, 12, 2478);
+    			add_location(ul0, file$2, 71, 10, 2359);
     			attr_dev(div23, "class", "interests");
-    			add_location(div23, file$2, 69, 8, 2267);
+    			add_location(div23, file$2, 69, 8, 2270);
     			attr_dev(div24, "id", "knowledge-interests");
-    			attr_dev(div24, "class", "svelte-i9kpnu");
-    			add_location(div24, file$2, 61, 6, 1940);
-    			attr_dev(div25, "class", "top-body");
+    			attr_dev(div24, "class", "svelte-fsilhq");
+    			add_location(div24, file$2, 61, 6, 1943);
+    			attr_dev(div25, "class", "top-body svelte-fsilhq");
     			add_location(div25, file$2, 41, 4, 1148);
-    			attr_dev(div26, "class", "r-section-title svelte-i9kpnu");
-    			add_location(div26, file$2, 81, 6, 2589);
-    			add_location(strong0, file$2, 85, 12, 2744);
+    			attr_dev(div26, "class", "r-section-title svelte-fsilhq");
+    			add_location(div26, file$2, 81, 6, 2592);
+    			add_location(strong0, file$2, 85, 12, 2747);
     			attr_dev(div27, "class", "job-title");
-    			add_location(div27, file$2, 84, 10, 2708);
-    			attr_dev(div28, "class", "activity-date svelte-i9kpnu");
-    			add_location(div28, file$2, 87, 10, 2824);
-    			attr_dev(div29, "class", "job-heading svelte-i9kpnu");
-    			add_location(div29, file$2, 83, 8, 2672);
+    			add_location(div27, file$2, 84, 10, 2711);
+    			attr_dev(div28, "class", "activity-date svelte-fsilhq");
+    			add_location(div28, file$2, 87, 10, 2827);
+    			attr_dev(div29, "class", "job-heading svelte-fsilhq");
+    			add_location(div29, file$2, 83, 8, 2675);
     			attr_dev(li4, "class", "job-bullet");
-    			add_location(li4, file$2, 90, 10, 2900);
+    			add_location(li4, file$2, 90, 10, 2903);
     			attr_dev(li5, "class", "job-bullet");
-    			add_location(li5, file$2, 91, 10, 2961);
-    			add_location(ul1, file$2, 89, 8, 2885);
+    			add_location(li5, file$2, 91, 10, 2964);
+    			add_location(ul1, file$2, 89, 8, 2888);
     			attr_dev(div30, "class", "job");
-    			add_location(div30, file$2, 82, 6, 2646);
-    			add_location(strong1, file$2, 97, 12, 3145);
+    			add_location(div30, file$2, 82, 6, 2649);
+    			add_location(strong1, file$2, 97, 12, 3148);
     			attr_dev(div31, "class", "job-title");
-    			add_location(div31, file$2, 96, 10, 3109);
-    			attr_dev(div32, "class", "activity-date svelte-i9kpnu");
-    			add_location(div32, file$2, 99, 10, 3225);
-    			attr_dev(div33, "class", "job-heading svelte-i9kpnu");
-    			add_location(div33, file$2, 95, 8, 3073);
+    			add_location(div31, file$2, 96, 10, 3112);
+    			attr_dev(div32, "class", "activity-date svelte-fsilhq");
+    			add_location(div32, file$2, 99, 10, 3228);
+    			attr_dev(div33, "class", "job-heading svelte-fsilhq");
+    			add_location(div33, file$2, 95, 8, 3076);
     			attr_dev(li6, "class", "job-bullet");
-    			add_location(li6, file$2, 102, 10, 3301);
+    			add_location(li6, file$2, 102, 10, 3304);
     			attr_dev(li7, "class", "job-bullet");
-    			add_location(li7, file$2, 103, 10, 3362);
-    			add_location(ul2, file$2, 101, 8, 3286);
+    			add_location(li7, file$2, 103, 10, 3365);
+    			add_location(ul2, file$2, 101, 8, 3289);
     			attr_dev(div34, "class", "job");
-    			add_location(div34, file$2, 94, 6, 3047);
+    			add_location(div34, file$2, 94, 6, 3050);
     			attr_dev(div35, "id", "work");
-    			add_location(div35, file$2, 80, 4, 2567);
-    			attr_dev(div36, "id", "projects");
-    			add_location(div36, file$2, 107, 4, 3457);
-    			attr_dev(div37, "class", "r-body");
-    			add_location(div37, file$2, 40, 2, 1123);
-    			attr_dev(div38, "class", "resume svelte-i9kpnu");
-    			add_location(div38, file$2, 19, 0, 531);
+    			add_location(div35, file$2, 80, 4, 2570);
+    			attr_dev(div36, "class", "r-section-title svelte-fsilhq");
+    			add_location(div36, file$2, 108, 6, 3486);
+    			add_location(strong2, file$2, 112, 12, 3638);
+    			attr_dev(div37, "class", "job-title");
+    			add_location(div37, file$2, 111, 10, 3602);
+    			attr_dev(div38, "class", "activity-date svelte-fsilhq");
+    			add_location(div38, file$2, 114, 10, 3717);
+    			attr_dev(div39, "class", "job-heading svelte-fsilhq");
+    			add_location(div39, file$2, 110, 8, 3566);
+    			attr_dev(li8, "class", "job-bullet");
+    			add_location(li8, file$2, 117, 10, 3800);
+    			attr_dev(li9, "class", "job-bullet");
+    			add_location(li9, file$2, 121, 10, 3975);
+    			add_location(ul3, file$2, 116, 8, 3785);
+    			attr_dev(div40, "class", "project");
+    			add_location(div40, file$2, 109, 6, 3536);
+    			add_location(strong3, file$2, 130, 12, 4269);
+    			attr_dev(div41, "class", "job-title");
+    			add_location(div41, file$2, 129, 10, 4233);
+    			attr_dev(div42, "class", "activity-date svelte-fsilhq");
+    			add_location(div42, file$2, 132, 10, 4352);
+    			attr_dev(div43, "class", "job-heading svelte-fsilhq");
+    			add_location(div43, file$2, 128, 8, 4197);
+    			attr_dev(li10, "class", "job-bullet");
+    			add_location(li10, file$2, 135, 10, 4437);
+    			attr_dev(li11, "class", "job-bullet");
+    			add_location(li11, file$2, 139, 10, 4630);
+    			add_location(ul4, file$2, 134, 8, 4422);
+    			attr_dev(div44, "class", "project");
+    			add_location(div44, file$2, 127, 6, 4167);
+    			attr_dev(div45, "id", "projects");
+    			add_location(div45, file$2, 107, 4, 3460);
+    			attr_dev(div46, "class", "r-body");
+    			add_location(div46, file$2, 40, 2, 1123);
+    			attr_dev(div47, "class", "resume svelte-fsilhq");
+    			add_location(div47, file$2, 19, 0, 531);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6277,8 +6337,8 @@ var app = (function () {
     			append_dev(div0, t1);
     			append_dev(div0, p1);
     			insert_dev(target, t3, anchor);
-    			insert_dev(target, div38, anchor);
-    			append_dev(div38, div8);
+    			insert_dev(target, div47, anchor);
+    			append_dev(div47, div8);
     			append_dev(div8, div3);
     			append_dev(div3, div1);
     			append_dev(div3, t5);
@@ -6310,9 +6370,9 @@ var app = (function () {
     				div6.innerHTML = /*website*/ ctx[2];
     			}
 
-    			append_dev(div38, t14);
-    			append_dev(div38, div37);
-    			append_dev(div37, div25);
+    			append_dev(div47, t14);
+    			append_dev(div47, div46);
+    			append_dev(div46, div25);
     			append_dev(div25, div18);
     			append_dev(div18, div9);
     			append_dev(div18, t16);
@@ -6353,8 +6413,8 @@ var app = (function () {
     			append_dev(ul0, li2);
     			append_dev(ul0, t44);
     			append_dev(ul0, li3);
-    			append_dev(div37, t46);
-    			append_dev(div37, div35);
+    			append_dev(div46, t46);
+    			append_dev(div46, div35);
     			append_dev(div35, div26);
     			append_dev(div35, t48);
     			append_dev(div35, div30);
@@ -6382,8 +6442,35 @@ var app = (function () {
     			append_dev(ul2, li6);
     			append_dev(ul2, t64);
     			append_dev(ul2, li7);
-    			append_dev(div37, t66);
-    			append_dev(div37, div36);
+    			append_dev(div46, t66);
+    			append_dev(div46, div45);
+    			append_dev(div45, div36);
+    			append_dev(div45, t68);
+    			append_dev(div45, div40);
+    			append_dev(div40, div39);
+    			append_dev(div39, div37);
+    			append_dev(div37, strong2);
+    			append_dev(div37, t70);
+    			append_dev(div39, t71);
+    			append_dev(div39, div38);
+    			append_dev(div40, t73);
+    			append_dev(div40, ul3);
+    			append_dev(ul3, li8);
+    			append_dev(ul3, t75);
+    			append_dev(ul3, li9);
+    			append_dev(div45, t77);
+    			append_dev(div45, div44);
+    			append_dev(div44, div43);
+    			append_dev(div43, div41);
+    			append_dev(div41, strong3);
+    			append_dev(div41, t79);
+    			append_dev(div43, t80);
+    			append_dev(div43, div42);
+    			append_dev(div44, t82);
+    			append_dev(div44, ul4);
+    			append_dev(ul4, li10);
+    			append_dev(ul4, t84);
+    			append_dev(ul4, li11);
 
     			if (!mounted) {
     				dispose = [
@@ -6420,7 +6507,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div0);
     			if (detaching) detach_dev(t3);
-    			if (detaching) detach_dev(div38);
+    			if (detaching) detach_dev(div47);
     			if (if_block) if_block.d();
     			mounted = false;
     			run_all(dispose);
@@ -6513,7 +6600,7 @@ var app = (function () {
     	}
     }
 
-    /* src/components/quote.svelte generated by Svelte v3.49.0 */
+    /* src/components/quote.svelte generated by Svelte v3.42.6 */
 
     const file$1 = "src/components/quote.svelte";
 
@@ -6614,7 +6701,7 @@ var app = (function () {
     	}
     }
 
-    /* src/pages/work.svelte generated by Svelte v3.49.0 */
+    /* src/pages/work.svelte generated by Svelte v3.42.6 */
     const file = "src/pages/work.svelte";
 
     // (79:4) <Quote>
@@ -6986,7 +7073,7 @@ var app = (function () {
           "name": "about",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
+          "absolutePath": "/Users/benlubas/github/who/src/pages/about.svelte",
           "importPath": "../src/pages/about.svelte",
           "isLayout": false,
           "isReset": false,
@@ -7011,7 +7098,7 @@ var app = (function () {
           "name": "index",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
+          "absolutePath": "/Users/benlubas/github/who/src/pages/index.svelte",
           "importPath": "../src/pages/index.svelte",
           "isLayout": false,
           "isReset": false,
@@ -7036,7 +7123,7 @@ var app = (function () {
           "name": "projects",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
+          "absolutePath": "/Users/benlubas/github/who/src/pages/projects.svelte",
           "importPath": "../src/pages/projects.svelte",
           "isLayout": false,
           "isReset": false,
@@ -7061,7 +7148,7 @@ var app = (function () {
           "name": "resume",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/home/benlubas/github/who/src/pages/resume.svelte",
+          "absolutePath": "/Users/benlubas/github/who/src/pages/resume.svelte",
           "importPath": "../src/pages/resume.svelte",
           "isLayout": false,
           "isReset": false,
@@ -7086,7 +7173,7 @@ var app = (function () {
           "name": "work",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
+          "absolutePath": "/Users/benlubas/github/who/src/pages/work.svelte",
           "importPath": "../src/pages/work.svelte",
           "isLayout": false,
           "isReset": false,
@@ -7119,7 +7206,7 @@ var app = (function () {
 
     const {tree, routes} = buildClientTree(_tree);
 
-    /* src/App.svelte generated by Svelte v3.49.0 */
+    /* src/App.svelte generated by Svelte v3.42.6 */
 
     function create_fragment(ctx) {
     	let router;

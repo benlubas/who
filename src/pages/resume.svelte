@@ -44,8 +44,8 @@
       <div id="education">
         <div class="r-section-title">Education</div>
         <div class="edu-section">
-          <div class="edu-head">
-            <div class="school-name">Northeastern University</div>
+          <div class="job-heading">
+            <div class="job-heading">Northeastern University</div>
             <div class="activity-date">2020-2024</div>
           </div>
           <p>Khoury College of Computer Science</p>
@@ -54,7 +54,7 @@
         </div>
         <div class="edu-section">
           <div class="edu-head">
-            <div class="school-name">Plymouth Whitemarsh High School</div>
+            <div class="job-heading">Plymouth Whitemarsh High School</div>
             <div class="activity-date">2016-2020</div>
           </div>
           <p>4x Honor Roll | GPA: 3.97/4.00</p>
@@ -106,7 +106,44 @@
         </ul>
       </div>
     </div>
-    <div id="projects">This is the projects section</div>
+    <div id="projects">
+      <div class="r-section-title">Projects</div>
+      <div class="project">
+        <div class="job-heading">
+          <div class="job-title">
+            <strong>Dive Sheet Generator</strong>, Svelte | CSS
+          </div>
+          <div class="activity-date">August 2021</div>
+        </div>
+        <ul>
+          <li class="job-bullet">
+            Developed a web-based application that converts a CSV file to
+            printable, league standard dive sheets
+          </li>
+          <li class="job-bullet">
+            Saved approximately three minutes per diver&dash;upwards of 75
+            minutes in total, per dive meet
+          </li>
+        </ul>
+      </div>
+      <div class="project">
+        <div class="job-heading">
+          <div class="job-title">
+            <strong>PW Voting Site</strong>, React | Node | MongoDB
+          </div>
+          <div class="activity-date">Jan-Jun, 2020</div>
+        </div>
+        <ul>
+          <li class="job-bullet">
+            Designed, prototyped, and developed a website capable of generating
+            and distributing secure polls for the student body
+          </li>
+          <li class="job-bullet">
+            Explained site usage and benefits to staff members
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -115,10 +152,18 @@
   .resume {
     border: 1px solid white;
     width: 960px;
+    line-height: 1.4;
 
     padding: 1in;
 
     --resume-accent: #0073ff;
+  }
+
+  .top-body {
+    display: grid;
+    grid:
+      [r1-start] "education knowledge-interests" 100% [r1-end]
+      / 65fr 35fr;
   }
 
   .head {
@@ -127,6 +172,7 @@
     align-items: center;
     width: 100%;
     border-bottom: 2px solid var(--resume-accent);
+    margin-bottom: 8px;
   }
 
   .job-heading {
@@ -146,6 +192,7 @@
   #knowledge-interests {
     display: flex;
     flex-direction: column;
+    padding-left: 15px;
   }
 
   .resume-subtitle {
@@ -159,6 +206,8 @@
     font-weight: 300;
     text-transform: uppercase;
     font-size: 14pt;
+    margin-bottom: 8px;
+    margin-top: 8px;
   }
   .r-section-title::after {
     content: "";
@@ -170,22 +219,6 @@
 
   .contact div {
     text-align: right;
-  }
-
-  .edu-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-  }
-  .edu-head::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--resume-accent);
-    position: absolute;
-    bottom: -2px;
   }
 
   @page {
