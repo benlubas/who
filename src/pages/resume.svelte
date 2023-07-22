@@ -44,8 +44,8 @@
       <div id="education">
         <div class="r-section-title">Education</div>
         <div class="edu-section">
-          <div class="job-heading">
-            <div class="job-heading">Northeastern University</div>
+          <div class="activity-heading">
+            <strong>Northeastern University</strong>
             <div class="activity-date">2020-2024</div>
           </div>
           <p>Khoury College of Computer Science</p>
@@ -54,7 +54,7 @@
         </div>
         <div class="edu-section">
           <div class="edu-head">
-            <div class="job-heading">Plymouth Whitemarsh High School</div>
+            <strong>Plymouth Whitemarsh High School</strong>
             <div class="activity-date">2016-2020</div>
           </div>
           <p>4x Honor Roll | GPA: 3.97/4.00</p>
@@ -82,7 +82,7 @@
     <div id="work">
       <div class="r-section-title">Work Experience</div>
       <div class="job">
-        <div class="job-heading">
+        <div class="activity-heading">
           <div class="job-title">
             <strong>Software Engineering Co-op</strong>, BookBub
           </div>
@@ -94,7 +94,7 @@
         </ul>
       </div>
       <div class="job">
-        <div class="job-heading">
+        <div class="activity-heading">
           <div class="job-title">
             <strong>Software Engineering Co-op</strong>, Wayfair
           </div>
@@ -109,7 +109,7 @@
     <div id="projects">
       <div class="r-section-title">Projects</div>
       <div class="project">
-        <div class="job-heading">
+        <div class="activity-heading">
           <div class="job-title">
             <strong>Dive Sheet Generator</strong>, Svelte | CSS
           </div>
@@ -127,7 +127,7 @@
         </ul>
       </div>
       <div class="project">
-        <div class="job-heading">
+        <div class="activity-heading">
           <div class="job-title">
             <strong>PW Voting Site</strong>, React | Node | MongoDB
           </div>
@@ -151,10 +151,12 @@
   @import url("https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&family=Roboto+Condensed:wght@300&display=swap");
   .resume {
     border: 1px solid white;
-    width: 960px;
+    width: 8.5in;
+    height: 11in;
     line-height: 1.4;
 
     padding: 1in;
+    font-size: 9pt;
 
     --resume-accent: #0073ff;
   }
@@ -163,7 +165,7 @@
     display: grid;
     grid:
       [r1-start] "education knowledge-interests" 100% [r1-end]
-      / 65fr 35fr;
+      / 60fr 40fr;
   }
 
   .head {
@@ -175,9 +177,10 @@
     margin-bottom: 8px;
   }
 
-  .job-heading {
+  .activity-heading {
     display: flex;
     justify-content: space-between;
+    font-size: 10pt;
   }
 
   .activity-date {
@@ -186,7 +189,7 @@
 
   .name {
     font-family: "Lora", serif;
-    font-size: 28pt;
+    font-size: 20pt;
   }
 
   #knowledge-interests {
@@ -194,11 +197,16 @@
     flex-direction: column;
     padding-left: 15px;
   }
+  #knowledge-interests ul {
+    list-style: none;
+    margin-left: 0;
+  }
 
   .resume-subtitle {
     text-transform: uppercase;
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
+    font-size: 14pt;
   }
 
   .r-section-title {
