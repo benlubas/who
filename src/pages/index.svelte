@@ -10,7 +10,6 @@
 
   prefetch("/projects", { validFor: 24 * 60 });
   prefetch("/about", { validFor: 24 * 60 });
-  prefetch("/courses", { validFor: 24 * 60 });
   prefetch("/resume", { validFor: 24 * 60 });
 </script>
 
@@ -68,18 +67,18 @@
   #bl {
     grid-area: bl;
   }
-  #top {
-    grid-area: top;
-  }
-  #left {
-    grid-area: left;
-  }
+  /* #top { */
+  /*   grid-area: top; */
+  /* } */
+  /* #left { */
+  /*   grid-area: left; */
+  /* } */
   #right {
     grid-area: right;
   }
-  #bottom {
-    grid-area: bottom;
-  }
+  /* #bottom { */
+  /*   grid-area: bottom; */
+  /* } */
 
   .grid-item {
     height: 100%;

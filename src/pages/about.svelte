@@ -29,62 +29,69 @@
     <br /> <br />
 
     Then I went off to college at Northeastern University. In my time here I've
-    learned Racket (a function language), and deepened my knowledge of Python,
-    JavaScript/TypeScript Java, and React. I also picked up Rust, and used it in
-    a language agnostic class for a little while.
+    learned Racket (a functional language), and deepened my knowledge of Python,
+    JavaScript/TypeScript, Java, and React. I also picked up Rust, and used it
+    in a language agnostic class for a little while.
 
     <br /> <br />
+
+    Northeastern in a co-op school as well, you can read more about that on the
+    <a href={$url("/work")}>work</a>
+    page. The short version is I've gained more than a year of working experience
+    as a software engineer in my time at Northeastern. Between those two co-ops I've
+    worked in Java, Ruby on Rails, React, Python, and Clojure, and I've worked with
+    many additional supporting technologies and platforms.
 
     <div class="subtitle">Skills</div>
     I'll elaborate a little bit on the "Languages and Frameworks" and "Software"
     sections of my resume.
     <ul>
       <li>
-        Python - One of my most comfortable languages. I've used Python in
+        <strong>Python</strong> - One of my most comfortable languages. I've used Python in
         school for years, I've done AI/ML projects, and I've worked in large
         production Python codebases at both Wayfair and Pubmark.
       </li>
       <li>
-        Java (Spring Boot) - Java is frankly a language that I would prefer not
+        <strong>Java (Spring Boot)</strong> - Java is frankly a language that I would prefer not
         to work with but know very well. Worked with backend micro-services
         setup with Spring Boot at Wayfair. If I work in a Java project again I
         would highly prefer to write Kotlin instead.
       </li>
       <li>
-        TypeScript - JavaScript was my first programming language, and for a
+        <strong>TypeScript</strong> - JavaScript was my first programming language, and for a
         long time was my most comfortable programming language. TypeScript just
         takes JS and makes it so much harder to shoot yourself in the foot, and
         so much easier to tell what's happening.
       </li>
       <li>
-        Rust - Rust is currently my favorite language, but also one that I've
+        <strong>Rust</strong> - Rust is currently my favorite language, but also one that I've
         picked up only recently. I took a course that let you choose your
         language, and I chose Rust. It was very enjoyable to work in. I also
         interviewed in Rust for my co-op at Pubmark!
       </li>
       <li>
-        HTML/CSS, Svelte, and React - I'm grouping these together because, yeah.
+        <strong>HTML/CSS, Svelte, and React</strong> - I'm grouping these together because, yeah.
         I prefer Svelte to React. And I actually enjoy writing custom CSS
         (sometimes). I know both class-based react and functional react. Both
         Pubmark and Wayfair had React-based frontends.
       </li>
       <li>
-        SQL - Learned MySQL originally, since then, I've used Google Big Query
+        <strong>SQL</strong> - Learned MySQL originally, since then, I've used Google Big Query
         and Microsoft SQL server at Wayfair. I worked with some 100+ line GBQ
         queries somewhat regularly at Wayfair. I've used Snowflake at Pubmark.
       </li>
       <li>
-        Docker and K8s - My experience here is, admittedly, limited. I worked
+        <strong>Docker and K8s</strong> - My experience here is, admittedly, limited. I worked
         with Docker and Kubernetes at Wayfair. The team I was one maintained
         multiple micro-services distributed using Docker/K8s.
       </li>
       <li>
-        Vim - I've used vim keybinds since late 2017, and I'm now daily driving
+        <strong>Vim</strong> - I've used vim keybinds since late 2017, and I'm now daily driving
         NeoVim. I've found that I can work much faster in vim than even VS Code
         with the vim extension.
       </li>
       <li>
-        Nix - This is so much better than Docker (for dev environments) that I
+        <strong>Nix</strong> - This is so much better than Docker (for dev environments) that I
         was actually shocked by it. We used Nix at Pubmark, and I think this was
         unanimously liked by everyone. I was told how good it was before I was
         even hired there.
@@ -97,14 +104,14 @@
 
     <ul>
       <li>
-        Keyboards - Long story short, I use a split keyboard with 36 keys on it.
+        <strong>Keyboards</strong> - Long story short, I use a split keyboard with 36 keys on it.
         Each hand gets a column-staggered 3x5 grid + 3 thumb keys. A lot of
         people are surprised that I can actually work on a keyboard this small,
         and I'm surprised that I was ever able to work for long periods of time
         on a laptop keyboard.
       </li>
       <li>
-        Neovim - (Even though this is a software, I'm also interested in it) I
+        <strong>Neovim</strong> - (Even though this is a software, I'm also interested in it) I
         picked up Neovim during the summer after my Wayfair co-op. I've used Vim
         bindings since high school, but I always just used the VS Code
         extension. After some heavy configuration, I could never go back to VS
@@ -112,13 +119,13 @@
         bonus, the core of how I edit (vim) is present on every server by
         default.
       </li>
-      <li>Gaming - I mainly play Rocket League these days.</li>
+      <li><strong>Gaming</strong> - I mainly play Rocket League these days.</li>
       <li>
-        Hockey - I played in high school and I still enjoy watching and skating
+        <strong>Hockey</strong> - I played in high school and I still enjoy watching and skating
         whenever I can.
       </li>
       <li>
-        Artificial Intelligence - Honestly, as time goes on this is less
+        <strong>Artificial Intelligence</strong> - Honestly, as time goes on this is less
         something that I'm interested in and more something I'm paying attention
         to because it's both awe-inspiring and terrifying.
       </li>

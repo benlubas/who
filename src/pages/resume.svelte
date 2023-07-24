@@ -1,10 +1,81 @@
 <script lang="ts">
   const name = "Ben Lubas";
   const subtitle = "computer science major";
-  const availability = undefined;
+  const availability = "Part Time";
   let phone = "xxx-xxx-xxxx";
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
+
+  const skills = [
+    "Rails",
+    "TypeScript",
+    "React",
+    "Rust",
+    "HTML/CSS",
+    "Svelte",
+    "Clojure",
+    "SQL",
+    "Docker",
+    "K8s",
+    "Airflow",
+  ];
+
+  const interests = [
+    "Keyboards (with 36 keys)",
+    "Gaming",
+    "Hockey",
+    "Artificial Intelligence",
+  ];
+
+  const jobs = [
+    {
+      company: "BookBub",
+      title: "Software Engineering Co-op",
+      date: "2023",
+      bullets: [
+        "Partially automated the migration of JavaScript tests from Enzyme to RTL + Jest decreasing\
+        the projected port time from five months to just under two months.",
+        "Conducted experiments on the ads platform, collected and analyzed data, and presented\
+        actionable insights to improve ad revenue",
+      ],
+    },
+    {
+      company: "Wayfair",
+      title: "Software Engineering Co-op",
+      date: "2022",
+      bullets: [
+        'From my manager at Wayfair: "[Ben] quickly onboarded and fully contributed as a member of\
+        the squad for the majority of his coop. Ben stretched himself beyond just executing on\
+        tickets to fully leading epics for the team. He is consistently strong in his data driven\
+        communication and works well cross functionally. At this point he is performing way above\
+        the expectations of a coop and is operating at the level of an L2 engineer on the team"',
+        "Lead a small to medium scoped epic—including writing the initial solution design, creating\
+        tickets, executing on tickets, and communicating progress and results",
+      ],
+    },
+  ];
+
+  const projects = [
+    {
+      title: "Dive Sheet Generator",
+      date: "August 2021",
+      technologies: "Svelte | CSS",
+      bullets: [
+        "Developed a web-based application that converts a CSV file to printable, league standard dive sheets",
+        "Saved approximately three minutes per diver—upwards of 75 minutes in total, per dive meet",
+      ],
+    },
+    {
+      title: "PW Voting Site",
+      date: "Jan-Jun, 2020",
+      technologies: "React | Node/Express | MongoDB",
+      bullets: [
+        "Designed, prototyped, and developed a website capable of generating and distributing\
+        secure polls for the student body",
+        "Presented site usage and benefits to school staff members",
+      ],
+    },
+  ];
 </script>
 
 <div class="no-print">
@@ -21,22 +92,22 @@
 <div class="resume">
   <div class="head">
     <div class="title-box">
-      <div class="name">
-        {name}
+      <div class="name-box">
+        <div class="name">
+          {name}
+        </div>
+        {#if availability}
+          <div class="availability">Availability: {availability}</div>
+        {/if}
       </div>
       <div class="resume-subtitle">
         {subtitle}
       </div>
     </div>
-    {#if availability}
-      <div class="availability">{availability}</div>
-    {/if}
     <div class="contact">
-      <div class="phone" contenteditable bind:innerHTML={phone}>{phone}</div>
-      <div class="email" contenteditable bind:innerHTML={email}>{email}</div>
-      <div class="website" contenteditable bind:innerHTML={website}>
-        {website}
-      </div>
+      <div class="phone" contenteditable bind:innerHTML={phone} />
+      <div class="email" contenteditable bind:innerHTML={email} />
+      <div class="website" contenteditable bind:innerHTML={website} />
     </div>
   </div>
   <div class="r-body">
@@ -64,68 +135,62 @@
         <div class="tech-knowledge">
           <div class="r-section-title">Technical Knowledge</div>
           <div class="skill-list">
-            Rails | TypeScript | React | Rust | HTML/CSS | Svelte | Clojure |
-            SQL | Docker | K8s | Airflow
+            {skills[0]}&nbsp;
+            {#each skills.slice(1) as skill}
+              | {skill}&nbsp;
+            {/each}
           </div>
         </div>
         <div class="interests">
           <div class="r-section-title">Interests</div>
           <ul>
-            <li>Keyboards (with 36 keys)</li>
-            <li>Gaming</li>
-            <li>Hockey</li>
-            <li>Artificial Intelligence</li>
+            {#each interests as interest}
+              <li>{interest}</li>
+            {/each}
           </ul>
         </div>
       </div>
     </div>
     <div id="work">
       <div class="r-section-title">Work Experience</div>
-      <div class="job">
-        <div class="activity-heading">
-          <div class="job-title">
-            <strong>Software Engineering Co-op</strong>, BookBub
+      {#each jobs as job}
+        <div class="job">
+          <div class="activity-heading">
+            <div class="job-title">
+              <strong>{job.title}</strong>, {job.company}
+            </div>
+            <div class="activity-date">{job.date}</div>
           </div>
-          <div class="activity-date">2022</div>
+          <ul>
+            {#each job.bullets as bullet}
+              <li class="job-bullet">{bullet}</li>
+            {/each}
+          </ul>
         </div>
-        <ul>
-          <li class="job-bullet">I did pretty well here</li>
-          <li class="job-bullet">I did something else too</li>
-        </ul>
-      </div>
-      <div class="job">
-        <div class="activity-heading">
-          <div class="job-title">
-            <strong>Software Engineering Co-op</strong>, Wayfair
-          </div>
-          <div class="activity-date">2022</div>
-        </div>
-        <ul>
-          <li class="job-bullet">I did pretty well here</li>
-          <li class="job-bullet">I did something else too</li>
-        </ul>
-      </div>
+      {/each}
     </div>
     <div id="projects">
       <div class="r-section-title">Projects</div>
-      <div class="project">
-        <div class="activity-heading">
-          <div class="job-title">
-            <strong>Dive Sheet Generator</strong>, Svelte | CSS
+      {#each projects as project}
+        <div class="project">
+          <div class="activity-heading">
+            <div class="job-title">
+              <strong>{project.title}</strong>, {project.technologies}
+            </div>
+            <div class="activity-date">August 2021</div>
           </div>
-          <div class="activity-date">August 2021</div>
+          <ul>
+            <li class="job-bullet">
+              Developed a web-based application that converts a CSV file to
+              printable, league standard dive sheets
+            </li>
+            <li class="job-bullet">
+              Saved approximately three minutes per diver&dash;upwards of 75
+              minutes in total, per dive meet
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li class="job-bullet">
-            Developed a web-based application that converts a CSV file to
-            printable, league standard dive sheets
-          </li>
-          <li class="job-bullet">
-            Saved approximately three minutes per diver&dash;upwards of 75
-            minutes in total, per dive meet
-          </li>
-        </ul>
-      </div>
+      {/each}
       <div class="project">
         <div class="activity-heading">
           <div class="job-title">
@@ -156,7 +221,8 @@
     line-height: 1.4;
 
     padding: 1in;
-    font-size: 9pt;
+    font-size: 10pt;
+    box-sizing: border-box;
 
     --resume-accent: #0073ff;
   }
@@ -169,27 +235,39 @@
   }
 
   .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid:
+      [r1-start] "name contact-info" 100% [r1-end]
+      / 60fr 40fr;
     width: 100%;
-    border-bottom: 2px solid var(--resume-accent);
     margin-bottom: 8px;
   }
+
+    .edu-section {
+      margin-bottom: 8px;
+    }
 
   .activity-heading {
     display: flex;
     justify-content: space-between;
-    font-size: 10pt;
+    font-size: 11pt;
   }
 
   .activity-date {
     font-style: italic;
   }
 
+  .name-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-bottom: 2px solid var(--resume-accent);
+  }
+
   .name {
     font-family: "Lora", serif;
-    font-size: 20pt;
+    font-size: 24pt;
+    line-height: 1.0;
   }
 
   #knowledge-interests {
@@ -230,7 +308,7 @@
   }
 
   @page {
-    size: 8.5in 9in;
+    size: 8.5in 11in;
   }
 
   @media print {
