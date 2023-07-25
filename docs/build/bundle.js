@@ -6019,51 +6019,76 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[13] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[13] = list[i];
+    	child_ctx[16] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[16] = list[i];
+    	child_ctx[19] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[19] = list[i];
+    	child_ctx[22] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
+    	child_ctx[25] = list[i];
     	return child_ctx;
     }
 
-    // (94:8) {#if availability}
+    // (95:8) {#if showAvailability}
     function create_if_block(ctx) {
     	let div;
+    	let t;
+    	let span;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			div.textContent = `Availability: ${availability}`;
+    			t = text("Availability: ");
+    			span = element("span");
+    			attr_dev(span, "contenteditable", "");
+    			if (/*availability*/ ctx[0] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[9].call(span));
+    			add_location(span, file$2, 95, 50, 3147);
     			attr_dev(div, "class", "availability");
-    			add_location(div, file$2, 94, 10, 3094);
+    			add_location(div, file$2, 95, 10, 3107);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    			append_dev(div, span);
+
+    			if (/*availability*/ ctx[0] !== void 0) {
+    				span.innerHTML = /*availability*/ ctx[0];
+    			}
+
+    			if (!mounted) {
+    				dispose = listen_dev(span, "input", /*span_input_handler*/ ctx[9]);
+    				mounted = true;
+    			}
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*availability*/ 1 && /*availability*/ ctx[0] !== span.innerHTML) {
+    				span.innerHTML = /*availability*/ ctx[0];
+    			}
+    		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -6071,17 +6096,17 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(94:8) {#if availability}",
+    		source: "(95:8) {#if showAvailability}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (134:12) {#each skills.slice(1) as skill}
+    // (135:12) {#each skills.slice(1) as skill}
     function create_each_block_4(ctx) {
     	let t0;
-    	let t1_value = /*skill*/ ctx[22] + "";
+    	let t1_value = /*skill*/ ctx[25] + "";
     	let t1;
     	let t2;
 
@@ -6108,24 +6133,24 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(134:12) {#each skills.slice(1) as skill}",
+    		source: "(135:12) {#each skills.slice(1) as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (142:12) {#each interests as interest}
+    // (143:12) {#each interests as interest}
     function create_each_block_3(ctx) {
     	let li;
-    	let t_value = /*interest*/ ctx[19] + "";
+    	let t_value = /*interest*/ ctx[22] + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file$2, 142, 14, 4794);
+    			add_location(li, file$2, 143, 14, 4860);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -6141,17 +6166,17 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(142:12) {#each interests as interest}",
+    		source: "(143:12) {#each interests as interest}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:12) {#each job.bullets as bullet}
+    // (161:12) {#each job.bullets as bullet}
     function create_each_block_2(ctx) {
     	let li;
-    	let t_value = /*bullet*/ ctx[16] + "";
+    	let t_value = /*bullet*/ ctx[19] + "";
     	let t;
 
     	const block = {
@@ -6159,7 +6184,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$2, 160, 14, 5316);
+    			add_location(li, file$2, 161, 14, 5382);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -6175,32 +6200,32 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(160:12) {#each job.bullets as bullet}",
+    		source: "(161:12) {#each job.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (151:6) {#each jobs as job}
+    // (152:6) {#each jobs as job}
     function create_each_block_1(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*job*/ ctx[13].title + "";
+    	let t0_value = /*job*/ ctx[16].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*job*/ ctx[13].company + "";
+    	let t2_value = /*job*/ ctx[16].company + "";
     	let t2;
     	let t3;
     	let div1;
-    	let t4_value = /*job*/ ctx[13].date + "";
+    	let t4_value = /*job*/ ctx[16].date + "";
     	let t4;
     	let t5;
     	let ul;
     	let t6;
-    	let each_value_2 = /*job*/ ctx[13].bullets;
+    	let each_value_2 = /*job*/ ctx[16].bullets;
     	validate_each_argument(each_value_2);
     	let each_blocks = [];
 
@@ -6228,16 +6253,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$2, 154, 14, 5109);
+    			add_location(strong, file$2, 155, 14, 5175);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$2, 153, 12, 5071);
-    			attr_dev(div1, "class", "activity-date svelte-watx0z");
-    			add_location(div1, file$2, 156, 12, 5184);
-    			attr_dev(div2, "class", "activity-heading svelte-watx0z");
-    			add_location(div2, file$2, 152, 10, 5028);
-    			add_location(ul, file$2, 158, 10, 5255);
+    			add_location(div0, file$2, 154, 12, 5137);
+    			attr_dev(div1, "class", "activity-date svelte-4azsgq");
+    			add_location(div1, file$2, 157, 12, 5250);
+    			attr_dev(div2, "class", "activity-heading svelte-4azsgq");
+    			add_location(div2, file$2, 153, 10, 5094);
+    			add_location(ul, file$2, 159, 10, 5321);
     			attr_dev(div3, "class", "job");
-    			add_location(div3, file$2, 151, 8, 5000);
+    			add_location(div3, file$2, 152, 8, 5066);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -6260,8 +6285,8 @@ var app = (function () {
     			append_dev(div3, t6);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*jobs*/ 32) {
-    				each_value_2 = /*job*/ ctx[13].bullets;
+    			if (dirty & /*jobs*/ 128) {
+    				each_value_2 = /*job*/ ctx[16].bullets;
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -6294,23 +6319,23 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(151:6) {#each jobs as job}",
+    		source: "(152:6) {#each jobs as job}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:6) {#each projects as project}
+    // (170:6) {#each projects as project}
     function create_each_block(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*project*/ ctx[10].title + "";
+    	let t0_value = /*project*/ ctx[13].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*project*/ ctx[10].technologies + "";
+    	let t2_value = /*project*/ ctx[13].technologies + "";
     	let t2;
     	let t3;
     	let div1;
@@ -6339,20 +6364,20 @@ var app = (function () {
     			t7 = space();
     			li1 = element("li");
     			li1.textContent = "Saved approximately three minutes per diver‐upwards of 75\n              minutes in total, per dive meet";
-    			add_location(strong, file$2, 172, 14, 5658);
+    			add_location(strong, file$2, 173, 14, 5724);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$2, 171, 12, 5620);
-    			attr_dev(div1, "class", "activity-date svelte-watx0z");
-    			add_location(div1, file$2, 174, 12, 5746);
-    			attr_dev(div2, "class", "activity-heading svelte-watx0z");
-    			add_location(div2, file$2, 170, 10, 5577);
+    			add_location(div0, file$2, 172, 12, 5686);
+    			attr_dev(div1, "class", "activity-date svelte-4azsgq");
+    			add_location(div1, file$2, 175, 12, 5812);
+    			attr_dev(div2, "class", "activity-heading svelte-4azsgq");
+    			add_location(div2, file$2, 171, 10, 5643);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$2, 177, 12, 5835);
+    			add_location(li0, file$2, 178, 12, 5901);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$2, 181, 12, 6018);
-    			add_location(ul, file$2, 176, 10, 5818);
+    			add_location(li1, file$2, 182, 12, 6084);
+    			add_location(ul, file$2, 177, 10, 5884);
     			attr_dev(div3, "class", "project");
-    			add_location(div3, file$2, 169, 8, 5545);
+    			add_location(div3, file$2, 170, 8, 5611);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -6380,7 +6405,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(169:6) {#each projects as project}",
+    		source: "(170:6) {#each projects as project}",
     		ctx
     	});
 
@@ -6439,7 +6464,7 @@ var app = (function () {
     	let div18;
     	let t31;
     	let div19;
-    	let t32_value = /*skills*/ ctx[3][0] + "";
+    	let t32_value = /*skills*/ ctx[5][0] + "";
     	let t32;
     	let t33;
     	let t34;
@@ -6470,8 +6495,8 @@ var app = (function () {
     	let li1;
     	let mounted;
     	let dispose;
-    	let if_block = create_if_block(ctx);
-    	let each_value_4 = /*skills*/ ctx[3].slice(1);
+    	let if_block = /*showAvailability*/ ctx[4] && create_if_block(ctx);
+    	let each_value_4 = /*skills*/ ctx[5].slice(1);
     	validate_each_argument(each_value_4);
     	let each_blocks_3 = [];
 
@@ -6479,7 +6504,7 @@ var app = (function () {
     		each_blocks_3[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
     	}
 
-    	let each_value_3 = /*interests*/ ctx[4];
+    	let each_value_3 = /*interests*/ ctx[6];
     	validate_each_argument(each_value_3);
     	let each_blocks_2 = [];
 
@@ -6487,7 +6512,7 @@ var app = (function () {
     		each_blocks_2[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
     	}
 
-    	let each_value_1 = /*jobs*/ ctx[5];
+    	let each_value_1 = /*jobs*/ ctx[7];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -6495,7 +6520,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let each_value = /*projects*/ ctx[6];
+    	let each_value = /*projects*/ ctx[8];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -6626,99 +6651,99 @@ var app = (function () {
     			t50 = space();
     			li1 = element("li");
     			li1.textContent = "Explained site usage and benefits to staff members";
-    			add_location(p0, file$2, 76, 2, 2616);
-    			add_location(p1, file$2, 80, 2, 2731);
-    			attr_dev(div0, "class", "no-print svelte-watx0z");
-    			add_location(div0, file$2, 75, 0, 2591);
-    			attr_dev(div1, "class", "name svelte-watx0z");
-    			add_location(div1, file$2, 90, 8, 3006);
-    			attr_dev(div2, "class", "name-box svelte-watx0z");
-    			add_location(div2, file$2, 89, 6, 2975);
-    			attr_dev(div3, "class", "resume-subtitle svelte-watx0z");
-    			add_location(div3, file$2, 97, 6, 3188);
+    			add_location(p0, file$2, 77, 2, 2625);
+    			add_location(p1, file$2, 81, 2, 2740);
+    			attr_dev(div0, "class", "no-print svelte-4azsgq");
+    			add_location(div0, file$2, 76, 0, 2600);
+    			attr_dev(div1, "class", "name svelte-4azsgq");
+    			add_location(div1, file$2, 91, 8, 3015);
+    			attr_dev(div2, "class", "name-box svelte-4azsgq");
+    			add_location(div2, file$2, 90, 6, 2984);
+    			attr_dev(div3, "class", "resume-subtitle svelte-4azsgq");
+    			add_location(div3, file$2, 98, 6, 3246);
     			attr_dev(div4, "class", "title-box");
-    			add_location(div4, file$2, 88, 4, 2945);
-    			attr_dev(div5, "class", "phone svelte-watx0z");
+    			add_location(div4, file$2, 89, 4, 2954);
+    			attr_dev(div5, "class", "phone svelte-4azsgq");
     			attr_dev(div5, "contenteditable", "");
-    			if (/*phone*/ ctx[0] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[7].call(div5));
-    			add_location(div5, file$2, 102, 6, 3293);
-    			attr_dev(div6, "class", "email svelte-watx0z");
+    			if (/*phone*/ ctx[1] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[10].call(div5));
+    			add_location(div5, file$2, 103, 6, 3351);
+    			attr_dev(div6, "class", "email svelte-4azsgq");
     			attr_dev(div6, "contenteditable", "");
-    			if (/*email*/ ctx[1] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[8].call(div6));
-    			add_location(div6, file$2, 103, 6, 3360);
-    			attr_dev(div7, "class", "website svelte-watx0z");
+    			if (/*email*/ ctx[2] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[11].call(div6));
+    			add_location(div6, file$2, 104, 6, 3418);
+    			attr_dev(div7, "class", "website svelte-4azsgq");
     			attr_dev(div7, "contenteditable", "");
-    			if (/*website*/ ctx[2] === void 0) add_render_callback(() => /*div7_input_handler*/ ctx[9].call(div7));
-    			add_location(div7, file$2, 104, 6, 3427);
-    			attr_dev(div8, "class", "contact svelte-watx0z");
-    			add_location(div8, file$2, 101, 4, 3265);
-    			attr_dev(div9, "class", "head svelte-watx0z");
-    			add_location(div9, file$2, 87, 2, 2922);
-    			attr_dev(div10, "class", "r-section-title svelte-watx0z");
-    			add_location(div10, file$2, 110, 8, 3597);
-    			add_location(strong0, file$2, 113, 12, 3729);
-    			attr_dev(div11, "class", "activity-date svelte-watx0z");
-    			add_location(div11, file$2, 114, 12, 3782);
-    			attr_dev(div12, "class", "activity-heading svelte-watx0z");
-    			add_location(div12, file$2, 112, 10, 3686);
-    			add_location(p2, file$2, 116, 10, 3852);
-    			add_location(p3, file$2, 117, 10, 3904);
-    			add_location(p4, file$2, 118, 10, 3978);
-    			attr_dev(div13, "class", "edu-section svelte-watx0z");
-    			add_location(div13, file$2, 111, 8, 3650);
-    			add_location(strong1, file$2, 122, 12, 4108);
-    			attr_dev(div14, "class", "activity-date svelte-watx0z");
-    			add_location(div14, file$2, 123, 12, 4169);
-    			attr_dev(div15, "class", "edu-head");
-    			add_location(div15, file$2, 121, 10, 4073);
-    			add_location(p5, file$2, 125, 10, 4239);
-    			attr_dev(div16, "class", "edu-section svelte-watx0z");
-    			add_location(div16, file$2, 120, 8, 4037);
+    			if (/*website*/ ctx[3] === void 0) add_render_callback(() => /*div7_input_handler*/ ctx[12].call(div7));
+    			add_location(div7, file$2, 105, 6, 3485);
+    			attr_dev(div8, "class", "contact svelte-4azsgq");
+    			add_location(div8, file$2, 102, 4, 3323);
+    			attr_dev(div9, "class", "head svelte-4azsgq");
+    			add_location(div9, file$2, 88, 2, 2931);
+    			attr_dev(div10, "class", "r-section-title svelte-4azsgq");
+    			add_location(div10, file$2, 111, 8, 3655);
+    			add_location(strong0, file$2, 114, 12, 3787);
+    			attr_dev(div11, "class", "activity-date svelte-4azsgq");
+    			add_location(div11, file$2, 115, 12, 3840);
+    			attr_dev(div12, "class", "activity-heading svelte-4azsgq");
+    			add_location(div12, file$2, 113, 10, 3744);
+    			add_location(p2, file$2, 117, 10, 3910);
+    			add_location(p3, file$2, 118, 10, 3962);
+    			add_location(p4, file$2, 119, 10, 4036);
+    			attr_dev(div13, "class", "edu-section svelte-4azsgq");
+    			add_location(div13, file$2, 112, 8, 3708);
+    			add_location(strong1, file$2, 123, 12, 4174);
+    			attr_dev(div14, "class", "activity-date svelte-4azsgq");
+    			add_location(div14, file$2, 124, 12, 4235);
+    			attr_dev(div15, "class", "activity-heading svelte-4azsgq");
+    			add_location(div15, file$2, 122, 10, 4131);
+    			add_location(p5, file$2, 126, 10, 4305);
+    			attr_dev(div16, "class", "edu-section svelte-4azsgq");
+    			add_location(div16, file$2, 121, 8, 4095);
     			attr_dev(div17, "id", "education");
-    			add_location(div17, file$2, 109, 6, 3568);
-    			attr_dev(div18, "class", "r-section-title svelte-watx0z");
-    			add_location(div18, file$2, 130, 10, 4389);
+    			add_location(div17, file$2, 110, 6, 3626);
+    			attr_dev(div18, "class", "r-section-title svelte-4azsgq");
+    			add_location(div18, file$2, 131, 10, 4455);
     			attr_dev(div19, "class", "skill-list");
-    			add_location(div19, file$2, 131, 10, 4454);
+    			add_location(div19, file$2, 132, 10, 4520);
     			attr_dev(div20, "class", "tech-knowledge");
-    			add_location(div20, file$2, 129, 8, 4350);
-    			attr_dev(div21, "class", "r-section-title svelte-watx0z");
-    			add_location(div21, file$2, 139, 10, 4678);
-    			attr_dev(ul0, "class", "svelte-watx0z");
-    			add_location(ul0, file$2, 140, 10, 4733);
+    			add_location(div20, file$2, 130, 8, 4416);
+    			attr_dev(div21, "class", "r-section-title svelte-4azsgq");
+    			add_location(div21, file$2, 140, 10, 4744);
+    			attr_dev(ul0, "class", "svelte-4azsgq");
+    			add_location(ul0, file$2, 141, 10, 4799);
     			attr_dev(div22, "class", "interests");
-    			add_location(div22, file$2, 138, 8, 4644);
+    			add_location(div22, file$2, 139, 8, 4710);
     			attr_dev(div23, "id", "knowledge-interests");
-    			attr_dev(div23, "class", "svelte-watx0z");
-    			add_location(div23, file$2, 128, 6, 4311);
-    			attr_dev(div24, "class", "top-body svelte-watx0z");
-    			add_location(div24, file$2, 108, 4, 3539);
-    			attr_dev(div25, "class", "r-section-title svelte-watx0z");
-    			add_location(div25, file$2, 149, 6, 4915);
+    			attr_dev(div23, "class", "svelte-4azsgq");
+    			add_location(div23, file$2, 129, 6, 4377);
+    			attr_dev(div24, "class", "top-body svelte-4azsgq");
+    			add_location(div24, file$2, 109, 4, 3597);
+    			attr_dev(div25, "class", "r-section-title svelte-4azsgq");
+    			add_location(div25, file$2, 150, 6, 4981);
     			attr_dev(div26, "id", "work");
-    			add_location(div26, file$2, 148, 4, 4893);
-    			attr_dev(div27, "class", "r-section-title svelte-watx0z");
-    			add_location(div27, file$2, 167, 6, 5459);
-    			add_location(strong2, file$2, 191, 12, 6341);
+    			add_location(div26, file$2, 149, 4, 4959);
+    			attr_dev(div27, "class", "r-section-title svelte-4azsgq");
+    			add_location(div27, file$2, 168, 6, 5525);
+    			add_location(strong2, file$2, 192, 12, 6407);
     			attr_dev(div28, "class", "job-title");
-    			add_location(div28, file$2, 190, 10, 6305);
-    			attr_dev(div29, "class", "activity-date svelte-watx0z");
-    			add_location(div29, file$2, 193, 10, 6424);
-    			attr_dev(div30, "class", "activity-heading svelte-watx0z");
-    			add_location(div30, file$2, 189, 8, 6264);
+    			add_location(div28, file$2, 191, 10, 6371);
+    			attr_dev(div29, "class", "activity-date svelte-4azsgq");
+    			add_location(div29, file$2, 194, 10, 6490);
+    			attr_dev(div30, "class", "activity-heading svelte-4azsgq");
+    			add_location(div30, file$2, 190, 8, 6330);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$2, 196, 10, 6509);
+    			add_location(li0, file$2, 197, 10, 6575);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$2, 200, 10, 6702);
-    			add_location(ul1, file$2, 195, 8, 6494);
+    			add_location(li1, file$2, 201, 10, 6768);
+    			add_location(ul1, file$2, 196, 8, 6560);
     			attr_dev(div31, "class", "project");
-    			add_location(div31, file$2, 188, 6, 6234);
+    			add_location(div31, file$2, 189, 6, 6300);
     			attr_dev(div32, "id", "projects");
-    			add_location(div32, file$2, 166, 4, 5433);
+    			add_location(div32, file$2, 167, 4, 5499);
     			attr_dev(div33, "class", "r-body");
-    			add_location(div33, file$2, 107, 2, 3514);
-    			attr_dev(div34, "class", "resume svelte-watx0z");
-    			add_location(div34, file$2, 86, 0, 2899);
+    			add_location(div33, file$2, 108, 2, 3572);
+    			attr_dev(div34, "class", "resume svelte-4azsgq");
+    			add_location(div34, file$2, 87, 0, 2908);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6742,22 +6767,22 @@ var app = (function () {
     			append_dev(div9, div8);
     			append_dev(div8, div5);
 
-    			if (/*phone*/ ctx[0] !== void 0) {
-    				div5.innerHTML = /*phone*/ ctx[0];
+    			if (/*phone*/ ctx[1] !== void 0) {
+    				div5.innerHTML = /*phone*/ ctx[1];
     			}
 
     			append_dev(div8, t9);
     			append_dev(div8, div6);
 
-    			if (/*email*/ ctx[1] !== void 0) {
-    				div6.innerHTML = /*email*/ ctx[1];
+    			if (/*email*/ ctx[2] !== void 0) {
+    				div6.innerHTML = /*email*/ ctx[2];
     			}
 
     			append_dev(div8, t10);
     			append_dev(div8, div7);
 
-    			if (/*website*/ ctx[2] !== void 0) {
-    				div7.innerHTML = /*website*/ ctx[2];
+    			if (/*website*/ ctx[3] !== void 0) {
+    				div7.innerHTML = /*website*/ ctx[3];
     			}
 
     			append_dev(div34, t11);
@@ -6842,31 +6867,31 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[7]),
-    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[8]),
-    					listen_dev(div7, "input", /*div7_input_handler*/ ctx[9])
+    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[10]),
+    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[11]),
+    					listen_dev(div7, "input", /*div7_input_handler*/ ctx[12])
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if_block.p(ctx, dirty);
+    			if (/*showAvailability*/ ctx[4]) if_block.p(ctx, dirty);
 
-    			if (dirty & /*phone*/ 1 && /*phone*/ ctx[0] !== div5.innerHTML) {
-    				div5.innerHTML = /*phone*/ ctx[0];
+    			if (dirty & /*phone*/ 2 && /*phone*/ ctx[1] !== div5.innerHTML) {
+    				div5.innerHTML = /*phone*/ ctx[1];
     			}
 
-    			if (dirty & /*email*/ 2 && /*email*/ ctx[1] !== div6.innerHTML) {
-    				div6.innerHTML = /*email*/ ctx[1];
+    			if (dirty & /*email*/ 4 && /*email*/ ctx[2] !== div6.innerHTML) {
+    				div6.innerHTML = /*email*/ ctx[2];
     			}
 
-    			if (dirty & /*website*/ 4 && /*website*/ ctx[2] !== div7.innerHTML) {
-    				div7.innerHTML = /*website*/ ctx[2];
+    			if (dirty & /*website*/ 8 && /*website*/ ctx[3] !== div7.innerHTML) {
+    				div7.innerHTML = /*website*/ ctx[3];
     			}
 
-    			if (dirty & /*skills*/ 8) {
-    				each_value_4 = /*skills*/ ctx[3].slice(1);
+    			if (dirty & /*skills*/ 32) {
+    				each_value_4 = /*skills*/ ctx[5].slice(1);
     				validate_each_argument(each_value_4);
     				let i;
 
@@ -6889,8 +6914,8 @@ var app = (function () {
     				each_blocks_3.length = each_value_4.length;
     			}
 
-    			if (dirty & /*interests*/ 16) {
-    				each_value_3 = /*interests*/ ctx[4];
+    			if (dirty & /*interests*/ 64) {
+    				each_value_3 = /*interests*/ ctx[6];
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -6913,8 +6938,8 @@ var app = (function () {
     				each_blocks_2.length = each_value_3.length;
     			}
 
-    			if (dirty & /*jobs*/ 32) {
-    				each_value_1 = /*jobs*/ ctx[5];
+    			if (dirty & /*jobs*/ 128) {
+    				each_value_1 = /*jobs*/ ctx[7];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -6937,8 +6962,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*projects*/ 64) {
-    				each_value = /*projects*/ ctx[6];
+    			if (dirty & /*projects*/ 256) {
+    				each_value = /*projects*/ ctx[8];
     				validate_each_argument(each_value);
     				let i;
 
@@ -6990,11 +7015,12 @@ var app = (function () {
 
     const name = "Ben Lubas";
     const subtitle = "computer science major";
-    const availability = "Part Time";
 
     function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Resume', slots, []);
+    	let showAvailability = true;
+    	let availability = "Part Time";
     	let phone = "xxx-xxx-xxxx";
     	let email = "benmlubas@gmail.com";
     	let website = "benlubas.com";
@@ -7013,7 +7039,7 @@ var app = (function () {
     		"Airflow"
     	];
 
-    	const interests = ["Keyboards (with 36 keys)", "Gaming", "Hockey", "Artificial Intelligence"];
+    	const interests = ["Tiny Keyboards", "Gaming", "Hockey", "Artificial Intelligence"];
 
     	const jobs = [
     		{
@@ -7037,7 +7063,7 @@ var app = (function () {
         tickets to fully leading epics for the team. He is consistently strong in his data driven\
         communication and works well cross functionally. At this point he is performing way above\
         the expectations of a coop and is operating at the level of an L2 engineer on the team"',
-    				"Lead a small to medium scoped epic—including writing the initial solution design, creating\
+    				"Lead a small to medium scoped epic—including writing the solution design, creating\
         tickets, executing on tickets, and communicating progress and results"
     			]
     		}
@@ -7071,24 +7097,30 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Resume> was created with unknown prop '${key}'`);
     	});
 
+    	function span_input_handler() {
+    		availability = this.innerHTML;
+    		$$invalidate(0, availability);
+    	}
+
     	function div5_input_handler() {
     		phone = this.innerHTML;
-    		$$invalidate(0, phone);
+    		$$invalidate(1, phone);
     	}
 
     	function div6_input_handler() {
     		email = this.innerHTML;
-    		$$invalidate(1, email);
+    		$$invalidate(2, email);
     	}
 
     	function div7_input_handler() {
     		website = this.innerHTML;
-    		$$invalidate(2, website);
+    		$$invalidate(3, website);
     	}
 
     	$$self.$capture_state = () => ({
     		name,
     		subtitle,
+    		showAvailability,
     		availability,
     		phone,
     		email,
@@ -7100,9 +7132,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('phone' in $$props) $$invalidate(0, phone = $$props.phone);
-    		if ('email' in $$props) $$invalidate(1, email = $$props.email);
-    		if ('website' in $$props) $$invalidate(2, website = $$props.website);
+    		if ('showAvailability' in $$props) $$invalidate(4, showAvailability = $$props.showAvailability);
+    		if ('availability' in $$props) $$invalidate(0, availability = $$props.availability);
+    		if ('phone' in $$props) $$invalidate(1, phone = $$props.phone);
+    		if ('email' in $$props) $$invalidate(2, email = $$props.email);
+    		if ('website' in $$props) $$invalidate(3, website = $$props.website);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -7110,13 +7144,16 @@ var app = (function () {
     	}
 
     	return [
+    		availability,
     		phone,
     		email,
     		website,
+    		showAvailability,
     		skills,
     		interests,
     		jobs,
     		projects,
+    		span_input_handler,
     		div5_input_handler,
     		div6_input_handler,
     		div7_input_handler

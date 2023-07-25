@@ -1,7 +1,8 @@
 <script lang="ts">
   const name = "Ben Lubas";
   const subtitle = "computer science major";
-  const availability = "Part Time";
+  let showAvailability = true;
+  let availability = "Part Time";
   let phone = "xxx-xxx-xxxx";
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
@@ -21,7 +22,7 @@
   ];
 
   const interests = [
-    "Keyboards (with 36 keys)",
+    "Tiny Keyboards",
     "Gaming",
     "Hockey",
     "Artificial Intelligence",
@@ -49,7 +50,7 @@
         tickets to fully leading epics for the team. He is consistently strong in his data driven\
         communication and works well cross functionally. At this point he is performing way above\
         the expectations of a coop and is operating at the level of an L2 engineer on the team"',
-        "Lead a small to medium scoped epic—including writing the initial solution design, creating\
+        "Lead a small to medium scoped epic—including writing the solution design, creating\
         tickets, executing on tickets, and communicating progress and results",
       ],
     },
@@ -96,8 +97,8 @@
         <div class="name">
           {name}
         </div>
-        {#if availability}
-          <div class="availability">Availability: {availability}</div>
+        {#if showAvailability}
+          <div class="availability">Availability: <span contenteditable bind:innerHTML={availability}></span></div>
         {/if}
       </div>
       <div class="resume-subtitle">
@@ -124,7 +125,7 @@
           <p>Dean’s List | GPA: 3.68/4.00</p>
         </div>
         <div class="edu-section">
-          <div class="edu-head">
+          <div class="activity-heading">
             <strong>Plymouth Whitemarsh High School</strong>
             <div class="activity-date">2016-2020</div>
           </div>
@@ -284,7 +285,7 @@
     text-transform: uppercase;
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
-    font-size: 14pt;
+    font-size: 11pt;
   }
 
   .r-section-title {
