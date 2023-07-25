@@ -1,6 +1,9 @@
 <script lang="ts">
+  import DelimitedList from "../components/delimitedList.svelte";
+  import DelimitedListItem from "../components/delimitedListItem.svelte";
+
   const name = "Ben Lubas";
-  const subtitle = "computer science major";
+  let subtitle = "computer science major";
   let showAvailability = true;
   let availability = "Part Time";
   let phone = "xxx-xxx-xxxx";
@@ -88,6 +91,13 @@
     Because this is a webpage, it's interactive! You can click links, hover for
     more info, and even edit parts of the page. It's also printable!
   </p>
+
+  <input
+    type="checkbox"
+    id="showAvailability"
+    bind:checked={showAvailability}
+  />
+  <label for="showAvailability">Show Availability</label>
 </div>
 
 <div class="resume">
@@ -98,12 +108,15 @@
           {name}
         </div>
         {#if showAvailability}
-          <div class="availability">Availability: <span contenteditable bind:innerHTML={availability}></span></div>
+          <div class="availability">
+            Availability:&nbsp;<span
+              contenteditable
+              bind:innerHTML={availability}
+            />
+          </div>
         {/if}
       </div>
-      <div class="resume-subtitle">
-        {subtitle}
-      </div>
+      <div class="resume-subtitle" contenteditable bind:innerHTML={subtitle} />
     </div>
     <div class="contact">
       <div class="phone" contenteditable bind:innerHTML={phone} />
@@ -135,20 +148,19 @@
       <div id="knowledge-interests">
         <div class="tech-knowledge">
           <div class="r-section-title">Technical Knowledge</div>
-          <div class="skill-list">
-            {skills[0]}&nbsp;
-            {#each skills.slice(1) as skill}
-              | {skill}&nbsp;
+          <DelimitedList>
+            {#each skills as skill}
+              <DelimitedListItem>{skill}</DelimitedListItem>
             {/each}
-          </div>
+          </DelimitedList>
         </div>
         <div class="interests">
           <div class="r-section-title">Interests</div>
-          <ul>
+          <DelimitedList>
             {#each interests as interest}
-              <li>{interest}</li>
+              <DelimitedListItem>{interest}</DelimitedListItem>
             {/each}
-          </ul>
+          </DelimitedList>
         </div>
       </div>
     </div>
@@ -244,9 +256,9 @@
     margin-bottom: 8px;
   }
 
-    .edu-section {
-      margin-bottom: 8px;
-    }
+  .edu-section {
+    margin-bottom: 8px;
+  }
 
   .activity-heading {
     display: flex;
@@ -268,7 +280,7 @@
   .name {
     font-family: "Lora", serif;
     font-size: 24pt;
-    line-height: 1.0;
+    line-height: 1;
   }
 
   #knowledge-interests {
