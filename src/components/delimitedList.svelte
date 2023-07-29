@@ -1,4 +1,5 @@
 <script lang="ts">
+  // to be used with <DelimitedListItem>
 </script>
 
 <ul class="dl-list">

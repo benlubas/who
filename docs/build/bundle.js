@@ -6028,7 +6028,7 @@ var app = (function () {
     			ul = element("ul");
     			if (default_slot) default_slot.c();
     			attr_dev(ul, "class", "dl-list svelte-1hdsuqo");
-    			add_location(ul, file$4, 2, 0, 29);
+    			add_location(ul, file$4, 3, 0, 68);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6128,7 +6128,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			if (default_slot) default_slot.c();
-    			attr_dev(li, "class", "svelte-1xgyghz");
+    			attr_dev(li, "class", "svelte-yy38nw");
     			add_location(li, file$3, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -6248,7 +6248,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (104:8) {#if showAvailability}
+    // (105:8) {#if showAvailability}
     function create_if_block(ctx) {
     	let div;
     	let t;
@@ -6263,9 +6263,9 @@ var app = (function () {
     			span = element("span");
     			attr_dev(span, "contenteditable", "");
     			if (/*availability*/ ctx[2] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[11].call(span));
-    			add_location(span, file$2, 105, 31, 3454);
+    			add_location(span, file$2, 106, 31, 3461);
     			attr_dev(div, "class", "availability");
-    			add_location(div, file$2, 104, 10, 3396);
+    			add_location(div, file$2, 105, 10, 3403);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -6297,14 +6297,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(104:8) {#if showAvailability}",
+    		source: "(105:8) {#if showAvailability}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (147:14) <DelimitedListItem>
+    // (148:14) <DelimitedListItem>
     function create_default_slot_3(ctx) {
     	let t_value = /*skill*/ ctx[28] + "";
     	let t;
@@ -6326,14 +6326,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(147:14) <DelimitedListItem>",
+    		source: "(148:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (146:12) {#each skills as skill}
+    // (147:12) {#each skills as skill}
     function create_each_block_4(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -6381,14 +6381,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(146:12) {#each skills as skill}",
+    		source: "(147:12) {#each skills as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (145:10) <DelimitedList>
+    // (146:10) <DelimitedList>
     function create_default_slot_2(ctx) {
     	let each_1_anchor;
     	let current;
@@ -6477,14 +6477,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(145:10) <DelimitedList>",
+    		source: "(146:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (155:14) <DelimitedListItem>
+    // (156:14) <DelimitedListItem>
     function create_default_slot_1(ctx) {
     	let t_value = /*interest*/ ctx[25] + "";
     	let t;
@@ -6506,14 +6506,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(155:14) <DelimitedListItem>",
+    		source: "(156:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (154:12) {#each interests as interest}
+    // (155:12) {#each interests as interest}
     function create_each_block_3(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -6561,14 +6561,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(154:12) {#each interests as interest}",
+    		source: "(155:12) {#each interests as interest}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:10) <DelimitedList>
+    // (154:10) <DelimitedList>
     function create_default_slot$1(ctx) {
     	let each_1_anchor;
     	let current;
@@ -6657,14 +6657,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(153:10) <DelimitedList>",
+    		source: "(154:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (172:12) {#each job.bullets as bullet}
+    // (173:12) {#each job.bullets as bullet}
     function create_each_block_2(ctx) {
     	let li;
     	let t_value = /*bullet*/ ctx[22] + "";
@@ -6675,7 +6675,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$2, 172, 14, 5792);
+    			add_location(li, file$2, 173, 14, 5856);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -6691,14 +6691,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(172:12) {#each job.bullets as bullet}",
+    		source: "(173:12) {#each job.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (163:6) {#each jobs as job}
+    // (164:6) {#each jobs as job}
     function create_each_block_1(ctx) {
     	let div3;
     	let div2;
@@ -6744,16 +6744,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$2, 166, 14, 5585);
+    			add_location(strong, file$2, 167, 14, 5649);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$2, 165, 12, 5547);
+    			add_location(div0, file$2, 166, 12, 5611);
     			attr_dev(div1, "class", "activity-date svelte-1n2eo4k");
-    			add_location(div1, file$2, 168, 12, 5660);
+    			add_location(div1, file$2, 169, 12, 5724);
     			attr_dev(div2, "class", "activity-heading svelte-1n2eo4k");
-    			add_location(div2, file$2, 164, 10, 5504);
-    			add_location(ul, file$2, 170, 10, 5731);
+    			add_location(div2, file$2, 165, 10, 5568);
+    			add_location(ul, file$2, 171, 10, 5795);
     			attr_dev(div3, "class", "job");
-    			add_location(div3, file$2, 163, 8, 5476);
+    			add_location(div3, file$2, 164, 8, 5540);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -6810,14 +6810,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(163:6) {#each jobs as job}",
+    		source: "(164:6) {#each jobs as job}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (181:6) {#each projects as project}
+    // (182:6) {#each projects as project}
     function create_each_block(ctx) {
     	let div3;
     	let div2;
@@ -6855,20 +6855,20 @@ var app = (function () {
     			t7 = space();
     			li1 = element("li");
     			li1.textContent = "Saved approximately three minutes per diver‐upwards of 75\n              minutes in total, per dive meet";
-    			add_location(strong, file$2, 184, 14, 6134);
+    			add_location(strong, file$2, 185, 14, 6198);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$2, 183, 12, 6096);
+    			add_location(div0, file$2, 184, 12, 6160);
     			attr_dev(div1, "class", "activity-date svelte-1n2eo4k");
-    			add_location(div1, file$2, 186, 12, 6222);
+    			add_location(div1, file$2, 187, 12, 6286);
     			attr_dev(div2, "class", "activity-heading svelte-1n2eo4k");
-    			add_location(div2, file$2, 182, 10, 6053);
+    			add_location(div2, file$2, 183, 10, 6117);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$2, 189, 12, 6311);
+    			add_location(li0, file$2, 190, 12, 6375);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$2, 193, 12, 6494);
-    			add_location(ul, file$2, 188, 10, 6294);
+    			add_location(li1, file$2, 194, 12, 6558);
+    			add_location(ul, file$2, 189, 10, 6358);
     			attr_dev(div3, "class", "project");
-    			add_location(div3, file$2, 181, 8, 6021);
+    			add_location(div3, file$2, 182, 8, 6085);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -6896,7 +6896,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(181:6) {#each projects as project}",
+    		source: "(182:6) {#each projects as project}",
     		ctx
     	});
 
@@ -7137,102 +7137,105 @@ var app = (function () {
     			t50 = space();
     			li1 = element("li");
     			li1.textContent = "Explained site usage and benefits to staff members";
-    			add_location(p0, file$2, 79, 2, 2759);
-    			add_location(p1, file$2, 83, 2, 2874);
+    			add_location(p0, file$2, 80, 2, 2766);
+    			add_location(p1, file$2, 84, 2, 2881);
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "id", "showAvailability");
-    			add_location(input, file$2, 88, 2, 3037);
+    			add_location(input, file$2, 89, 2, 3044);
     			attr_dev(label, "for", "showAvailability");
-    			add_location(label, file$2, 93, 2, 3133);
+    			add_location(label, file$2, 94, 2, 3140);
     			attr_dev(div0, "class", "no-print svelte-1n2eo4k");
-    			add_location(div0, file$2, 78, 0, 2734);
+    			add_location(div0, file$2, 79, 0, 2741);
     			attr_dev(div1, "class", "name svelte-1n2eo4k");
-    			add_location(div1, file$2, 100, 8, 3304);
+    			add_location(div1, file$2, 101, 8, 3311);
     			attr_dev(div2, "class", "name-box svelte-1n2eo4k");
-    			add_location(div2, file$2, 99, 6, 3273);
+    			add_location(div2, file$2, 100, 6, 3280);
     			attr_dev(div3, "class", "resume-subtitle svelte-1n2eo4k");
     			attr_dev(div3, "contenteditable", "");
     			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div3_input_handler*/ ctx[12].call(div3));
-    			add_location(div3, file$2, 112, 6, 3599);
+    			add_location(div3, file$2, 113, 6, 3606);
     			attr_dev(div4, "class", "title-box");
-    			add_location(div4, file$2, 98, 4, 3243);
+    			add_location(div4, file$2, 99, 4, 3250);
     			attr_dev(div5, "class", "phone svelte-1n2eo4k");
     			attr_dev(div5, "contenteditable", "");
+    			attr_dev(div5, "spellcheck", false);
     			if (/*phone*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[13].call(div5));
-    			add_location(div5, file$2, 115, 6, 3716);
+    			add_location(div5, file$2, 116, 6, 3723);
     			attr_dev(div6, "class", "email svelte-1n2eo4k");
     			attr_dev(div6, "contenteditable", "");
+    			attr_dev(div6, "spellcheck", false);
     			if (/*email*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[14].call(div6));
-    			add_location(div6, file$2, 116, 6, 3783);
+    			add_location(div6, file$2, 117, 6, 3809);
     			attr_dev(div7, "class", "website svelte-1n2eo4k");
     			attr_dev(div7, "contenteditable", "");
+    			attr_dev(div7, "spellcheck", false);
     			if (/*website*/ ctx[5] === void 0) add_render_callback(() => /*div7_input_handler*/ ctx[15].call(div7));
-    			add_location(div7, file$2, 117, 6, 3850);
+    			add_location(div7, file$2, 118, 6, 3895);
     			attr_dev(div8, "class", "contact svelte-1n2eo4k");
-    			add_location(div8, file$2, 114, 4, 3688);
+    			add_location(div8, file$2, 115, 4, 3695);
     			attr_dev(div9, "class", "head svelte-1n2eo4k");
-    			add_location(div9, file$2, 97, 2, 3220);
+    			add_location(div9, file$2, 98, 2, 3227);
     			attr_dev(div10, "class", "r-section-title svelte-1n2eo4k");
-    			add_location(div10, file$2, 123, 8, 4020);
-    			add_location(strong0, file$2, 126, 12, 4152);
+    			add_location(div10, file$2, 124, 8, 4084);
+    			add_location(strong0, file$2, 127, 12, 4216);
     			attr_dev(div11, "class", "activity-date svelte-1n2eo4k");
-    			add_location(div11, file$2, 127, 12, 4205);
+    			add_location(div11, file$2, 128, 12, 4269);
     			attr_dev(div12, "class", "activity-heading svelte-1n2eo4k");
-    			add_location(div12, file$2, 125, 10, 4109);
-    			add_location(p2, file$2, 129, 10, 4275);
-    			add_location(p3, file$2, 130, 10, 4327);
-    			add_location(p4, file$2, 131, 10, 4401);
+    			add_location(div12, file$2, 126, 10, 4173);
+    			add_location(p2, file$2, 130, 10, 4339);
+    			add_location(p3, file$2, 131, 10, 4391);
+    			add_location(p4, file$2, 132, 10, 4465);
     			attr_dev(div13, "class", "edu-section svelte-1n2eo4k");
-    			add_location(div13, file$2, 124, 8, 4073);
-    			add_location(strong1, file$2, 135, 12, 4539);
+    			add_location(div13, file$2, 125, 8, 4137);
+    			add_location(strong1, file$2, 136, 12, 4603);
     			attr_dev(div14, "class", "activity-date svelte-1n2eo4k");
-    			add_location(div14, file$2, 136, 12, 4600);
+    			add_location(div14, file$2, 137, 12, 4664);
     			attr_dev(div15, "class", "activity-heading svelte-1n2eo4k");
-    			add_location(div15, file$2, 134, 10, 4496);
-    			add_location(p5, file$2, 138, 10, 4670);
+    			add_location(div15, file$2, 135, 10, 4560);
+    			add_location(p5, file$2, 139, 10, 4734);
     			attr_dev(div16, "class", "edu-section svelte-1n2eo4k");
-    			add_location(div16, file$2, 133, 8, 4460);
+    			add_location(div16, file$2, 134, 8, 4524);
     			attr_dev(div17, "id", "education");
-    			add_location(div17, file$2, 122, 6, 3991);
+    			add_location(div17, file$2, 123, 6, 4055);
     			attr_dev(div18, "class", "r-section-title svelte-1n2eo4k");
-    			add_location(div18, file$2, 143, 10, 4820);
+    			add_location(div18, file$2, 144, 10, 4884);
     			attr_dev(div19, "class", "tech-knowledge");
-    			add_location(div19, file$2, 142, 8, 4781);
+    			add_location(div19, file$2, 143, 8, 4845);
     			attr_dev(div20, "class", "r-section-title svelte-1n2eo4k");
-    			add_location(div20, file$2, 151, 10, 5102);
+    			add_location(div20, file$2, 152, 10, 5166);
     			attr_dev(div21, "class", "interests");
-    			add_location(div21, file$2, 150, 8, 5068);
+    			add_location(div21, file$2, 151, 8, 5132);
     			attr_dev(div22, "id", "knowledge-interests");
     			attr_dev(div22, "class", "svelte-1n2eo4k");
-    			add_location(div22, file$2, 141, 6, 4742);
+    			add_location(div22, file$2, 142, 6, 4806);
     			attr_dev(div23, "class", "top-body svelte-1n2eo4k");
-    			add_location(div23, file$2, 121, 4, 3962);
+    			add_location(div23, file$2, 122, 4, 4026);
     			attr_dev(div24, "class", "r-section-title svelte-1n2eo4k");
-    			add_location(div24, file$2, 161, 6, 5391);
+    			add_location(div24, file$2, 162, 6, 5455);
     			attr_dev(div25, "id", "work");
-    			add_location(div25, file$2, 160, 4, 5369);
+    			add_location(div25, file$2, 161, 4, 5433);
     			attr_dev(div26, "class", "r-section-title svelte-1n2eo4k");
-    			add_location(div26, file$2, 179, 6, 5935);
-    			add_location(strong2, file$2, 203, 12, 6817);
+    			add_location(div26, file$2, 180, 6, 5999);
+    			add_location(strong2, file$2, 204, 12, 6881);
     			attr_dev(div27, "class", "job-title");
-    			add_location(div27, file$2, 202, 10, 6781);
+    			add_location(div27, file$2, 203, 10, 6845);
     			attr_dev(div28, "class", "activity-date svelte-1n2eo4k");
-    			add_location(div28, file$2, 205, 10, 6900);
+    			add_location(div28, file$2, 206, 10, 6964);
     			attr_dev(div29, "class", "activity-heading svelte-1n2eo4k");
-    			add_location(div29, file$2, 201, 8, 6740);
+    			add_location(div29, file$2, 202, 8, 6804);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$2, 208, 10, 6985);
+    			add_location(li0, file$2, 209, 10, 7049);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$2, 212, 10, 7178);
-    			add_location(ul, file$2, 207, 8, 6970);
+    			add_location(li1, file$2, 213, 10, 7242);
+    			add_location(ul, file$2, 208, 8, 7034);
     			attr_dev(div30, "class", "project");
-    			add_location(div30, file$2, 200, 6, 6710);
+    			add_location(div30, file$2, 201, 6, 6774);
     			attr_dev(div31, "id", "projects");
-    			add_location(div31, file$2, 178, 4, 5909);
+    			add_location(div31, file$2, 179, 4, 5973);
     			attr_dev(div32, "class", "r-body");
-    			add_location(div32, file$2, 120, 2, 3937);
+    			add_location(div32, file$2, 121, 2, 4001);
     			attr_dev(div33, "class", "resume svelte-1n2eo4k");
-    			add_location(div33, file$2, 96, 0, 3197);
+    			add_location(div33, file$2, 97, 0, 3204);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7515,7 +7518,8 @@ var app = (function () {
     		"TypeScript",
     		"React",
     		"Rust",
-    		"HTML/CSS",
+    		"HTML",
+    		"CSS",
     		"Svelte",
     		"Clojure",
     		"SQL",

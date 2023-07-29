@@ -15,7 +15,8 @@
     "TypeScript",
     "React",
     "Rust",
-    "HTML/CSS",
+    "HTML",
+    "CSS",
     "Svelte",
     "Clojure",
     "SQL",
@@ -119,9 +120,9 @@
       <div class="resume-subtitle" contenteditable bind:innerHTML={subtitle} />
     </div>
     <div class="contact">
-      <div class="phone" contenteditable bind:innerHTML={phone} />
-      <div class="email" contenteditable bind:innerHTML={email} />
-      <div class="website" contenteditable bind:innerHTML={website} />
+      <div class="phone" contenteditable spellcheck={false} bind:innerHTML={phone} />
+      <div class="email" contenteditable spellcheck={false} bind:innerHTML={email} />
+      <div class="website" contenteditable spellcheck={false} bind:innerHTML={website} />
     </div>
   </div>
   <div class="r-body">
