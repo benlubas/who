@@ -1,324 +1,40 @@
 <script lang="ts">
-  import DelimitedList from "../components/delimitedList.svelte";
-  import DelimitedListItem from "../components/delimitedListItem.svelte";
+  import PageTitle from "../components/PageTitle.svelte";
+  import Resume from "../components/resume.svelte";
 
-  const name = "Ben Lubas";
-  let subtitle = "computer science major";
-  let showAvailability = true;
-  let availability = "Part Time";
-  let phone = "xxx-xxx-xxxx";
-  let email = "benmlubas@gmail.com";
-  let website = "benlubas.com";
-
-  const skills = [
-    "Rails",
-    "TypeScript",
-    "React",
-    "Rust",
-    "HTML",
-    "CSS",
-    "Svelte",
-    "Clojure",
-    "SQL",
-    "Docker",
-    "K8s",
-    "Airflow",
-  ];
-
-  const interests = [
-    "Tiny Keyboards",
-    "Gaming",
-    "Hockey",
-    "Artificial Intelligence",
-  ];
-
-  const jobs = [
-    {
-      company: "BookBub",
-      title: "Software Engineering Co-op",
-      date: "2023",
-      bullets: [
-        "Partially automated the migration of JavaScript tests from Enzyme to RTL + Jest decreasing\
-        the projected port time from five months to just under two months.",
-        "Conducted experiments on the ads platform, collected and analyzed data, and presented\
-        actionable insights to improve ad revenue",
-      ],
-    },
-    {
-      company: "Wayfair",
-      title: "Software Engineering Co-op",
-      date: "2022",
-      bullets: [
-        'From my manager at Wayfair: "[Ben] quickly onboarded and fully contributed as a member of\
-        the squad for the majority of his coop. Ben stretched himself beyond just executing on\
-        tickets to fully leading epics for the team. He is consistently strong in his data driven\
-        communication and works well cross functionally. At this point he is performing way above\
-        the expectations of a coop and is operating at the level of an L2 engineer on the team"',
-        "Lead a small to medium scoped epic—including writing the solution design, creating\
-        tickets, executing on tickets, and communicating progress and results",
-      ],
-    },
-  ];
-
-  const projects = [
-    {
-      title: "Dive Sheet Generator",
-      date: "August 2021",
-      technologies: "Svelte | CSS",
-      bullets: [
-        "Developed a web-based application that converts a CSV file to printable, league standard dive sheets",
-        "Saved approximately three minutes per diver—upwards of 75 minutes in total, per dive meet",
-      ],
-    },
-    {
-      title: "PW Voting Site",
-      date: "Jan-Jun, 2020",
-      technologies: "React | Node/Express | MongoDB",
-      bullets: [
-        "Designed, prototyped, and developed a website capable of generating and distributing\
-        secure polls for the student body",
-        "Presented site usage and benefits to school staff members",
-      ],
-    },
-  ];
+  // TODO: Implement this functionality later on. Add some other options to show/hide things?
+  // add the ability to edit the list of skills. Maybe show a little plus when you hover the section
+  // to add new entries
+  // let showAvailability = true;
 </script>
 
-<div class="no-print">
-  <p>
-    This is my resume. You might notice my phone number missing. I don't want a
-    bot to scrape it.
-  </p>
-  <p>
-    Because this is a webpage, it's interactive! You can click links, hover for
-    more info, and even edit parts of the page. It's also printable!
-  </p>
+<div class="page-cont">
+  <div class="text">
+    <div class="no-print">
+      <PageTitle title="Resume" />
+      This is my resume! It's still a work in progress, as I'd like it to be more
+      interactive. That said, it's still a resume, and it's printable. Also, parts
+      of the resume are editable.
 
-  <input
-    type="checkbox"
-    id="showAvailability"
-    bind:checked={showAvailability}
-  />
-  <label for="showAvailability">Show Availability</label>
-</div>
-
-<div class="resume">
-  <div class="head">
-    <div class="title-box">
-      <div class="name-box">
-        <div class="name">
-          {name}
-        </div>
-        {#if showAvailability}
-          <div class="availability">
-            Availability:&nbsp;<span
-              contenteditable
-              bind:innerHTML={availability}
-            />
-          </div>
-        {/if}
-      </div>
-      <div class="resume-subtitle" contenteditable bind:innerHTML={subtitle} />
+      <!-- TODO: add this back with the availability work <input -->
+      <!--   type="checkbox" -->
+      <!--   id="showAvailability" -->
+      <!--   bind:checked={showAvailability} -->
+      <!-- /> -->
+      <!-- <label for="showAvailability">Show Availability</label> -->
     </div>
-    <div class="contact">
-      <div class="phone" contenteditable spellcheck={false} bind:innerHTML={phone} />
-      <div class="email" contenteditable spellcheck={false} bind:innerHTML={email} />
-      <div class="website" contenteditable spellcheck={false} bind:innerHTML={website} />
-    </div>
-  </div>
-  <div class="r-body">
-    <div class="top-body">
-      <div id="education">
-        <div class="r-section-title">Education</div>
-        <div class="edu-section">
-          <div class="activity-heading">
-            <strong>Northeastern University</strong>
-            <div class="activity-date">2020-2024</div>
-          </div>
-          <p>Khoury College of Computer Science</p>
-          <p>Candidate for Bachelor of Science Computer Science, 2024</p>
-          <p>Dean’s List | GPA: 3.68/4.00</p>
-        </div>
-        <div class="edu-section">
-          <div class="activity-heading">
-            <strong>Plymouth Whitemarsh High School</strong>
-            <div class="activity-date">2016-2020</div>
-          </div>
-          <p>4x Honor Roll | GPA: 3.97/4.00</p>
-        </div>
-      </div>
-      <div id="knowledge-interests">
-        <div class="tech-knowledge">
-          <div class="r-section-title">Technical Knowledge</div>
-          <DelimitedList>
-            {#each skills as skill}
-              <DelimitedListItem>{skill}</DelimitedListItem>
-            {/each}
-          </DelimitedList>
-        </div>
-        <div class="interests">
-          <div class="r-section-title">Interests</div>
-          <DelimitedList>
-            {#each interests as interest}
-              <DelimitedListItem>{interest}</DelimitedListItem>
-            {/each}
-          </DelimitedList>
-        </div>
-      </div>
-    </div>
-    <div id="work">
-      <div class="r-section-title">Work Experience</div>
-      {#each jobs as job}
-        <div class="job">
-          <div class="activity-heading">
-            <div class="job-title">
-              <strong>{job.title}</strong>, {job.company}
-            </div>
-            <div class="activity-date">{job.date}</div>
-          </div>
-          <ul>
-            {#each job.bullets as bullet}
-              <li class="job-bullet">{bullet}</li>
-            {/each}
-          </ul>
-        </div>
-      {/each}
-    </div>
-    <div id="projects">
-      <div class="r-section-title">Projects</div>
-      {#each projects as project}
-        <div class="project">
-          <div class="activity-heading">
-            <div class="job-title">
-              <strong>{project.title}</strong>, {project.technologies}
-            </div>
-            <div class="activity-date">August 2021</div>
-          </div>
-          <ul>
-            <li class="job-bullet">
-              Developed a web-based application that converts a CSV file to
-              printable, league standard dive sheets
-            </li>
-            <li class="job-bullet">
-              Saved approximately three minutes per diver&dash;upwards of 75
-              minutes in total, per dive meet
-            </li>
-          </ul>
-        </div>
-      {/each}
-      <div class="project">
-        <div class="activity-heading">
-          <div class="job-title">
-            <strong>PW Voting Site</strong>, React | Node | MongoDB
-          </div>
-          <div class="activity-date">Jan-Jun, 2020</div>
-        </div>
-        <ul>
-          <li class="job-bullet">
-            Designed, prototyped, and developed a website capable of generating
-            and distributing secure polls for the student body
-          </li>
-          <li class="job-bullet">
-            Explained site usage and benefits to staff members
-          </li>
-        </ul>
+    <div class="flex-center">
+      <div class="resume-border">
+        <Resume />
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&family=Roboto+Condensed:wght@300&display=swap");
-  .resume {
-    border: 1px solid white;
-    width: 8.5in;
-    height: 11in;
-    line-height: 1.4;
-
-    padding: 1in;
-    font-size: 10pt;
-    box-sizing: border-box;
-
-    --resume-accent: #0073ff;
-  }
-
-  .top-body {
-    display: grid;
-    grid:
-      [r1-start] "education knowledge-interests" 100% [r1-end]
-      / 60fr 40fr;
-  }
-
-  .head {
-    display: grid;
-    grid:
-      [r1-start] "name contact-info" 100% [r1-end]
-      / 60fr 40fr;
-    width: 100%;
-    margin-bottom: 8px;
-  }
-
-  .edu-section {
-    margin-bottom: 8px;
-  }
-
-  .activity-heading {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11pt;
-  }
-
-  .activity-date {
-    font-style: italic;
-  }
-
-  .name-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    border-bottom: 2px solid var(--resume-accent);
-  }
-
-  .name {
-    font-family: "Lora", serif;
-    font-size: 24pt;
-    line-height: 1;
-  }
-
-  #knowledge-interests {
-    display: flex;
-    flex-direction: column;
-    padding-left: 15px;
-  }
-  #knowledge-interests ul {
-    list-style: none;
-    margin-left: 0;
-  }
-
-  .resume-subtitle {
-    text-transform: uppercase;
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 300;
-    font-size: 11pt;
-  }
-
-  .r-section-title {
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 14pt;
-    margin-bottom: 8px;
-    margin-top: 8px;
-  }
-  .r-section-title::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--resume-accent);
-  }
-
-  .contact div {
-    text-align: right;
+  .resume-border {
+    border: 1px solid var(--primary);
+    display: inline-block;
   }
 
   @page {
@@ -329,8 +45,16 @@
     .no-print {
       display: none !important;
     }
-    .resume {
+    .resume-border {
       border: none;
+    }
+    .page-cont {
+      padding: 0;
+      margin: 0;
+    }
+    .text {
+      padding: 0;
+      margin: 0;
     }
   }
 </style>

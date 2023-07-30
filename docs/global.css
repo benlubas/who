@@ -22,9 +22,10 @@ body {
   --bg: #221f23;
   --primary: white;
   --accent: #a733d1;
+  --font-size: 1.2rem;
   font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
     sans-serif;
-  font-size: 1.2rem;
+  font-size: var(--font-size);
   line-height: 1.7;
   background: var(--bg);
   color: var(--primary);
@@ -94,6 +95,13 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 1012px), (orientation: portrait) {
   .btn-title {
     font-size: 8vw;
