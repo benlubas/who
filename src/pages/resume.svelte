@@ -34,8 +34,8 @@
     </div>
     <div class="print-instructions no-print">
       <div class="subtitle">Printing</div>
-      Please follow these simple instructions to print this resume properly:
-      <FoldableSection title="Chrome(ium Based)">
+      Please follow these instructions to print this resume properly:
+      <FoldableSection title="Chrome/Chromium">
         <ol>
           <li>
             Open the print dialog with <strong>control + p</strong> (or

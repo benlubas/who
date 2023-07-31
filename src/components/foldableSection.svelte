@@ -6,7 +6,21 @@
 <div class="foldable" class:open>
   <div class="foldable-title" on:click={() => (open = !open)}>
     <div class="title">{title}</div>
-    <button>{open ? "close" : "open"}</button>
+    <button class="transparent-button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="1em"
+        viewBox="0 0 512 512"
+      >
+        <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License
+- https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+          d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8
+          0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352
+          160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8
+          0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"
+        />
+      </svg>
+    </button>
   </div>
   <div class="content">
     <slot />
@@ -23,6 +37,14 @@
   }
   .foldable-title:hover {
     cursor: pointer;
+  }
+  svg {
+    fill: var(--primary);
+    rotate: 0;
+    transition: rotate 0.5s ease-in-out;
+  }
+  .open svg {
+    rotate: 90deg;
   }
   .foldable-title::after {
     content: "";
@@ -41,23 +63,22 @@
     margin-top: 0;
   }
 
-  button {
-    background: none;
+  .transparent-button {
+    background: transparent;
     border: none;
-    font-weight: bold;
     cursor: pointer;
     padding: 0;
     margin: 0;
     color: var(--primary);
   }
-  button:active {
+  .transparent-button:active {
     outline: none;
     border: none;
   }
 
   .content {
     margin-left: 2.5rem;
-    transition: max-height 0.5s ease;
+    transition: max-height 0.5s ease-in-out;
     position: relative;
     overflow: hidden;
   }

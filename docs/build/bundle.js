@@ -185,6 +185,9 @@ var app = (function () {
     function element(name) {
         return document.createElement(name);
     }
+    function svg_element(name) {
+        return document.createElementNS('http://www.w3.org/2000/svg', name);
+    }
     function text(data) {
         return document.createTextNode(data);
     }
@@ -6024,9 +6027,9 @@ var app = (function () {
     	let t0;
     	let t1;
     	let button;
-    	let t2_value = (/*open*/ ctx[1] ? "close" : "open") + "";
+    	let svg;
+    	let path;
     	let t2;
-    	let t3;
     	let div2;
     	let current;
     	let mounted;
@@ -6042,19 +6045,27 @@ var app = (function () {
     			t0 = text(/*title*/ ctx[0]);
     			t1 = space();
     			button = element("button");
-    			t2 = text(t2_value);
-    			t3 = space();
+    			svg = svg_element("svg");
+    			path = svg_element("path");
+    			t2 = space();
     			div2 = element("div");
     			if (default_slot) default_slot.c();
-    			attr_dev(div0, "class", "title svelte-1gin1nu");
+    			attr_dev(div0, "class", "title svelte-1vwn77q");
     			add_location(div0, file$7, 7, 4, 182);
-    			attr_dev(button, "class", "svelte-1gin1nu");
+    			attr_dev(path, "d", "M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8\n          0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352\n          160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8\n          0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z");
+    			add_location(path, file$7, 15, 89, 545);
+    			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			attr_dev(svg, "height", "1em");
+    			attr_dev(svg, "viewBox", "0 0 512 512");
+    			attr_dev(svg, "class", "svelte-1vwn77q");
+    			add_location(svg, file$7, 9, 6, 261);
+    			attr_dev(button, "class", "transparent-button svelte-1vwn77q");
     			add_location(button, file$7, 8, 4, 219);
-    			attr_dev(div1, "class", "foldable-title svelte-1gin1nu");
+    			attr_dev(div1, "class", "foldable-title svelte-1vwn77q");
     			add_location(div1, file$7, 6, 2, 117);
-    			attr_dev(div2, "class", "content svelte-1gin1nu");
-    			add_location(div2, file$7, 10, 2, 273);
-    			attr_dev(div3, "class", "foldable svelte-1gin1nu");
+    			attr_dev(div2, "class", "content svelte-1vwn77q");
+    			add_location(div2, file$7, 24, 2, 981);
+    			attr_dev(div3, "class", "foldable svelte-1vwn77q");
     			toggle_class(div3, "open", /*open*/ ctx[1]);
     			add_location(div3, file$7, 5, 0, 81);
     		},
@@ -6068,8 +6079,9 @@ var app = (function () {
     			append_dev(div0, t0);
     			append_dev(div1, t1);
     			append_dev(div1, button);
-    			append_dev(button, t2);
-    			append_dev(div3, t3);
+    			append_dev(button, svg);
+    			append_dev(svg, path);
+    			append_dev(div3, t2);
     			append_dev(div3, div2);
 
     			if (default_slot) {
@@ -6085,7 +6097,6 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (!current || dirty & /*title*/ 1) set_data_dev(t0, /*title*/ ctx[0]);
-    			if ((!current || dirty & /*open*/ 2) && t2_value !== (t2_value = (/*open*/ ctx[1] ? "close" : "open") + "")) set_data_dev(t2, t2_value);
 
     			if (default_slot) {
     				if (default_slot.p && (!current || dirty & /*$$scope*/ 4)) {
@@ -7926,7 +7937,7 @@ var app = (function () {
     	return block;
     }
 
-    // (36:6) <FoldableSection title="Chrome(ium Based)">
+    // (36:6) <FoldableSection title="Chrome/Chromium">
     function create_default_slot_1(ctx) {
     	let ol;
     	let li0;
@@ -7961,13 +7972,13 @@ var app = (function () {
     			t8 = text("Check ");
     			em = element("em");
     			em.textContent = "Background Graphics";
-    			add_location(strong0, file$2, 38, 39, 1536);
-    			add_location(strong1, file$2, 39, 12, 1581);
-    			add_location(li0, file$2, 37, 10, 1492);
-    			add_location(li1, file$2, 41, 10, 1644);
-    			add_location(em, file$2, 42, 20, 1691);
-    			add_location(li2, file$2, 42, 10, 1681);
-    			add_location(ol, file$2, 36, 8, 1477);
+    			add_location(strong0, file$2, 38, 39, 1527);
+    			add_location(strong1, file$2, 39, 12, 1572);
+    			add_location(li0, file$2, 37, 10, 1483);
+    			add_location(li1, file$2, 41, 10, 1635);
+    			add_location(em, file$2, 42, 20, 1682);
+    			add_location(li2, file$2, 42, 10, 1672);
+    			add_location(ol, file$2, 36, 8, 1468);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -7994,7 +8005,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(36:6) <FoldableSection title=\\\"Chrome(ium Based)\\\">",
+    		source: "(36:6) <FoldableSection title=\\\"Chrome/Chromium\\\">",
     		ctx
     	});
 
@@ -8056,17 +8067,17 @@ var app = (function () {
     			em2 = element("em");
     			em2.textContent = "Print headers and footers";
     			t16 = text(" is unchecked");
-    			add_location(strong0, file$2, 48, 39, 1871);
-    			add_location(strong1, file$2, 49, 12, 1916);
-    			add_location(li0, file$2, 47, 10, 1827);
-    			add_location(em0, file$2, 51, 20, 1989);
-    			add_location(li1, file$2, 51, 10, 1979);
-    			add_location(li2, file$2, 52, 10, 2027);
-    			add_location(em1, file$2, 53, 20, 2074);
-    			add_location(li3, file$2, 53, 10, 2064);
-    			add_location(em2, file$2, 54, 24, 2130);
-    			add_location(li4, file$2, 54, 10, 2116);
-    			add_location(ol, file$2, 46, 8, 1812);
+    			add_location(strong0, file$2, 48, 39, 1862);
+    			add_location(strong1, file$2, 49, 12, 1907);
+    			add_location(li0, file$2, 47, 10, 1818);
+    			add_location(em0, file$2, 51, 20, 1980);
+    			add_location(li1, file$2, 51, 10, 1970);
+    			add_location(li2, file$2, 52, 10, 2018);
+    			add_location(em1, file$2, 53, 20, 2065);
+    			add_location(li3, file$2, 53, 10, 2055);
+    			add_location(em2, file$2, 54, 24, 2121);
+    			add_location(li4, file$2, 54, 10, 2107);
+    			add_location(ol, file$2, 46, 8, 1803);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -8146,7 +8157,7 @@ var app = (function () {
 
     	foldablesection0 = new FoldableSection({
     			props: {
-    				title: "Chrome(ium Based)",
+    				title: "Chrome/Chromium",
     				$$slots: { default: [create_default_slot_1] },
     				$$scope: { ctx }
     			},
@@ -8178,7 +8189,7 @@ var app = (function () {
     			div4 = element("div");
     			div3 = element("div");
     			div3.textContent = "Printing";
-    			t4 = text("\n      Please follow these simple instructions to print this resume properly:\n      ");
+    			t4 = text("\n      Please follow these instructions to print this resume properly:\n      ");
     			create_component(foldablesection0.$$.fragment);
     			t5 = space();
     			create_component(foldablesection1.$$.fragment);
