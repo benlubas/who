@@ -6,10 +6,11 @@
   import Shape from "../components/shape.svelte";
   import WorkBtn from "../components/gridBoxes/workBtn.svelte";
   import GithubBtn from "../components/gridBoxes/githubBtn.svelte";
+  import ResumeBtn from "../components/gridBoxes/resumeBtn.svelte";
 
   prefetch("/projects", { validFor: 24 * 60 });
   prefetch("/about", { validFor: 24 * 60 });
-  prefetch("/courses", { validFor: 24 * 60 });
+  prefetch("/resume", { validFor: 24 * 60 });
 </script>
 
 <div class="container">
@@ -18,10 +19,10 @@
     <Name />
   </div>
   <div id="tl">
-    <a href={$url("/projects")}> <ProjectsBtn /></a>
+    <a href={$url("/about")}><AboutBtn /></a>
   </div>
-  <div id="br">
-    <a href={$url("/about")}> <AboutBtn /></a>
+  <div id="tr">
+    <a href={$url("/resume")}><ResumeBtn /></a>
   </div>
   <div id="right">
     <a href={$url("/work")}><WorkBtn /></a>
@@ -32,6 +33,9 @@
       target="_blank"
       rel="noopener noreferrer"><GithubBtn /></a
     >
+  </div>
+  <div id="br">
+    <a href={$url("/projects")}><ProjectsBtn /></a>
   </div>
   <Shape shapeInvert />
   <Shape shapeInvert />
@@ -63,18 +67,18 @@
   #bl {
     grid-area: bl;
   }
-  #top {
-    grid-area: top;
-  }
-  #left {
-    grid-area: left;
-  }
+  /* #top { */
+  /*   grid-area: top; */
+  /* } */
+  /* #left { */
+  /*   grid-area: left; */
+  /* } */
   #right {
     grid-area: right;
   }
-  #bottom {
-    grid-area: bottom;
-  }
+  /* #bottom { */
+  /*   grid-area: bottom; */
+  /* } */
 
   .grid-item {
     height: 100%;
@@ -96,9 +100,10 @@
   @media (max-width: 1012px), (orientation: portrait) {
     .container {
       grid:
-        [row1-start] "center center" calc(100vh / 3) [row1-end]
-        [row2-start] "br tl" calc(100vh / 3) [row2-end]
-        [row3-start] "bl right" calc(100vh / 3) [row3-end]
+        [row1-start] "center center" calc(100vh / 4) [row1-end]
+        [row2-start] "tl tr" calc(100vh / 4) [row2-end]
+        [row3-start] "right bl" calc(100vh / 4) [row3-end]
+        [row4-start] "br br" calc(100vh / 4) [row4-end]
         / 1fr 1fr;
     }
   }
@@ -107,10 +112,11 @@
       height: unset;
       grid:
         [row1-start] "center" calc(100vh / 3) [row1-end]
-        [row2-start] "br" calc(100vh / 3) [row2-end]
-        [row3-start] "tl" calc(100vh / 3) [row3-end]
-        [row4-start] "bl" calc(100vh / 3) [row4-end]
-        [row5-start] "right" calc(100vh / 3) [row5-end]
+        [row2-start] "tl" calc(100vh / 3) [row2-end]
+        [row3-start] "tr" calc(100vh / 3) [row3-end]
+        [row4-start] "right" calc(100vh / 3) [row4-end]
+        [row5-start] "br" calc(100vh / 3) [row5-end]
+        [row6-start] "bl" calc(100vh / 3) [row6-end]
         / 1fr;
     }
   }
