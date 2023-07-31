@@ -1,6 +1,7 @@
 <script lang="ts">
   import PageTitle from "../components/PageTitle.svelte";
   import FoldableSection from "../components/foldableSection.svelte";
+  import Note from "../components/note.svelte";
   import Resume from "../components/resume.svelte";
 
   // TODO: Implement this functionality later on. Add some other options to show/hide things?
@@ -14,7 +15,10 @@
     <div class="no-print">
       <PageTitle title="Resume" />
       This is my resume! It's still a work in progress, as I'd like it to be more
-      interactive.
+      interactive. It's currently printable, with some editable parts.
+      <Note>
+        My phone number is missing as I'd rather not have it get scraped.
+      </Note>
 
       <!-- TODO: add this back with the availability work <input -->
       <!--   type="checkbox" -->
@@ -61,6 +65,7 @@
   .resume-border {
     border: 1px solid var(--primary);
     display: inline-block;
+    margin-top: 1rem;
   }
 
   @page {
