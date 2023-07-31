@@ -1,5 +1,6 @@
 <script lang="ts">
   import PageTitle from "../components/PageTitle.svelte";
+  import FoldableSection from "../components/foldableSection.svelte";
   import Resume from "../components/resume.svelte";
 
   // TODO: Implement this functionality later on. Add some other options to show/hide things?
@@ -13,8 +14,7 @@
     <div class="no-print">
       <PageTitle title="Resume" />
       This is my resume! It's still a work in progress, as I'd like it to be more
-      interactive. That said, it's still a resume, and it's printable. Also, parts
-      of the resume are editable.
+      interactive.
 
       <!-- TODO: add this back with the availability work <input -->
       <!--   type="checkbox" -->
@@ -27,6 +27,32 @@
       <div class="resume-border">
         <Resume />
       </div>
+    </div>
+    <div class="print-instructions no-print">
+      <div class="subtitle">Printing</div>
+      Please follow these simple instructions to print this resume properly:
+      <FoldableSection title="Chrome(ium Based)">
+        <ol>
+          <li>
+            Open the print dialog with <strong>control + p</strong> (or
+            <strong>command + p</strong> on mac)
+          </li>
+          <li>Margins &gt; None</li>
+          <li>Check <em>Background Graphics</em></li>
+        </ol>
+      </FoldableSection>
+      <FoldableSection title="FireFox">
+        <ol>
+          <li>
+            Open the print dialog with <strong>control + p</strong> (or
+            <strong>command + p</strong> on mac)
+          </li>
+          <li>Click <em>More settings</em></li>
+          <li>Margins &gt; None</li>
+          <li>Check <em>Print backgrounds</em></li>
+          <li>Make sure <em>Print headers and footers</em> is unchecked</li>
+        </ol>
+      </FoldableSection>
     </div>
   </div>
 </div>

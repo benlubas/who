@@ -23,6 +23,8 @@ body {
   --primary: white;
   --accent: #a733d1;
   --font-size: 1.2rem;
+  --subtitle-font-size: 2.3rem;
+  --title-font: Montserrat, sans-serif;
   font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
     sans-serif;
   font-size: var(--font-size);
@@ -42,8 +44,8 @@ ul {
   font-family: Montserrat, sans-serif;
 }
 .subtitle {
-  font-size: 2.3rem;
-  font-family: Montserrat, sans-serif;
+  font-size: var(--subtitle-font-size);
+  font-family: var(--title-font);
   margin-bottom: 2rem;
   margin-top: 2rem;
   position: relative;
