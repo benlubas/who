@@ -5,7 +5,7 @@
   const name = "Ben Lubas";
   let subtitle = "computer science major";
   let showAvailability = true;
-  let availability = "Part Time";
+  let availability = "Availability: Part Time";
   let phone = "xxx-xxx-xxxx";
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
@@ -94,10 +94,7 @@
         </div>
         {#if showAvailability}
           <div class="availability">
-            Availability:&nbsp;<span
-              contenteditable
-              bind:innerHTML={availability}
-            />
+            <span contenteditable bind:innerHTML={availability} />
           </div>
         {/if}
       </div>

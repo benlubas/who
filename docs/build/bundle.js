@@ -6750,7 +6750,6 @@ var app = (function () {
     // (95:8) {#if showAvailability}
     function create_if_block$1(ctx) {
     	let div;
-    	let t;
     	let span;
     	let mounted;
     	let dispose;
@@ -6758,17 +6757,15 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
-    			t = text("Availability: ");
     			span = element("span");
     			attr_dev(span, "contenteditable", "");
     			if (/*availability*/ ctx[1] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[10].call(span));
-    			add_location(span, file$3, 96, 31, 3078);
+    			add_location(span, file$3, 96, 12, 3073);
     			attr_dev(div, "class", "availability");
-    			add_location(div, file$3, 95, 10, 3020);
+    			add_location(div, file$3, 95, 10, 3034);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, t);
     			append_dev(div, span);
 
     			if (/*availability*/ ctx[1] !== void 0) {
@@ -6803,7 +6800,7 @@ var app = (function () {
     	return block;
     }
 
-    // (153:14) <DelimitedListItem>
+    // (150:14) <DelimitedListItem>
     function create_default_slot_3$1(ctx) {
     	let t_value = /*skill*/ ctx[27] + "";
     	let t;
@@ -6825,14 +6822,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(153:14) <DelimitedListItem>",
+    		source: "(150:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (152:12) {#each skills as skill}
+    // (149:12) {#each skills as skill}
     function create_each_block_4(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -6880,14 +6877,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(152:12) {#each skills as skill}",
+    		source: "(149:12) {#each skills as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (151:10) <DelimitedList>
+    // (148:10) <DelimitedList>
     function create_default_slot_2$1(ctx) {
     	let each_1_anchor;
     	let current;
@@ -6976,14 +6973,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(151:10) <DelimitedList>",
+    		source: "(148:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (161:14) <DelimitedListItem>
+    // (158:14) <DelimitedListItem>
     function create_default_slot_1$1(ctx) {
     	let t_value = /*interest*/ ctx[24] + "";
     	let t;
@@ -7005,14 +7002,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(161:14) <DelimitedListItem>",
+    		source: "(158:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:12) {#each interests as interest}
+    // (157:12) {#each interests as interest}
     function create_each_block_3(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -7060,14 +7057,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(160:12) {#each interests as interest}",
+    		source: "(157:12) {#each interests as interest}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:10) <DelimitedList>
+    // (156:10) <DelimitedList>
     function create_default_slot$2(ctx) {
     	let each_1_anchor;
     	let current;
@@ -7156,14 +7153,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(159:10) <DelimitedList>",
+    		source: "(156:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (178:12) {#each job.bullets as bullet}
+    // (175:12) {#each job.bullets as bullet}
     function create_each_block_2(ctx) {
     	let li;
     	let t_value = /*bullet*/ ctx[21] + "";
@@ -7174,7 +7171,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 178, 14, 5643);
+    			add_location(li, file$3, 175, 14, 5598);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7190,14 +7187,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(178:12) {#each job.bullets as bullet}",
+    		source: "(175:12) {#each job.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:6) {#each jobs as job}
+    // (166:6) {#each jobs as job}
     function create_each_block_1(ctx) {
     	let div3;
     	let div2;
@@ -7243,16 +7240,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 172, 14, 5436);
+    			add_location(strong, file$3, 169, 14, 5391);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 171, 12, 5398);
+    			add_location(div0, file$3, 168, 12, 5353);
     			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 174, 12, 5511);
+    			add_location(div1, file$3, 171, 12, 5466);
     			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 170, 10, 5355);
-    			add_location(ul, file$3, 176, 10, 5582);
+    			add_location(div2, file$3, 167, 10, 5310);
+    			add_location(ul, file$3, 173, 10, 5537);
     			attr_dev(div3, "class", "job");
-    			add_location(div3, file$3, 169, 8, 5327);
+    			add_location(div3, file$3, 166, 8, 5282);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7309,14 +7306,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(169:6) {#each jobs as job}",
+    		source: "(166:6) {#each jobs as job}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (187:6) {#each projects as project}
+    // (184:6) {#each projects as project}
     function create_each_block(ctx) {
     	let div3;
     	let div2;
@@ -7354,20 +7351,20 @@ var app = (function () {
     			t7 = space();
     			li1 = element("li");
     			li1.textContent = "Saved approximately three minutes per diver‐upwards of 75\n              minutes in total, per dive meet";
-    			add_location(strong, file$3, 190, 14, 6003);
+    			add_location(strong, file$3, 187, 14, 5958);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 189, 12, 5965);
+    			add_location(div0, file$3, 186, 12, 5920);
     			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 192, 12, 6091);
+    			add_location(div1, file$3, 189, 12, 6046);
     			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 188, 10, 5922);
+    			add_location(div2, file$3, 185, 10, 5877);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$3, 195, 12, 6180);
+    			add_location(li0, file$3, 192, 12, 6135);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$3, 199, 12, 6363);
-    			add_location(ul, file$3, 194, 10, 6163);
+    			add_location(li1, file$3, 196, 12, 6318);
+    			add_location(ul, file$3, 191, 10, 6118);
     			attr_dev(div3, "class", "project");
-    			add_location(div3, file$3, 187, 8, 5890);
+    			add_location(div3, file$3, 184, 8, 5845);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7395,7 +7392,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(187:6) {#each projects as project}",
+    		source: "(184:6) {#each projects as project}",
     		ctx
     	});
 
@@ -7616,98 +7613,98 @@ var app = (function () {
     			li1 = element("li");
     			li1.textContent = "Explained site usage and benefits to staff members";
     			attr_dev(div0, "class", "name svelte-1613jni");
-    			add_location(div0, file$3, 91, 8, 2928);
+    			add_location(div0, file$3, 91, 8, 2942);
     			attr_dev(div1, "class", "name-box svelte-1613jni");
-    			add_location(div1, file$3, 90, 6, 2897);
+    			add_location(div1, file$3, 90, 6, 2911);
     			attr_dev(div2, "class", "resume-subtitle svelte-1613jni");
     			attr_dev(div2, "contenteditable", "");
     			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[11].call(div2));
-    			add_location(div2, file$3, 103, 6, 3223);
+    			add_location(div2, file$3, 100, 6, 3178);
     			attr_dev(div3, "class", "title-box");
-    			add_location(div3, file$3, 89, 4, 2867);
+    			add_location(div3, file$3, 89, 4, 2881);
     			attr_dev(div4, "class", "phone svelte-1613jni");
     			attr_dev(div4, "contenteditable", "");
     			attr_dev(div4, "spellcheck", false);
     			if (/*phone*/ ctx[2] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[12].call(div4));
-    			add_location(div4, file$3, 106, 6, 3340);
+    			add_location(div4, file$3, 103, 6, 3295);
     			attr_dev(div5, "class", "email svelte-1613jni");
     			attr_dev(div5, "contenteditable", "");
     			attr_dev(div5, "spellcheck", false);
     			if (/*email*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[13].call(div5));
-    			add_location(div5, file$3, 112, 6, 3464);
+    			add_location(div5, file$3, 109, 6, 3419);
     			attr_dev(div6, "class", "website svelte-1613jni");
     			attr_dev(div6, "contenteditable", "");
     			attr_dev(div6, "spellcheck", false);
     			if (/*website*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[14].call(div6));
-    			add_location(div6, file$3, 118, 6, 3588);
+    			add_location(div6, file$3, 115, 6, 3543);
     			attr_dev(div7, "class", "contact svelte-1613jni");
-    			add_location(div7, file$3, 105, 4, 3312);
+    			add_location(div7, file$3, 102, 4, 3267);
     			attr_dev(div8, "class", "head svelte-1613jni");
-    			add_location(div8, file$3, 88, 2, 2844);
+    			add_location(div8, file$3, 88, 2, 2858);
     			attr_dev(div9, "class", "r-section-title svelte-1613jni");
-    			add_location(div9, file$3, 129, 8, 3833);
-    			add_location(strong0, file$3, 132, 12, 3965);
+    			add_location(div9, file$3, 126, 8, 3788);
+    			add_location(strong0, file$3, 129, 12, 3920);
     			attr_dev(div10, "class", "activity-date svelte-1613jni");
-    			add_location(div10, file$3, 133, 12, 4018);
+    			add_location(div10, file$3, 130, 12, 3973);
     			attr_dev(div11, "class", "activity-heading svelte-1613jni");
-    			add_location(div11, file$3, 131, 10, 3922);
-    			add_location(p0, file$3, 135, 10, 4088);
-    			add_location(p1, file$3, 136, 10, 4140);
-    			add_location(p2, file$3, 137, 10, 4214);
+    			add_location(div11, file$3, 128, 10, 3877);
+    			add_location(p0, file$3, 132, 10, 4043);
+    			add_location(p1, file$3, 133, 10, 4095);
+    			add_location(p2, file$3, 134, 10, 4169);
     			attr_dev(div12, "class", "edu-section svelte-1613jni");
-    			add_location(div12, file$3, 130, 8, 3886);
-    			add_location(strong1, file$3, 141, 12, 4352);
+    			add_location(div12, file$3, 127, 8, 3841);
+    			add_location(strong1, file$3, 138, 12, 4307);
     			attr_dev(div13, "class", "activity-date svelte-1613jni");
-    			add_location(div13, file$3, 142, 12, 4413);
+    			add_location(div13, file$3, 139, 12, 4368);
     			attr_dev(div14, "class", "activity-heading svelte-1613jni");
-    			add_location(div14, file$3, 140, 10, 4309);
-    			add_location(p3, file$3, 144, 10, 4483);
+    			add_location(div14, file$3, 137, 10, 4264);
+    			add_location(p3, file$3, 141, 10, 4438);
     			attr_dev(div15, "class", "edu-section svelte-1613jni");
-    			add_location(div15, file$3, 139, 8, 4273);
+    			add_location(div15, file$3, 136, 8, 4228);
     			attr_dev(div16, "id", "education");
     			attr_dev(div16, "class", "r-section");
-    			add_location(div16, file$3, 128, 6, 3786);
+    			add_location(div16, file$3, 125, 6, 3741);
     			attr_dev(div17, "class", "r-section-title svelte-1613jni");
-    			add_location(div17, file$3, 149, 10, 4643);
+    			add_location(div17, file$3, 146, 10, 4598);
     			attr_dev(div18, "class", "tech-knowledge r-section");
-    			add_location(div18, file$3, 148, 8, 4594);
+    			add_location(div18, file$3, 145, 8, 4549);
     			attr_dev(div19, "class", "r-section-title svelte-1613jni");
-    			add_location(div19, file$3, 157, 10, 4935);
+    			add_location(div19, file$3, 154, 10, 4890);
     			attr_dev(div20, "class", "interests r-section");
-    			add_location(div20, file$3, 156, 8, 4891);
+    			add_location(div20, file$3, 153, 8, 4846);
     			attr_dev(div21, "id", "knowledge-interests");
     			attr_dev(div21, "class", "svelte-1613jni");
-    			add_location(div21, file$3, 147, 6, 4555);
+    			add_location(div21, file$3, 144, 6, 4510);
     			attr_dev(div22, "class", "top-body svelte-1613jni");
-    			add_location(div22, file$3, 127, 4, 3757);
+    			add_location(div22, file$3, 124, 4, 3712);
     			attr_dev(div23, "class", "r-section-title svelte-1613jni");
-    			add_location(div23, file$3, 167, 6, 5242);
+    			add_location(div23, file$3, 164, 6, 5197);
     			attr_dev(div24, "id", "work");
     			attr_dev(div24, "class", "r-section");
-    			add_location(div24, file$3, 166, 4, 5202);
+    			add_location(div24, file$3, 163, 4, 5157);
     			attr_dev(div25, "class", "r-section-title svelte-1613jni");
-    			add_location(div25, file$3, 185, 6, 5804);
-    			add_location(strong2, file$3, 209, 12, 6686);
+    			add_location(div25, file$3, 182, 6, 5759);
+    			add_location(strong2, file$3, 206, 12, 6641);
     			attr_dev(div26, "class", "job-title");
-    			add_location(div26, file$3, 208, 10, 6650);
+    			add_location(div26, file$3, 205, 10, 6605);
     			attr_dev(div27, "class", "activity-date svelte-1613jni");
-    			add_location(div27, file$3, 211, 10, 6769);
+    			add_location(div27, file$3, 208, 10, 6724);
     			attr_dev(div28, "class", "activity-heading svelte-1613jni");
-    			add_location(div28, file$3, 207, 8, 6609);
+    			add_location(div28, file$3, 204, 8, 6564);
     			attr_dev(li0, "class", "job-bullet");
-    			add_location(li0, file$3, 214, 10, 6854);
+    			add_location(li0, file$3, 211, 10, 6809);
     			attr_dev(li1, "class", "job-bullet");
-    			add_location(li1, file$3, 218, 10, 7047);
-    			add_location(ul, file$3, 213, 8, 6839);
+    			add_location(li1, file$3, 215, 10, 7002);
+    			add_location(ul, file$3, 210, 8, 6794);
     			attr_dev(div29, "class", "project");
-    			add_location(div29, file$3, 206, 6, 6579);
+    			add_location(div29, file$3, 203, 6, 6534);
     			attr_dev(div30, "id", "projects");
     			attr_dev(div30, "class", "r-section");
-    			add_location(div30, file$3, 184, 4, 5760);
+    			add_location(div30, file$3, 181, 4, 5715);
     			attr_dev(div31, "class", "r-body");
-    			add_location(div31, file$3, 126, 2, 3732);
+    			add_location(div31, file$3, 123, 2, 3687);
     			attr_dev(div32, "class", "resume svelte-1613jni");
-    			add_location(div32, file$3, 87, 0, 2821);
+    			add_location(div32, file$3, 87, 0, 2835);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7952,7 +7949,7 @@ var app = (function () {
     	validate_slots('Resume', slots, []);
     	let subtitle = "computer science major";
     	let showAvailability = true;
-    	let availability = "Part Time";
+    	let availability = "Availability: Part Time";
     	let phone = "xxx-xxx-xxxx";
     	let email = "benmlubas@gmail.com";
     	let website = "benlubas.com";
@@ -9152,7 +9149,7 @@ var app = (function () {
           "name": "about",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/about.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
           "importPath": "../src/pages/about.svelte",
           "isLayout": false,
           "isReset": false,
@@ -9177,7 +9174,7 @@ var app = (function () {
           "name": "index",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/index.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
           "importPath": "../src/pages/index.svelte",
           "isLayout": false,
           "isReset": false,
@@ -9202,7 +9199,7 @@ var app = (function () {
           "name": "projects",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/projects.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
           "importPath": "../src/pages/projects.svelte",
           "isLayout": false,
           "isReset": false,
@@ -9227,7 +9224,7 @@ var app = (function () {
           "name": "resume",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/resume.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/resume.svelte",
           "importPath": "../src/pages/resume.svelte",
           "isLayout": false,
           "isReset": false,
@@ -9252,7 +9249,7 @@ var app = (function () {
           "name": "work",
           "ext": "svelte",
           "badExt": false,
-          "absolutePath": "/Users/benlubas/github/who/src/pages/work.svelte",
+          "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
           "importPath": "../src/pages/work.svelte",
           "isLayout": false,
           "isReset": false,
