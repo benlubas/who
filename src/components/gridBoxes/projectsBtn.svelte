@@ -12,7 +12,7 @@
 
 <style>
   .bg {
-    background: white;
+    background: var(--primary);
     opacity: 0.4;
     transition: all 0.3s ease;
     position: absolute;
@@ -27,7 +27,7 @@
   }
 
   .box {
-    border: 5px solid white;
+    border: 5px solid var(--primary);
     padding: 10px;
     height: 100%;
     position: relative;

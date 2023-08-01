@@ -9,7 +9,7 @@
 
 <style>
   .box {
-    border: 5px solid white;
+    border: 5px solid var(--primary);
     /* border-radius: 15px; */
     padding: 10px;
     height: 100%;
@@ -22,7 +22,7 @@
     left: -5px;
     width: 5px;
     height: 100%;
-    background: white;
+    background: var(--primary);
     transition: all 0.3s ease;
   }
   .box:hover::after {
@@ -35,7 +35,7 @@
     left: 0px;
     width: 0%;
     height: 100%;
-    background: white;
+    background: var(--primary);
     opacity: 0.45;
     transition: width 0.3s ease, opacity 0.4s linear;
   }

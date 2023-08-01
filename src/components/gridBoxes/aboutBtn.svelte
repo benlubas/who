@@ -9,7 +9,7 @@
 
 <style>
   .box {
-    border: 5px solid white;
+    border: 5px solid var(--primary);
     padding: 10px;
     height: 100%;
     position: relative;
@@ -19,7 +19,7 @@
   .box::before {
     content: "";
     position: absolute;
-    background: white;
+    background: var(--primary);
     opacity: 0.4;
     height: 100%;
     width: calc(50% + 0.5px);

@@ -63,7 +63,8 @@
 
 <style>
   .resume-border {
-    border: 1px solid var(--primary);
+    /* border: 1px solid var(--primary); */
+    box-shadow: 0 0 15px var(--box-shadow);
     display: inline-block;
     margin-top: 1rem;
   }
@@ -78,11 +79,14 @@
     }
     .resume-border {
       border: none;
+      margin-top: 0;
     }
     .page-cont {
       padding: 0;
       margin: 0;
+      background: var(--print-bg);
     }
+
     .text {
       padding: 0;
       margin: 0;

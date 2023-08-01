@@ -9,7 +9,7 @@
 
 <style>
   .box {
-    border: 5px solid white;
+    border: 5px solid var(--primary);
     padding: 10px;
     height: 100%;
     position: relative;
@@ -24,7 +24,7 @@
     rotate: -90deg;
     transform-origin: left 0;
     height: 5px;
-    background: white;
+    background: var(--primary);
     transition: all 0.3s ease;
   }
   .box:hover::after {
@@ -39,7 +39,7 @@
     transform-origin: left 100%;
     width: 150%;
     height: 100%;
-    background: white;
+    background: var(--primary);
     opacity: 0.45;
     transition: rotate 0.3s ease, opacity 0.4s linear;
   }

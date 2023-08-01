@@ -63,19 +63,6 @@
     margin-top: 0;
   }
 
-  .transparent-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    color: var(--primary);
-  }
-  .transparent-button:active {
-    outline: none;
-    border: none;
-  }
-
   .content {
     margin-left: 2.5rem;
     transition: max-height 0.5s ease-in-out;
