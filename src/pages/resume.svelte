@@ -3,6 +3,8 @@
   import FoldableSection from "../components/foldableSection.svelte";
   import Note from "../components/note.svelte";
   import Resume from "../components/resume.svelte";
+  import ThemeSwitcher from "../components/themeSwitcher.svelte";
+  import { theme } from "../stores";
 
   // TODO: Implement this functionality later on. Add some other options to show/hide things?
   // add the ability to edit the list of skills. Maybe show a little plus when you hover the section
@@ -14,10 +16,16 @@
   <div class="text">
     <div class="no-print">
       <PageTitle title="Resume" />
-      This is my resume! It's still a work in progress, as I'd like it to be more
-      interactive. It's currently printable, with some editable parts.
+      <Note mobile glow>
+        You are on a small screen, and might have a bad experience on this page.
+        If you need to use the small screen, I'd recommend printing this page,
+        and viewing the resume in a PDF viewer.
+      </Note>
+
+      This is my resume! It's still a work in progress, as I'd like it to be
+      more interactive. It's currently printable, with some editable parts.
       <Note>
-        My phone number is missing as I'd rather not have it get scraped.
+        Note: My phone number is missing as I'd rather not have it get scraped.
       </Note>
 
       <!-- TODO: add this back with the availability work <input -->
@@ -27,14 +35,19 @@
       <!-- /> -->
       <!-- <label for="showAvailability">Show Availability</label> -->
     </div>
-    <div class="flex-center">
+    <div class="flex-center resume-container">
       <div class="resume-border">
         <Resume />
       </div>
     </div>
     <div class="print-instructions no-print">
       <div class="subtitle">Printing</div>
-      Please follow these instructions to print this resume properly:
+      {#if $theme === "dark"}
+        Firstly, you probably want the light theme, click this icon to change
+        the theme: <ThemeSwitcher />
+        <br />
+      {/if}
+      You can follow these short, browser-specific, instructions to print the resume properly:
       <FoldableSection title="Chrome/Chromium">
         <ol>
           <li>
@@ -63,10 +76,11 @@
 
 <style>
   .resume-border {
-    /* border: 1px solid var(--primary); */
     box-shadow: 0 0 15px var(--box-shadow);
+    transition: box-shadow 0.5s ease-in-out;
     display: inline-block;
     margin-top: 1rem;
+    overflow: scroll;
   }
 
   @page {

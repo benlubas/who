@@ -23,10 +23,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  transition:
-    color 0.12s ease-in-out,
-    background 0.5s ease-in-out,
-    box-shadow 0.5s ease-in-out;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -41,12 +37,22 @@ body {
 }
 
 body {
+  transition:
+    color 0.5s ease-in-out,
+    background 0.5s ease-in-out;
   font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
     sans-serif;
   font-size: var(--font-size);
   line-height: 1.7;
   background: var(--bg);
   color: var(--primary);
+}
+
+body::after,
+body::before {
+  transition:
+    color 0.5s ease-in-out,
+    background 0.5s ease-in-out;
 }
 
 ul {
@@ -72,7 +78,7 @@ ul {
 .subtitle {
   font-size: var(--subtitle-font-size);
   font-family: var(--title-font);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   margin-top: 2rem;
   position: relative;
 }
@@ -135,7 +141,7 @@ textarea {
     font-size: 8vw;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .btn-title {
     font-size: 15vw;
   }
@@ -145,7 +151,7 @@ textarea {
   .subtitle {
     font-size: 1.7rem;
   }
-  .page-title {
-    font-size: 3rem;
+  .page-cont {
+    padding: 1.5rem;
   }
 }

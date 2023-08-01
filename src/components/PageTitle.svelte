@@ -23,11 +23,17 @@
 <style>
   .title {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
   }
   .title-text {
     font-size: 5rem;
     font-family: Montserrat, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .title-text {
+      font-size: 3rem;
+    }
   }
 </style>

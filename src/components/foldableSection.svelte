@@ -64,10 +64,13 @@
   }
 
   .content {
-    margin-left: 2.5rem;
+    margin-left: 1.5rem;
     transition: max-height 0.5s ease-in-out;
     position: relative;
     overflow: hidden;
+  }
+  .content :global(li) {
+    margin-left: 2rem;
   }
   .open .content {
     max-height: 100vh;

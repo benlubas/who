@@ -2426,7 +2426,7 @@ var app = (function () {
     }
 
     // (133:0) {#if !parentNode}
-    function create_if_block$2(ctx) {
+    function create_if_block$3(ctx) {
     	let div;
     	let mounted;
     	let dispose;
@@ -2454,7 +2454,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$2.name,
+    		id: create_if_block$3.name,
     		type: "if",
     		source: "(133:0) {#if !parentNode}",
     		ctx
@@ -2468,7 +2468,7 @@ var app = (function () {
     	let if_block1_anchor;
     	let current;
     	let if_block0 = /*$context*/ ctx[4] && create_if_block_1(ctx);
-    	let if_block1 = !/*parentNode*/ ctx[6] && create_if_block$2(ctx);
+    	let if_block1 = !/*parentNode*/ ctx[6] && create_if_block$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -2513,7 +2513,7 @@ var app = (function () {
 
     			if (!/*parentNode*/ ctx[6]) {
     				if (if_block1) ; else {
-    					if_block1 = create_if_block$2(ctx);
+    					if_block1 = create_if_block$3(ctx);
     					if_block1.c();
     					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
     				}
@@ -2912,7 +2912,7 @@ var app = (function () {
     const { Object: Object_1$1 } = globals;
 
     // (58:0) {#if nodes && $route !== null}
-    function create_if_block$1(ctx) {
+    function create_if_block$2(ctx) {
     	let route_1;
     	let current;
 
@@ -2950,7 +2950,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$1.name,
+    		id: create_if_block$2.name,
     		type: "if",
     		source: "(58:0) {#if nodes && $route !== null}",
     		ctx
@@ -2963,7 +2963,7 @@ var app = (function () {
     	let t;
     	let prefetcher;
     	let current;
-    	let if_block = /*nodes*/ ctx[0] && /*$route*/ ctx[1] !== null && create_if_block$1(ctx);
+    	let if_block = /*nodes*/ ctx[0] && /*$route*/ ctx[1] !== null && create_if_block$2(ctx);
     	prefetcher = new Prefetcher({ $$inline: true });
 
     	const block = {
@@ -2990,7 +2990,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$1(ctx);
+    					if_block = create_if_block$2(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(t.parentNode, t);
@@ -3954,23 +3954,24 @@ var app = (function () {
     			svg1 = svg_element("svg");
     			path1 = svg_element("path");
     			attr_dev(path0, "d", "M375.7\n      19.7c-1.5-8-6.9-14.7-14.4-17.8s-16.1-2.2-22.8 2.4L256 61.1 173.5\n      4.2c-6.7-4.6-15.3-5.5-22.8-2.4s-12.9 9.8-14.4 17.8l-18.1 98.5L19.7 136.3c-8 1.5-14.7 6.9-17.8\n      14.4s-2.2 16.1 2.4 22.8L61.1 256 4.2 338.5c-4.6 6.7-5.5 15.3-2.4 22.8s9.8 13 17.8 14.4l98.5\n      18.1 18.1 98.5c1.5 8 6.9 14.7 14.4 17.8s16.1 2.2 22.8-2.4L256 450.9l82.5 56.9c6.7 4.6 15.3 5.5\n      22.8 2.4s12.9-9.8 14.4-17.8l18.1-98.5 98.5-18.1c8-1.5 14.7-6.9\n      17.8-14.4s2.2-16.1-2.4-22.8L450.9 256l56.9-82.5c4.6-6.7 5.5-15.3\n      2.4-22.8s-9.8-12.9-17.8-14.4l-98.5-18.1L375.7 19.7zM269.6 110l65.6-45.2 14.4 78.3c1.8 9.8 9.5\n      17.5 19.3 19.3l78.3 14.4L402 242.4c-5.7 8.2-5.7 19 0 27.2l45.2 65.6-78.3 14.4c-9.8 1.8-17.5\n      9.5-19.3 19.3l-14.4 78.3L269.6 402c-8.2-5.7-19-5.7-27.2 0l-65.6\n      45.2-14.4-78.3c-1.8-9.8-9.5-17.5-19.3-19.3L64.8 335.2 110 269.6c5.7-8.2 5.7-19 0-27.2L64.8\n      176.8l78.3-14.4c9.8-1.8 17.5-9.5 19.3-19.3l14.4-78.3L242.4 110c8.2 5.7 19 5.7 27.2 0zM256\n      368a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM192 256a64 64 0 1 1 128 0 64 64 0 1 1 -128\n      0z");
-    			add_location(path0, file$j, 37, 6, 1105);
-    			attr_dev(svg0, "class", "sun svelte-jswrfb");
+    			add_location(path0, file$j, 37, 6, 1126);
+    			attr_dev(svg0, "class", "sun svelte-pslqha");
     			attr_dev(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg0, "height", "1em");
     			attr_dev(svg0, "viewBox", "0 0 512 512");
-    			add_location(svg0, file$j, 30, 4, 806);
+    			add_location(svg0, file$j, 30, 4, 827);
     			attr_dev(path1, "d", "M144.7 98.7c-21 34.1-33.1 74.3-33.1\n      117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9\n      39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15\n      128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9\n      6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5\n      0-3.7 0c-.1 0-.2 0-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7\n      3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5\n      7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8\n      .2c-2.3 .1-4.6 .2-6.9 .4z");
-    			add_location(path1, file$j, 61, 6, 2528);
-    			attr_dev(svg1, "class", "moon svelte-jswrfb");
+    			add_location(path1, file$j, 61, 6, 2549);
+    			attr_dev(svg1, "class", "moon svelte-pslqha");
     			attr_dev(svg1, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg1, "height", "1em");
     			attr_dev(svg1, "viewBox", "0 0 384 512");
-    			add_location(svg1, file$j, 54, 4, 2228);
-    			attr_dev(div, "class", "box svelte-jswrfb");
+    			add_location(svg1, file$j, 54, 4, 2249);
+    			attr_dev(div, "class", "box svelte-pslqha");
     			toggle_class(div, "dark", /*$theme*/ ctx[0] === "dark");
-    			add_location(div, file$j, 29, 2, 753);
-    			attr_dev(button, "class", "transparent-button svelte-jswrfb");
+    			add_location(div, file$j, 29, 2, 774);
+    			attr_dev(button, "class", "transparent-button svelte-pslqha");
+    			attr_dev(button, "title", "Toggle Theme");
     			add_location(button, file$j, 28, 0, 691);
     		},
     		l: function claim(nodes) {
@@ -4151,9 +4152,9 @@ var app = (function () {
     			t8 = space();
     			br0 = element("br");
     			br1 = element("br");
-    			attr_dev(div0, "class", "title-text svelte-ytql3r");
+    			attr_dev(div0, "class", "title-text svelte-j0k5jp");
     			add_location(div0, file$i, 8, 4, 253);
-    			attr_dev(div1, "class", "title svelte-ytql3r");
+    			attr_dev(div1, "class", "title svelte-j0k5jp");
     			add_location(div1, file$i, 7, 2, 229);
     			attr_dev(a, "href", a_href_value = /*$url*/ ctx[1]("/"));
     			add_location(a, file$i, 16, 2, 435);
@@ -6220,22 +6221,22 @@ var app = (function () {
     			t2 = space();
     			div2 = element("div");
     			if (default_slot) default_slot.c();
-    			attr_dev(div0, "class", "title svelte-r01g9l");
+    			attr_dev(div0, "class", "title svelte-pih9i9");
     			add_location(div0, file$7, 7, 4, 182);
     			attr_dev(path, "d", "M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8\n          0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352\n          160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8\n          0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z");
     			add_location(path, file$7, 15, 89, 545);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg, "height", "1em");
     			attr_dev(svg, "viewBox", "0 0 512 512");
-    			attr_dev(svg, "class", "svelte-r01g9l");
+    			attr_dev(svg, "class", "svelte-pih9i9");
     			add_location(svg, file$7, 9, 6, 261);
     			attr_dev(button, "class", "transparent-button");
     			add_location(button, file$7, 8, 4, 219);
-    			attr_dev(div1, "class", "foldable-title svelte-r01g9l");
+    			attr_dev(div1, "class", "foldable-title svelte-pih9i9");
     			add_location(div1, file$7, 6, 2, 117);
-    			attr_dev(div2, "class", "content svelte-r01g9l");
+    			attr_dev(div2, "class", "content svelte-pih9i9");
     			add_location(div2, file$7, 24, 2, 981);
-    			attr_dev(div3, "class", "foldable svelte-r01g9l");
+    			attr_dev(div3, "class", "foldable svelte-pih9i9");
     			toggle_class(div3, "open", /*open*/ ctx[1]);
     			add_location(div3, file$7, 5, 0, 81);
     		},
@@ -6375,25 +6376,24 @@ var app = (function () {
 
     function create_fragment$7(ctx) {
     	let div;
-    	let t;
     	let current;
-    	const default_slot_template = /*#slots*/ ctx[1].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[0], null);
+    	const default_slot_template = /*#slots*/ ctx[3].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			t = text("Note: ");
     			if (default_slot) default_slot.c();
-    			attr_dev(div, "class", "note svelte-c7wqbt");
-    			add_location(div, file$6, 2, 0, 29);
+    			attr_dev(div, "class", "note svelte-1igb52o");
+    			toggle_class(div, "mobile", /*mobile*/ ctx[0]);
+    			toggle_class(div, "glow", /*glow*/ ctx[1]);
+    			add_location(div, file$6, 4, 0, 81);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, t);
 
     			if (default_slot) {
     				default_slot.m(div, null);
@@ -6403,18 +6403,26 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && (!current || dirty & /*$$scope*/ 1)) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 4)) {
     					update_slot_base(
     						default_slot,
     						default_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[0],
+    						/*$$scope*/ ctx[2],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[0])
-    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[0], dirty, null),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[2])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[2], dirty, null),
     						null
     					);
     				}
+    			}
+
+    			if (dirty & /*mobile*/ 1) {
+    				toggle_class(div, "mobile", /*mobile*/ ctx[0]);
+    			}
+
+    			if (dirty & /*glow*/ 2) {
+    				toggle_class(div, "glow", /*glow*/ ctx[1]);
     			}
     		},
     		i: function intro(local) {
@@ -6446,23 +6454,38 @@ var app = (function () {
     function instance$7($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Note', slots, ['default']);
-    	const writable_props = [];
+    	let { mobile = false } = $$props;
+    	let { glow = false } = $$props;
+    	const writable_props = ['mobile', 'glow'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Note> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ('$$scope' in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+    		if ('mobile' in $$props) $$invalidate(0, mobile = $$props.mobile);
+    		if ('glow' in $$props) $$invalidate(1, glow = $$props.glow);
+    		if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
     	};
 
-    	return [$$scope, slots];
+    	$$self.$capture_state = () => ({ mobile, glow });
+
+    	$$self.$inject_state = $$props => {
+    		if ('mobile' in $$props) $$invalidate(0, mobile = $$props.mobile);
+    		if ('glow' in $$props) $$invalidate(1, glow = $$props.glow);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [mobile, glow, $$scope, slots];
     }
 
     class Note extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init$1(this, options, instance$7, create_fragment$7, safe_not_equal, {});
+    		init$1(this, options, instance$7, create_fragment$7, safe_not_equal, { mobile: 0, glow: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -6470,6 +6493,22 @@ var app = (function () {
     			options,
     			id: create_fragment$7.name
     		});
+    	}
+
+    	get mobile() {
+    		throw new Error("<Note>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set mobile(value) {
+    		throw new Error("<Note>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get glow() {
+    		throw new Error("<Note>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set glow(value) {
+    		throw new Error("<Note>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -6709,7 +6748,7 @@ var app = (function () {
     }
 
     // (95:8) {#if showAvailability}
-    function create_if_block(ctx) {
+    function create_if_block$1(ctx) {
     	let div;
     	let t;
     	let span;
@@ -6755,7 +6794,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
+    		id: create_if_block$1.name,
     		type: "if",
     		source: "(95:8) {#if showAvailability}",
     		ctx
@@ -6765,7 +6804,7 @@ var app = (function () {
     }
 
     // (153:14) <DelimitedListItem>
-    function create_default_slot_3(ctx) {
+    function create_default_slot_3$1(ctx) {
     	let t_value = /*skill*/ ctx[27] + "";
     	let t;
 
@@ -6784,7 +6823,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3.name,
+    		id: create_default_slot_3$1.name,
     		type: "slot",
     		source: "(153:14) <DelimitedListItem>",
     		ctx
@@ -6800,7 +6839,7 @@ var app = (function () {
 
     	delimitedlistitem = new DelimitedListItem({
     			props: {
-    				$$slots: { default: [create_default_slot_3] },
+    				$$slots: { default: [create_default_slot_3$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -7439,7 +7478,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*showAvailability*/ ctx[5] && create_if_block(ctx);
+    	let if_block = /*showAvailability*/ ctx[5] && create_if_block$1(ctx);
 
     	delimitedlist0 = new DelimitedList({
     			props: {
@@ -8083,13 +8122,40 @@ var app = (function () {
     /* src/pages/resume.svelte generated by Svelte v3.49.0 */
     const file$2 = "src/pages/resume.svelte";
 
-    // (17:6) <Note>
+    // (17:6) <Note mobile glow>
+    function create_default_slot_3(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("You are on a small screen, and might have a bad experience on this page.\n        If you need to use the small screen, I'd recommend printing this page,\n        and viewing the resume in a PDF viewer.");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_3.name,
+    		type: "slot",
+    		source: "(17:6) <Note mobile glow>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (25:6) <Note>
     function create_default_slot_2(ctx) {
     	let t;
 
     	const block = {
     		c: function create() {
-    			t = text("My phone number is missing as I'd rather not have it get scraped.");
+    			t = text("Note: My phone number is missing as I'd rather not have it get scraped.");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
@@ -8103,14 +8169,66 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(17:6) <Note>",
+    		source: "(25:6) <Note>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (36:6) <FoldableSection title="Chrome/Chromium">
+    // (43:6) {#if $theme === "dark"}
+    function create_if_block(ctx) {
+    	let t0;
+    	let themeswitcher;
+    	let t1;
+    	let br;
+    	let current;
+    	themeswitcher = new ThemeSwitcher({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			t0 = text("Firstly, you probably want the light theme, click this icon to change\n        the theme: ");
+    			create_component(themeswitcher.$$.fragment);
+    			t1 = space();
+    			br = element("br");
+    			add_location(br, file$2, 45, 8, 1865);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t0, anchor);
+    			mount_component(themeswitcher, target, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, br, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(themeswitcher.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(themeswitcher.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t0);
+    			destroy_component(themeswitcher, detaching);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(br);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(43:6) {#if $theme === \\\"dark\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (49:6) <FoldableSection title="Chrome/Chromium">
     function create_default_slot_1(ctx) {
     	let ol;
     	let li0;
@@ -8145,13 +8263,13 @@ var app = (function () {
     			t8 = text("Check ");
     			em = element("em");
     			em.textContent = "Background Graphics";
-    			add_location(strong0, file$2, 38, 39, 1527);
-    			add_location(strong1, file$2, 39, 12, 1572);
-    			add_location(li0, file$2, 37, 10, 1483);
-    			add_location(li1, file$2, 41, 10, 1635);
-    			add_location(em, file$2, 42, 20, 1682);
-    			add_location(li2, file$2, 42, 10, 1672);
-    			add_location(ol, file$2, 36, 8, 1468);
+    			add_location(strong0, file$2, 51, 39, 2094);
+    			add_location(strong1, file$2, 52, 12, 2139);
+    			add_location(li0, file$2, 50, 10, 2050);
+    			add_location(li1, file$2, 54, 10, 2202);
+    			add_location(em, file$2, 55, 20, 2249);
+    			add_location(li2, file$2, 55, 10, 2239);
+    			add_location(ol, file$2, 49, 8, 2035);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -8178,14 +8296,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(36:6) <FoldableSection title=\\\"Chrome/Chromium\\\">",
+    		source: "(49:6) <FoldableSection title=\\\"Chrome/Chromium\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (46:6) <FoldableSection title="FireFox">
+    // (59:6) <FoldableSection title="FireFox">
     function create_default_slot$1(ctx) {
     	let ol;
     	let li0;
@@ -8240,17 +8358,17 @@ var app = (function () {
     			em2 = element("em");
     			em2.textContent = "Print headers and footers";
     			t16 = text(" is unchecked");
-    			add_location(strong0, file$2, 48, 39, 1862);
-    			add_location(strong1, file$2, 49, 12, 1907);
-    			add_location(li0, file$2, 47, 10, 1818);
-    			add_location(em0, file$2, 51, 20, 1980);
-    			add_location(li1, file$2, 51, 10, 1970);
-    			add_location(li2, file$2, 52, 10, 2018);
-    			add_location(em1, file$2, 53, 20, 2065);
-    			add_location(li3, file$2, 53, 10, 2055);
-    			add_location(em2, file$2, 54, 24, 2121);
-    			add_location(li4, file$2, 54, 10, 2107);
-    			add_location(ol, file$2, 46, 8, 1803);
+    			add_location(strong0, file$2, 61, 39, 2429);
+    			add_location(strong1, file$2, 62, 12, 2474);
+    			add_location(li0, file$2, 60, 10, 2385);
+    			add_location(em0, file$2, 64, 20, 2547);
+    			add_location(li1, file$2, 64, 10, 2537);
+    			add_location(li2, file$2, 65, 10, 2585);
+    			add_location(em1, file$2, 66, 20, 2632);
+    			add_location(li3, file$2, 66, 10, 2622);
+    			add_location(em2, file$2, 67, 24, 2688);
+    			add_location(li4, file$2, 67, 10, 2674);
+    			add_location(ol, file$2, 59, 8, 2370);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -8286,7 +8404,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(46:6) <FoldableSection title=\\\"FireFox\\\">",
+    		source: "(59:6) <FoldableSection title=\\\"FireFox\\\">",
     		ctx
     	});
 
@@ -8299,17 +8417,20 @@ var app = (function () {
     	let div0;
     	let pagetitle;
     	let t0;
-    	let note;
+    	let note0;
     	let t1;
+    	let note1;
+    	let t2;
     	let div2;
     	let div1;
     	let resume;
-    	let t2;
+    	let t3;
     	let div4;
     	let div3;
-    	let t4;
-    	let foldablesection0;
     	let t5;
+    	let t6;
+    	let foldablesection0;
+    	let t7;
     	let foldablesection1;
     	let current;
 
@@ -8318,7 +8439,17 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	note = new Note({
+    	note0 = new Note({
+    			props: {
+    				mobile: true,
+    				glow: true,
+    				$$slots: { default: [create_default_slot_3] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	note1 = new Note({
     			props: {
     				$$slots: { default: [create_default_slot_2] },
     				$$scope: { ctx }
@@ -8327,6 +8458,7 @@ var app = (function () {
     		});
 
     	resume = new Resume({ $$inline: true });
+    	let if_block = /*$theme*/ ctx[0] === "dark" && create_if_block(ctx);
 
     	foldablesection0 = new FoldableSection({
     			props: {
@@ -8352,34 +8484,38 @@ var app = (function () {
     			div5 = element("div");
     			div0 = element("div");
     			create_component(pagetitle.$$.fragment);
-    			t0 = text("\n      This is my resume! It's still a work in progress, as I'd like it to be more\n      interactive. It's currently printable, with some editable parts.\n      ");
-    			create_component(note.$$.fragment);
-    			t1 = space();
+    			t0 = space();
+    			create_component(note0.$$.fragment);
+    			t1 = text("\n\n      This is my resume! It's still a work in progress, as I'd like it to be\n      more interactive. It's currently printable, with some editable parts.\n      ");
+    			create_component(note1.$$.fragment);
+    			t2 = space();
     			div2 = element("div");
     			div1 = element("div");
     			create_component(resume.$$.fragment);
-    			t2 = space();
+    			t3 = space();
     			div4 = element("div");
     			div3 = element("div");
     			div3.textContent = "Printing";
-    			t4 = text("\n      Please follow these instructions to print this resume properly:\n      ");
-    			create_component(foldablesection0.$$.fragment);
     			t5 = space();
+    			if (if_block) if_block.c();
+    			t6 = text("\n      You can follow these short, browser-specific, instructions to print the resume properly:\n      ");
+    			create_component(foldablesection0.$$.fragment);
+    			t7 = space();
     			create_component(foldablesection1.$$.fragment);
-    			attr_dev(div0, "class", "no-print svelte-1ppl57u");
-    			add_location(div0, file$2, 12, 4, 543);
-    			attr_dev(div1, "class", "resume-border svelte-1ppl57u");
-    			add_location(div1, file$2, 28, 6, 1182);
-    			attr_dev(div2, "class", "flex-center");
-    			add_location(div2, file$2, 27, 4, 1150);
+    			attr_dev(div0, "class", "no-print svelte-q37b62");
+    			add_location(div0, file$2, 14, 4, 642);
+    			attr_dev(div1, "class", "resume-border svelte-q37b62");
+    			add_location(div1, file$2, 36, 6, 1552);
+    			attr_dev(div2, "class", "flex-center resume-container");
+    			add_location(div2, file$2, 35, 4, 1503);
     			attr_dev(div3, "class", "subtitle");
-    			add_location(div3, file$2, 33, 6, 1305);
-    			attr_dev(div4, "class", "print-instructions no-print svelte-1ppl57u");
-    			add_location(div4, file$2, 32, 4, 1257);
-    			attr_dev(div5, "class", "text svelte-1ppl57u");
-    			add_location(div5, file$2, 11, 2, 520);
-    			attr_dev(div6, "class", "page-cont svelte-1ppl57u");
-    			add_location(div6, file$2, 10, 0, 494);
+    			add_location(div3, file$2, 41, 6, 1675);
+    			attr_dev(div4, "class", "print-instructions no-print svelte-q37b62");
+    			add_location(div4, file$2, 40, 4, 1627);
+    			attr_dev(div5, "class", "text svelte-q37b62");
+    			add_location(div5, file$2, 13, 2, 619);
+    			attr_dev(div6, "class", "page-cont svelte-q37b62");
+    			add_location(div6, file$2, 12, 0, 593);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8390,38 +8526,71 @@ var app = (function () {
     			append_dev(div5, div0);
     			mount_component(pagetitle, div0, null);
     			append_dev(div0, t0);
-    			mount_component(note, div0, null);
-    			append_dev(div5, t1);
+    			mount_component(note0, div0, null);
+    			append_dev(div0, t1);
+    			mount_component(note1, div0, null);
+    			append_dev(div5, t2);
     			append_dev(div5, div2);
     			append_dev(div2, div1);
     			mount_component(resume, div1, null);
-    			append_dev(div5, t2);
+    			append_dev(div5, t3);
     			append_dev(div5, div4);
     			append_dev(div4, div3);
-    			append_dev(div4, t4);
-    			mount_component(foldablesection0, div4, null);
     			append_dev(div4, t5);
+    			if (if_block) if_block.m(div4, null);
+    			append_dev(div4, t6);
+    			mount_component(foldablesection0, div4, null);
+    			append_dev(div4, t7);
     			mount_component(foldablesection1, div4, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			const note_changes = {};
+    			const note0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1) {
-    				note_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope*/ 2) {
+    				note0_changes.$$scope = { dirty, ctx };
     			}
 
-    			note.$set(note_changes);
+    			note0.$set(note0_changes);
+    			const note1_changes = {};
+
+    			if (dirty & /*$$scope*/ 2) {
+    				note1_changes.$$scope = { dirty, ctx };
+    			}
+
+    			note1.$set(note1_changes);
+
+    			if (/*$theme*/ ctx[0] === "dark") {
+    				if (if_block) {
+    					if (dirty & /*$theme*/ 1) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(div4, t6);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
     			const foldablesection0_changes = {};
 
-    			if (dirty & /*$$scope*/ 1) {
+    			if (dirty & /*$$scope*/ 2) {
     				foldablesection0_changes.$$scope = { dirty, ctx };
     			}
 
     			foldablesection0.$set(foldablesection0_changes);
     			const foldablesection1_changes = {};
 
-    			if (dirty & /*$$scope*/ 1) {
+    			if (dirty & /*$$scope*/ 2) {
     				foldablesection1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8430,16 +8599,20 @@ var app = (function () {
     		i: function intro(local) {
     			if (current) return;
     			transition_in(pagetitle.$$.fragment, local);
-    			transition_in(note.$$.fragment, local);
+    			transition_in(note0.$$.fragment, local);
+    			transition_in(note1.$$.fragment, local);
     			transition_in(resume.$$.fragment, local);
+    			transition_in(if_block);
     			transition_in(foldablesection0.$$.fragment, local);
     			transition_in(foldablesection1.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(pagetitle.$$.fragment, local);
-    			transition_out(note.$$.fragment, local);
+    			transition_out(note0.$$.fragment, local);
+    			transition_out(note1.$$.fragment, local);
     			transition_out(resume.$$.fragment, local);
+    			transition_out(if_block);
     			transition_out(foldablesection0.$$.fragment, local);
     			transition_out(foldablesection1.$$.fragment, local);
     			current = false;
@@ -8447,8 +8620,10 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div6);
     			destroy_component(pagetitle);
-    			destroy_component(note);
+    			destroy_component(note0);
+    			destroy_component(note1);
     			destroy_component(resume);
+    			if (if_block) if_block.d();
     			destroy_component(foldablesection0);
     			destroy_component(foldablesection1);
     		}
@@ -8466,6 +8641,9 @@ var app = (function () {
     }
 
     function instance$3($$self, $$props, $$invalidate) {
+    	let $theme;
+    	validate_store(theme, 'theme');
+    	component_subscribe($$self, theme, $$value => $$invalidate(0, $theme = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Resume', slots, []);
     	const writable_props = [];
@@ -8474,8 +8652,17 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Resume> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ PageTitle, FoldableSection, Note, Resume });
-    	return [];
+    	$$self.$capture_state = () => ({
+    		PageTitle,
+    		FoldableSection,
+    		Note,
+    		Resume,
+    		ThemeSwitcher,
+    		theme,
+    		$theme
+    	});
+
+    	return [$theme];
     }
 
     class Resume_1 extends SvelteComponentDev {

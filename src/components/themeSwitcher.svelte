@@ -30,7 +30,7 @@
   };
 </script>
 
-<button class="transparent-button" on:click={switchThemes}>
+<button class="transparent-button" title="Toggle Theme" on:click={switchThemes}>
   <div class="box" class:dark={$theme === "dark"}>
     <svg
       class="sun"
@@ -85,6 +85,7 @@
     width: 1.5rem;
     height: 1.5rem;
     clip-path: circle(100%);
+    transform: translateY(-25%);
   }
   svg {
     fill: var(--primary);
@@ -97,6 +98,7 @@
   .moon {
     top: 50px;
     left: 0;
+    rotate: 180deg;
   }
   .box {
     position: absolute;
