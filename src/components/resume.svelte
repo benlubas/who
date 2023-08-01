@@ -132,7 +132,7 @@
           </div>
           <p>Khoury College of Computer Science</p>
           <p>Candidate for Bachelor of Science Computer Science, 2024</p>
-          <p>Dean’s List | GPA: 3.68/4.00</p>
+          <p>Dean’s List | GPA: 3.71/4.00</p>
         </div>
         <div class="edu-section">
           <div class="activity-heading">
