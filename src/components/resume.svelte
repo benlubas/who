@@ -126,7 +126,7 @@
   </div>
   <div class="r-body">
     <div class="top-body">
-      <div id="education">
+      <div id="education" class="r-section">
         <div class="r-section-title">Education</div>
         <div class="edu-section">
           <div class="activity-heading">
@@ -146,7 +146,7 @@
         </div>
       </div>
       <div id="knowledge-interests">
-        <div class="tech-knowledge">
+        <div class="tech-knowledge r-section">
           <div class="r-section-title">Technical Knowledge</div>
           <DelimitedList>
             {#each skills as skill}
@@ -154,7 +154,7 @@
             {/each}
           </DelimitedList>
         </div>
-        <div class="interests">
+        <div class="interests r-section">
           <div class="r-section-title">Interests</div>
           <DelimitedList>
             {#each interests as interest}
@@ -164,7 +164,7 @@
         </div>
       </div>
     </div>
-    <div id="work">
+    <div id="work" class="r-section">
       <div class="r-section-title">Work Experience</div>
       {#each jobs as job}
         <div class="job">
@@ -182,7 +182,7 @@
         </div>
       {/each}
     </div>
-    <div id="projects">
+    <div id="projects" class="r-section">
       <div class="r-section-title">Projects</div>
       {#each projects as project}
         <div class="project">
@@ -236,7 +236,7 @@
     font-size: 10pt;
     box-sizing: border-box;
 
-    --resume-accent: #0073ff;
+    --resume-accent: var(--accent);
   }
 
   .top-body {
@@ -258,6 +258,11 @@
   .edu-section {
     margin-bottom: 8px;
   }
+
+  /* this is kinda fun, but idk */
+  /* .r-section:hover .r-section-title { */
+  /*   filter: drop-shadow(0 0 1rem var(--primary)); */
+  /* } */
 
   .activity-heading {
     display: flex;
@@ -313,5 +318,11 @@
 
   .contact div {
     text-align: right;
+  }
+
+  @media print {
+    .resume {
+      background: var(--print-bg);
+    }
   }
 </style>

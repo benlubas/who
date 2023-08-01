@@ -9,7 +9,7 @@
 
 <style>
   .box {
-    border: 5px solid white;
+    border: 5px solid var(--primary);
     padding: 10px;
     height: 100%;
     position: relative;
@@ -21,7 +21,7 @@
     content: "";
     width: 100%;
     height: 100%;
-    background: white;
+    background: var(--primary);
     opacity: 0.4;
     position: absolute;
   }
