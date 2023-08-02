@@ -90,13 +90,14 @@
   svg {
     fill: var(--primary);
     position: relative;
+    height: 1.5rem;
   }
   .sun {
     top: 0;
     left: 0;
   }
   .moon {
-    top: 50px;
+    top: 3.1rem;
     left: 0;
     rotate: 180deg;
   }
@@ -104,9 +105,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 50px;
+    height: calc(1.5rem * 3 + 2rem);
     width: 20px;
-    transform-origin: bottom;
+    transform-origin: center;
     transition: rotate 0.75s ease-in;
   }
   .box.dark {
