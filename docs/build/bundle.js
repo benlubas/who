@@ -6766,9 +6766,9 @@ var app = (function () {
     			span = element("span");
     			attr_dev(span, "contenteditable", "");
     			if (/*availability*/ ctx[1] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[10].call(span));
-    			add_location(span, file$3, 108, 12, 3581);
+    			add_location(span, file$3, 108, 12, 3585);
     			attr_dev(div, "class", "availability");
-    			add_location(div, file$3, 107, 10, 3542);
+    			add_location(div, file$3, 107, 10, 3546);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -7177,7 +7177,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 187, 14, 6106);
+    			add_location(li, file$3, 187, 14, 6110);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7246,16 +7246,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 181, 14, 5899);
+    			add_location(strong, file$3, 181, 14, 5903);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 180, 12, 5861);
+    			add_location(div0, file$3, 180, 12, 5865);
     			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 183, 12, 5974);
+    			add_location(div1, file$3, 183, 12, 5978);
     			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 179, 10, 5818);
-    			add_location(ul, file$3, 185, 10, 6045);
+    			add_location(div2, file$3, 179, 10, 5822);
+    			add_location(ul, file$3, 185, 10, 6049);
     			attr_dev(div3, "class", "job");
-    			add_location(div3, file$3, 178, 8, 5790);
+    			add_location(div3, file$3, 178, 8, 5794);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7330,7 +7330,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 205, 14, 6694);
+    			add_location(li, file$3, 205, 14, 6698);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7399,16 +7399,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 199, 14, 6466);
+    			add_location(strong, file$3, 199, 14, 6470);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 198, 12, 6428);
+    			add_location(div0, file$3, 198, 12, 6432);
     			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 201, 12, 6554);
+    			add_location(div1, file$3, 201, 12, 6558);
     			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 197, 10, 6385);
-    			add_location(ul, file$3, 203, 10, 6629);
+    			add_location(div2, file$3, 197, 10, 6389);
+    			add_location(ul, file$3, 203, 10, 6633);
     			attr_dev(div3, "class", "project");
-    			add_location(div3, file$3, 196, 8, 6353);
+    			add_location(div3, file$3, 196, 8, 6357);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7656,84 +7656,84 @@ var app = (function () {
     			}
 
     			attr_dev(div0, "class", "name svelte-1613jni");
-    			add_location(div0, file$3, 103, 8, 3450);
+    			add_location(div0, file$3, 103, 8, 3454);
     			attr_dev(div1, "class", "name-box svelte-1613jni");
-    			add_location(div1, file$3, 102, 6, 3419);
+    			add_location(div1, file$3, 102, 6, 3423);
     			attr_dev(div2, "class", "resume-subtitle svelte-1613jni");
     			attr_dev(div2, "contenteditable", "");
     			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[11].call(div2));
-    			add_location(div2, file$3, 112, 6, 3686);
+    			add_location(div2, file$3, 112, 6, 3690);
     			attr_dev(div3, "class", "title-box");
-    			add_location(div3, file$3, 101, 4, 3389);
+    			add_location(div3, file$3, 101, 4, 3393);
     			attr_dev(div4, "class", "phone svelte-1613jni");
     			attr_dev(div4, "contenteditable", "");
     			attr_dev(div4, "spellcheck", false);
     			if (/*phone*/ ctx[2] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[12].call(div4));
-    			add_location(div4, file$3, 115, 6, 3803);
+    			add_location(div4, file$3, 115, 6, 3807);
     			attr_dev(div5, "class", "email svelte-1613jni");
     			attr_dev(div5, "contenteditable", "");
     			attr_dev(div5, "spellcheck", false);
     			if (/*email*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[13].call(div5));
-    			add_location(div5, file$3, 121, 6, 3927);
+    			add_location(div5, file$3, 121, 6, 3931);
     			attr_dev(div6, "class", "website svelte-1613jni");
     			attr_dev(div6, "contenteditable", "");
     			attr_dev(div6, "spellcheck", false);
     			if (/*website*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[14].call(div6));
-    			add_location(div6, file$3, 127, 6, 4051);
+    			add_location(div6, file$3, 127, 6, 4055);
     			attr_dev(div7, "class", "contact svelte-1613jni");
-    			add_location(div7, file$3, 114, 4, 3775);
+    			add_location(div7, file$3, 114, 4, 3779);
     			attr_dev(div8, "class", "head svelte-1613jni");
-    			add_location(div8, file$3, 100, 2, 3366);
+    			add_location(div8, file$3, 100, 2, 3370);
     			attr_dev(div9, "class", "r-section-title svelte-1613jni");
-    			add_location(div9, file$3, 138, 8, 4296);
-    			add_location(strong0, file$3, 141, 12, 4428);
+    			add_location(div9, file$3, 138, 8, 4300);
+    			add_location(strong0, file$3, 141, 12, 4432);
     			attr_dev(div10, "class", "activity-date svelte-1613jni");
-    			add_location(div10, file$3, 142, 12, 4481);
+    			add_location(div10, file$3, 142, 12, 4485);
     			attr_dev(div11, "class", "activity-heading svelte-1613jni");
-    			add_location(div11, file$3, 140, 10, 4385);
-    			add_location(p0, file$3, 144, 10, 4551);
-    			add_location(p1, file$3, 145, 10, 4603);
-    			add_location(p2, file$3, 146, 10, 4677);
+    			add_location(div11, file$3, 140, 10, 4389);
+    			add_location(p0, file$3, 144, 10, 4555);
+    			add_location(p1, file$3, 145, 10, 4607);
+    			add_location(p2, file$3, 146, 10, 4681);
     			attr_dev(div12, "class", "edu-section svelte-1613jni");
-    			add_location(div12, file$3, 139, 8, 4349);
-    			add_location(strong1, file$3, 150, 12, 4815);
+    			add_location(div12, file$3, 139, 8, 4353);
+    			add_location(strong1, file$3, 150, 12, 4819);
     			attr_dev(div13, "class", "activity-date svelte-1613jni");
-    			add_location(div13, file$3, 151, 12, 4876);
+    			add_location(div13, file$3, 151, 12, 4880);
     			attr_dev(div14, "class", "activity-heading svelte-1613jni");
-    			add_location(div14, file$3, 149, 10, 4772);
-    			add_location(p3, file$3, 153, 10, 4946);
+    			add_location(div14, file$3, 149, 10, 4776);
+    			add_location(p3, file$3, 153, 10, 4950);
     			attr_dev(div15, "class", "edu-section svelte-1613jni");
-    			add_location(div15, file$3, 148, 8, 4736);
+    			add_location(div15, file$3, 148, 8, 4740);
     			attr_dev(div16, "id", "education");
     			attr_dev(div16, "class", "r-section");
-    			add_location(div16, file$3, 137, 6, 4249);
+    			add_location(div16, file$3, 137, 6, 4253);
     			attr_dev(div17, "class", "r-section-title svelte-1613jni");
-    			add_location(div17, file$3, 158, 10, 5106);
+    			add_location(div17, file$3, 158, 10, 5110);
     			attr_dev(div18, "class", "tech-knowledge r-section");
-    			add_location(div18, file$3, 157, 8, 5057);
+    			add_location(div18, file$3, 157, 8, 5061);
     			attr_dev(div19, "class", "r-section-title svelte-1613jni");
-    			add_location(div19, file$3, 166, 10, 5398);
+    			add_location(div19, file$3, 166, 10, 5402);
     			attr_dev(div20, "class", "interests r-section");
-    			add_location(div20, file$3, 165, 8, 5354);
+    			add_location(div20, file$3, 165, 8, 5358);
     			attr_dev(div21, "id", "knowledge-interests");
     			attr_dev(div21, "class", "svelte-1613jni");
-    			add_location(div21, file$3, 156, 6, 5018);
+    			add_location(div21, file$3, 156, 6, 5022);
     			attr_dev(div22, "class", "top-body svelte-1613jni");
-    			add_location(div22, file$3, 136, 4, 4220);
+    			add_location(div22, file$3, 136, 4, 4224);
     			attr_dev(div23, "class", "r-section-title svelte-1613jni");
-    			add_location(div23, file$3, 176, 6, 5705);
+    			add_location(div23, file$3, 176, 6, 5709);
     			attr_dev(div24, "id", "work");
     			attr_dev(div24, "class", "r-section");
-    			add_location(div24, file$3, 175, 4, 5665);
+    			add_location(div24, file$3, 175, 4, 5669);
     			attr_dev(div25, "class", "r-section-title svelte-1613jni");
-    			add_location(div25, file$3, 194, 6, 6267);
+    			add_location(div25, file$3, 194, 6, 6271);
     			attr_dev(div26, "id", "projects");
     			attr_dev(div26, "class", "r-section");
-    			add_location(div26, file$3, 193, 4, 6223);
+    			add_location(div26, file$3, 193, 4, 6227);
     			attr_dev(div27, "class", "r-body");
-    			add_location(div27, file$3, 135, 2, 4195);
+    			add_location(div27, file$3, 135, 2, 4199);
     			attr_dev(div28, "class", "resume svelte-1613jni");
-    			add_location(div28, file$3, 99, 0, 3343);
+    			add_location(div28, file$3, 99, 0, 3347);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8024,10 +8024,10 @@ var app = (function () {
     			date: "October 2023 - Present",
     			technologies: "Python | Lua | Jupyter | Neovim",
     			bullets: [
-    				"Develop and maintain a Neovim plugin for interactively and asyncronously running code via\
+    				"Develop and maintain a Neovim plugin for interactively and asynchronously running code via\
         the Jupyter Kernel, rendering output (including images) inside Neovim",
     				"Implement new, user requested features without breaking existing plugin users",
-    				"Integrate with other plugins to create a seemless notebook experience in Neovim"
+    				"Integrate with other plugins to create an incredible notebook experience in Neovim"
     			]
     		},
     		{

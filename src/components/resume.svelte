@@ -69,10 +69,10 @@
       date: "October 2023 - Present",
       technologies: "Python | Lua | Jupyter | Neovim",
       bullets: [
-        "Develop and maintain a Neovim plugin for interactively and asyncronously running code via\
+        "Develop and maintain a Neovim plugin for interactively and asynchronously running code via\
         the Jupyter Kernel, rendering output (including images) inside Neovim",
         "Implement new, user requested features without breaking existing plugin users",
-        "Integrate with other plugins to create a seemless notebook experience in Neovim"
+        "Integrate with other plugins to create an incredible notebook experience in Neovim"
       ],
     },
     {
