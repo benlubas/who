@@ -23,13 +23,14 @@
     "Docker",
     "K8s",
     "Airflow",
+    "AWS",
   ];
 
   const interests = [
     "Tiny Keyboards",
+    "Neovim",
     "Gaming",
     "Hockey",
-    "Artificial Intelligence",
   ];
 
   const jobs = [
@@ -63,6 +64,17 @@
   ];
 
   const projects = [
+    {
+      title: "Molten",
+      date: "October 2023 - Present",
+      technologies: "Python | Lua | Jupyter | Neovim",
+      bullets: [
+        "Develop and maintain a Neovim plugin for interactively and asyncronously running code via\
+        the Jupyter Kernel, rendering output (including images) inside Neovim",
+        "Implement new, user requested features without breaking existing plugin users",
+        "Integrate with other plugins to create a seemless notebook experience in Neovim"
+      ],
+    },
     {
       title: "Dive Sheet Generator",
       date: "August 2021",
@@ -187,37 +199,15 @@
             <div class="job-title">
               <strong>{project.title}</strong>, {project.technologies}
             </div>
-            <div class="activity-date">August 2021</div>
+            <div class="activity-date">{project.date}</div>
           </div>
           <ul>
-            <li class="job-bullet">
-              Developed a web-based application that converts a CSV file to
-              printable, league standard dive sheets
-            </li>
-            <li class="job-bullet">
-              Saved approximately three minutes per diver&dash;upwards of 75
-              minutes in total, per dive meet
-            </li>
+            {#each project.bullets as bullet}
+              <li class="job-bullet">{bullet}</li>
+            {/each}
           </ul>
         </div>
       {/each}
-      <div class="project">
-        <div class="activity-heading">
-          <div class="job-title">
-            <strong>PW Voting Site</strong>, React | Node | MongoDB
-          </div>
-          <div class="activity-date">Jan-Jun, 2020</div>
-        </div>
-        <ul>
-          <li class="job-bullet">
-            Designed, prototyped, and developed a website capable of generating
-            and distributing secure polls for the student body
-          </li>
-          <li class="job-bullet">
-            Explained site usage and benefits to staff members
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </div>

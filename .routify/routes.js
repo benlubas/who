@@ -1,11 +1,11 @@
 
 /**
  * @roxi/routify 2.18.3
- * File generated Tue Aug 01 2023 20:13:53 GMT-0400 (Eastern Daylight Time)
+ * File generated Sun Oct 15 2023 09:38:30 GMT-0400 (Eastern Daylight Time)
  */
 
 export const __version = "2.18.3"
-export const __timestamp = "2023-08-02T00:13:53.559Z"
+export const __timestamp = "2023-10-15T13:38:30.958Z"
 
 //buildRoutes
 import { buildClientTree } from "@roxi/routify/runtime/buildRoutes"
@@ -36,7 +36,7 @@ export const _tree = {
       "name": "about",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/github/who/src/pages/about.svelte",
+      "absolutePath": "/home/benlubas/github/who/src/pages/about.svelte",
       "importPath": "../src/pages/about.svelte",
       "isLayout": false,
       "isReset": false,
@@ -61,7 +61,7 @@ export const _tree = {
       "name": "index",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/github/who/src/pages/index.svelte",
+      "absolutePath": "/home/benlubas/github/who/src/pages/index.svelte",
       "importPath": "../src/pages/index.svelte",
       "isLayout": false,
       "isReset": false,
@@ -86,7 +86,7 @@ export const _tree = {
       "name": "projects",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/github/who/src/pages/projects.svelte",
+      "absolutePath": "/home/benlubas/github/who/src/pages/projects.svelte",
       "importPath": "../src/pages/projects.svelte",
       "isLayout": false,
       "isReset": false,
@@ -111,7 +111,7 @@ export const _tree = {
       "name": "resume",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/github/who/src/pages/resume.svelte",
+      "absolutePath": "/home/benlubas/github/who/src/pages/resume.svelte",
       "importPath": "../src/pages/resume.svelte",
       "isLayout": false,
       "isReset": false,
@@ -136,7 +136,7 @@ export const _tree = {
       "name": "work",
       "ext": "svelte",
       "badExt": false,
-      "absolutePath": "/Users/benlubas/github/who/src/pages/work.svelte",
+      "absolutePath": "/home/benlubas/github/who/src/pages/work.svelte",
       "importPath": "../src/pages/work.svelte",
       "isLayout": false,
       "isReset": false,
