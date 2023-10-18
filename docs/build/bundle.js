@@ -6526,7 +6526,7 @@ var app = (function () {
     		c: function create() {
     			ul = element("ul");
     			if (default_slot) default_slot.c();
-    			attr_dev(ul, "class", "dl-list svelte-1hdsuqo");
+    			attr_dev(ul, "class", "dl-list svelte-fcy4n6");
     			add_location(ul, file$5, 3, 0, 68);
     		},
     		l: function claim(nodes) {
@@ -6627,7 +6627,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			if (default_slot) default_slot.c();
-    			attr_dev(li, "class", "svelte-yy38nw");
+    			attr_dev(li, "class", "svelte-1osgygz");
     			add_location(li, file$4, 2, 0, 29);
     		},
     		l: function claim(nodes) {
@@ -6719,41 +6719,47 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[15] = list[i];
+    	child_ctx[16] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
+    	child_ctx[19] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[21] = list[i];
+    	child_ctx[22] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
+    	child_ctx[19] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[26] = list[i];
+    	child_ctx[27] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[29] = list[i];
+    	child_ctx[30] = list[i];
     	return child_ctx;
     }
 
-    // (107:8) {#if showAvailability}
+    function get_each_context_6(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[30] = list[i];
+    	return child_ctx;
+    }
+
+    // (112:8) {#if showAvailability}
     function create_if_block$1(ctx) {
     	let div;
     	let span;
@@ -6765,10 +6771,10 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			attr_dev(span, "contenteditable", "");
-    			if (/*availability*/ ctx[1] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[10].call(span));
-    			add_location(span, file$3, 108, 12, 3585);
+    			if (/*availability*/ ctx[1] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[11].call(span));
+    			add_location(span, file$3, 113, 12, 3649);
     			attr_dev(div, "class", "availability");
-    			add_location(div, file$3, 107, 10, 3546);
+    			add_location(div, file$3, 112, 10, 3610);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -6779,7 +6785,7 @@ var app = (function () {
     			}
 
     			if (!mounted) {
-    				dispose = listen_dev(span, "input", /*span_input_handler*/ ctx[10]);
+    				dispose = listen_dev(span, "input", /*span_input_handler*/ ctx[11]);
     				mounted = true;
     			}
     		},
@@ -6799,16 +6805,209 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(107:8) {#if showAvailability}",
+    		source: "(112:8) {#if showAvailability}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (162:14) <DelimitedListItem>
+    // (168:14) <DelimitedListItem>
+    function create_default_slot_5(ctx) {
+    	let t_value = /*skill*/ ctx[30] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_5.name,
+    		type: "slot",
+    		source: "(168:14) <DelimitedListItem>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (167:12) {#each expertSkills as skill}
+    function create_each_block_6(ctx) {
+    	let delimitedlistitem;
+    	let current;
+
+    	delimitedlistitem = new DelimitedListItem({
+    			props: {
+    				$$slots: { default: [create_default_slot_5] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(delimitedlistitem.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(delimitedlistitem, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const delimitedlistitem_changes = {};
+
+    			if (dirty[1] & /*$$scope*/ 16) {
+    				delimitedlistitem_changes.$$scope = { dirty, ctx };
+    			}
+
+    			delimitedlistitem.$set(delimitedlistitem_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(delimitedlistitem.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(delimitedlistitem.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(delimitedlistitem, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_6.name,
+    		type: "each",
+    		source: "(167:12) {#each expertSkills as skill}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (165:10) <DelimitedList>
+    function create_default_slot_4(ctx) {
+    	let div;
+    	let t1;
+    	let each_1_anchor;
+    	let current;
+    	let each_value_6 = /*expertSkills*/ ctx[6];
+    	validate_each_argument(each_value_6);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_6.length; i += 1) {
+    		each_blocks[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			div.textContent = "Expert: ";
+    			t1 = space();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    			attr_dev(div, "class", "delimited-list-label svelte-1aadbul");
+    			add_location(div, file$3, 165, 12, 5267);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			insert_dev(target, t1, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*expertSkills*/ 64) {
+    				each_value_6 = /*expertSkills*/ ctx[6];
+    				validate_each_argument(each_value_6);
+    				let i;
+
+    				for (i = 0; i < each_value_6.length; i += 1) {
+    					const child_ctx = get_each_context_6(ctx, each_value_6, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block_6(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_6.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_6.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(t1);
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_4.name,
+    		type: "slot",
+    		source: "(165:10) <DelimitedList>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (174:14) <DelimitedListItem>
     function create_default_slot_3$1(ctx) {
-    	let t_value = /*skill*/ ctx[29] + "";
+    	let t_value = /*skill*/ ctx[30] + "";
     	let t;
 
     	const block = {
@@ -6828,14 +7027,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(162:14) <DelimitedListItem>",
+    		source: "(174:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (161:12) {#each skills as skill}
+    // (173:12) {#each advancedSkills as skill}
     function create_each_block_5(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -6859,7 +7058,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const delimitedlistitem_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 2) {
+    			if (dirty[1] & /*$$scope*/ 16) {
     				delimitedlistitem_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6883,18 +7082,20 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(161:12) {#each skills as skill}",
+    		source: "(173:12) {#each advancedSkills as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:10) <DelimitedList>
+    // (171:10) <DelimitedList>
     function create_default_slot_2$1(ctx) {
+    	let div;
+    	let t1;
     	let each_1_anchor;
     	let current;
-    	let each_value_5 = /*skills*/ ctx[6];
+    	let each_value_5 = /*advancedSkills*/ ctx[7];
     	validate_each_argument(each_value_5);
     	let each_blocks = [];
 
@@ -6908,13 +7109,22 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div = element("div");
+    			div.textContent = "Advanced: ";
+    			t1 = space();
+
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
     			each_1_anchor = empty();
+    			attr_dev(div, "class", "delimited-list-label svelte-1aadbul");
+    			add_location(div, file$3, 171, 12, 5509);
     		},
     		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			insert_dev(target, t1, anchor);
+
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(target, anchor);
     			}
@@ -6923,8 +7133,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*skills*/ 64) {
-    				each_value_5 = /*skills*/ ctx[6];
+    			if (dirty[0] & /*advancedSkills*/ 128) {
+    				each_value_5 = /*advancedSkills*/ ctx[7];
     				validate_each_argument(each_value_5);
     				let i;
 
@@ -6970,6 +7180,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(t1);
     			destroy_each(each_blocks, detaching);
     			if (detaching) detach_dev(each_1_anchor);
     		}
@@ -6979,16 +7191,16 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(160:10) <DelimitedList>",
+    		source: "(171:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (170:14) <DelimitedListItem>
+    // (182:14) <DelimitedListItem>
     function create_default_slot_1$1(ctx) {
-    	let t_value = /*interest*/ ctx[26] + "";
+    	let t_value = /*interest*/ ctx[27] + "";
     	let t;
 
     	const block = {
@@ -7008,14 +7220,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(170:14) <DelimitedListItem>",
+    		source: "(182:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:12) {#each interests as interest}
+    // (181:12) {#each interests as interest}
     function create_each_block_4(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -7039,7 +7251,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const delimitedlistitem_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 2) {
+    			if (dirty[1] & /*$$scope*/ 16) {
     				delimitedlistitem_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7063,18 +7275,18 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(169:12) {#each interests as interest}",
+    		source: "(181:12) {#each interests as interest}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (168:10) <DelimitedList>
+    // (180:10) <DelimitedList>
     function create_default_slot$2(ctx) {
     	let each_1_anchor;
     	let current;
-    	let each_value_4 = /*interests*/ ctx[7];
+    	let each_value_4 = /*interests*/ ctx[8];
     	validate_each_argument(each_value_4);
     	let each_blocks = [];
 
@@ -7103,8 +7315,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*interests*/ 128) {
-    				each_value_4 = /*interests*/ ctx[7];
+    			if (dirty[0] & /*interests*/ 256) {
+    				each_value_4 = /*interests*/ ctx[8];
     				validate_each_argument(each_value_4);
     				let i;
 
@@ -7159,17 +7371,17 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(168:10) <DelimitedList>",
+    		source: "(180:10) <DelimitedList>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (187:12) {#each job.bullets as bullet}
+    // (199:12) {#each job.bullets as bullet}
     function create_each_block_3(ctx) {
     	let li;
-    	let t_value = /*bullet*/ ctx[18] + "";
+    	let t_value = /*bullet*/ ctx[19] + "";
     	let t;
 
     	const block = {
@@ -7177,7 +7389,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 187, 14, 6110);
+    			add_location(li, file$3, 199, 14, 6492);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7193,32 +7405,32 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(187:12) {#each job.bullets as bullet}",
+    		source: "(199:12) {#each job.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (178:6) {#each jobs as job}
+    // (190:6) {#each jobs as job}
     function create_each_block_2(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*job*/ ctx[21].title + "";
+    	let t0_value = /*job*/ ctx[22].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*job*/ ctx[21].company + "";
+    	let t2_value = /*job*/ ctx[22].company + "";
     	let t2;
     	let t3;
     	let div1;
-    	let t4_value = /*job*/ ctx[21].date + "";
+    	let t4_value = /*job*/ ctx[22].date + "";
     	let t4;
     	let t5;
     	let ul;
     	let t6;
-    	let each_value_3 = /*job*/ ctx[21].bullets;
+    	let each_value_3 = /*job*/ ctx[22].bullets;
     	validate_each_argument(each_value_3);
     	let each_blocks = [];
 
@@ -7246,16 +7458,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 181, 14, 5903);
+    			add_location(strong, file$3, 193, 14, 6285);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 180, 12, 5865);
-    			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 183, 12, 5978);
-    			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 179, 10, 5822);
-    			add_location(ul, file$3, 185, 10, 6049);
+    			add_location(div0, file$3, 192, 12, 6247);
+    			attr_dev(div1, "class", "activity-date svelte-1aadbul");
+    			add_location(div1, file$3, 195, 12, 6360);
+    			attr_dev(div2, "class", "activity-heading svelte-1aadbul");
+    			add_location(div2, file$3, 191, 10, 6204);
+    			add_location(ul, file$3, 197, 10, 6431);
     			attr_dev(div3, "class", "job");
-    			add_location(div3, file$3, 178, 8, 5794);
+    			add_location(div3, file$3, 190, 8, 6176);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7278,8 +7490,8 @@ var app = (function () {
     			append_dev(div3, t6);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*jobs*/ 256) {
-    				each_value_3 = /*job*/ ctx[21].bullets;
+    			if (dirty[0] & /*jobs*/ 512) {
+    				each_value_3 = /*job*/ ctx[22].bullets;
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -7312,17 +7524,17 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(178:6) {#each jobs as job}",
+    		source: "(190:6) {#each jobs as job}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (205:12) {#each project.bullets as bullet}
+    // (217:12) {#each project.bullets as bullet}
     function create_each_block_1(ctx) {
     	let li;
-    	let t_value = /*bullet*/ ctx[18] + "";
+    	let t_value = /*bullet*/ ctx[19] + "";
     	let t;
 
     	const block = {
@@ -7330,7 +7542,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 205, 14, 6698);
+    			add_location(li, file$3, 217, 14, 7080);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7346,32 +7558,32 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(205:12) {#each project.bullets as bullet}",
+    		source: "(217:12) {#each project.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (196:6) {#each projects as project}
+    // (208:6) {#each projects as project}
     function create_each_block(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*project*/ ctx[15].title + "";
+    	let t0_value = /*project*/ ctx[16].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*project*/ ctx[15].technologies + "";
+    	let t2_value = /*project*/ ctx[16].technologies + "";
     	let t2;
     	let t3;
     	let div1;
-    	let t4_value = /*project*/ ctx[15].date + "";
+    	let t4_value = /*project*/ ctx[16].date + "";
     	let t4;
     	let t5;
     	let ul;
     	let t6;
-    	let each_value_1 = /*project*/ ctx[15].bullets;
+    	let each_value_1 = /*project*/ ctx[16].bullets;
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -7399,16 +7611,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 199, 14, 6470);
+    			add_location(strong, file$3, 211, 14, 6852);
     			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 198, 12, 6432);
-    			attr_dev(div1, "class", "activity-date svelte-1613jni");
-    			add_location(div1, file$3, 201, 12, 6558);
-    			attr_dev(div2, "class", "activity-heading svelte-1613jni");
-    			add_location(div2, file$3, 197, 10, 6389);
-    			add_location(ul, file$3, 203, 10, 6633);
+    			add_location(div0, file$3, 210, 12, 6814);
+    			attr_dev(div1, "class", "activity-date svelte-1aadbul");
+    			add_location(div1, file$3, 213, 12, 6940);
+    			attr_dev(div2, "class", "activity-heading svelte-1aadbul");
+    			add_location(div2, file$3, 209, 10, 6771);
+    			add_location(ul, file$3, 215, 10, 7015);
     			attr_dev(div3, "class", "project");
-    			add_location(div3, file$3, 196, 8, 6357);
+    			add_location(div3, file$3, 208, 8, 6739);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7431,8 +7643,8 @@ var app = (function () {
     			append_dev(div3, t6);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*projects*/ 512) {
-    				each_value_1 = /*project*/ ctx[15].bullets;
+    			if (dirty[0] & /*projects*/ 1024) {
+    				each_value_1 = /*project*/ ctx[16].bullets;
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -7465,7 +7677,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(196:6) {#each projects as project}",
+    		source: "(208:6) {#each projects as project}",
     		ctx
     	});
 
@@ -7520,18 +7732,20 @@ var app = (function () {
     	let t26;
     	let delimitedlist0;
     	let t27;
+    	let delimitedlist1;
+    	let t28;
     	let div20;
     	let div19;
-    	let t29;
-    	let delimitedlist1;
     	let t30;
+    	let delimitedlist2;
+    	let t31;
     	let div24;
     	let div23;
-    	let t32;
     	let t33;
+    	let t34;
     	let div26;
     	let div25;
-    	let t35;
+    	let t36;
     	let current;
     	let mounted;
     	let dispose;
@@ -7539,7 +7753,7 @@ var app = (function () {
 
     	delimitedlist0 = new DelimitedList({
     			props: {
-    				$$slots: { default: [create_default_slot_2$1] },
+    				$$slots: { default: [create_default_slot_4] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -7547,13 +7761,21 @@ var app = (function () {
 
     	delimitedlist1 = new DelimitedList({
     			props: {
+    				$$slots: { default: [create_default_slot_2$1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	delimitedlist2 = new DelimitedList({
+    			props: {
     				$$slots: { default: [create_default_slot$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
     		});
 
-    	let each_value_2 = /*jobs*/ ctx[8];
+    	let each_value_2 = /*jobs*/ ctx[9];
     	validate_each_argument(each_value_2);
     	let each_blocks_1 = [];
 
@@ -7561,7 +7783,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value = /*projects*/ ctx[9];
+    	let each_value = /*projects*/ ctx[10];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -7630,110 +7852,112 @@ var app = (function () {
     			t26 = space();
     			create_component(delimitedlist0.$$.fragment);
     			t27 = space();
+    			create_component(delimitedlist1.$$.fragment);
+    			t28 = space();
     			div20 = element("div");
     			div19 = element("div");
     			div19.textContent = "Interests";
-    			t29 = space();
-    			create_component(delimitedlist1.$$.fragment);
     			t30 = space();
+    			create_component(delimitedlist2.$$.fragment);
+    			t31 = space();
     			div24 = element("div");
     			div23 = element("div");
     			div23.textContent = "Work Experience";
-    			t32 = space();
+    			t33 = space();
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
-    			t33 = space();
+    			t34 = space();
     			div26 = element("div");
     			div25 = element("div");
     			div25.textContent = "Projects";
-    			t35 = space();
+    			t36 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "name svelte-1613jni");
-    			add_location(div0, file$3, 103, 8, 3454);
-    			attr_dev(div1, "class", "name-box svelte-1613jni");
-    			add_location(div1, file$3, 102, 6, 3423);
-    			attr_dev(div2, "class", "resume-subtitle svelte-1613jni");
+    			attr_dev(div0, "class", "name svelte-1aadbul");
+    			add_location(div0, file$3, 108, 8, 3518);
+    			attr_dev(div1, "class", "name-box svelte-1aadbul");
+    			add_location(div1, file$3, 107, 6, 3487);
+    			attr_dev(div2, "class", "resume-subtitle svelte-1aadbul");
     			attr_dev(div2, "contenteditable", "");
-    			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[11].call(div2));
-    			add_location(div2, file$3, 112, 6, 3690);
+    			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[12].call(div2));
+    			add_location(div2, file$3, 117, 6, 3754);
     			attr_dev(div3, "class", "title-box");
-    			add_location(div3, file$3, 101, 4, 3393);
-    			attr_dev(div4, "class", "phone svelte-1613jni");
+    			add_location(div3, file$3, 106, 4, 3457);
+    			attr_dev(div4, "class", "phone svelte-1aadbul");
     			attr_dev(div4, "contenteditable", "");
     			attr_dev(div4, "spellcheck", false);
-    			if (/*phone*/ ctx[2] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[12].call(div4));
-    			add_location(div4, file$3, 115, 6, 3807);
-    			attr_dev(div5, "class", "email svelte-1613jni");
+    			if (/*phone*/ ctx[2] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[13].call(div4));
+    			add_location(div4, file$3, 120, 6, 3871);
+    			attr_dev(div5, "class", "email svelte-1aadbul");
     			attr_dev(div5, "contenteditable", "");
     			attr_dev(div5, "spellcheck", false);
-    			if (/*email*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[13].call(div5));
-    			add_location(div5, file$3, 121, 6, 3931);
-    			attr_dev(div6, "class", "website svelte-1613jni");
+    			if (/*email*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[14].call(div5));
+    			add_location(div5, file$3, 126, 6, 3995);
+    			attr_dev(div6, "class", "website svelte-1aadbul");
     			attr_dev(div6, "contenteditable", "");
     			attr_dev(div6, "spellcheck", false);
-    			if (/*website*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[14].call(div6));
-    			add_location(div6, file$3, 127, 6, 4055);
-    			attr_dev(div7, "class", "contact svelte-1613jni");
-    			add_location(div7, file$3, 114, 4, 3779);
-    			attr_dev(div8, "class", "head svelte-1613jni");
-    			add_location(div8, file$3, 100, 2, 3370);
-    			attr_dev(div9, "class", "r-section-title svelte-1613jni");
-    			add_location(div9, file$3, 138, 8, 4300);
-    			add_location(strong0, file$3, 141, 12, 4432);
-    			attr_dev(div10, "class", "activity-date svelte-1613jni");
-    			add_location(div10, file$3, 142, 12, 4485);
-    			attr_dev(div11, "class", "activity-heading svelte-1613jni");
-    			add_location(div11, file$3, 140, 10, 4389);
-    			add_location(p0, file$3, 144, 10, 4555);
-    			add_location(p1, file$3, 145, 10, 4607);
-    			add_location(p2, file$3, 146, 10, 4681);
-    			attr_dev(div12, "class", "edu-section svelte-1613jni");
-    			add_location(div12, file$3, 139, 8, 4353);
-    			add_location(strong1, file$3, 150, 12, 4819);
-    			attr_dev(div13, "class", "activity-date svelte-1613jni");
-    			add_location(div13, file$3, 151, 12, 4880);
-    			attr_dev(div14, "class", "activity-heading svelte-1613jni");
-    			add_location(div14, file$3, 149, 10, 4776);
-    			add_location(p3, file$3, 153, 10, 4950);
-    			attr_dev(div15, "class", "edu-section svelte-1613jni");
-    			add_location(div15, file$3, 148, 8, 4740);
+    			if (/*website*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[15].call(div6));
+    			add_location(div6, file$3, 132, 6, 4119);
+    			attr_dev(div7, "class", "contact svelte-1aadbul");
+    			add_location(div7, file$3, 119, 4, 3843);
+    			attr_dev(div8, "class", "head svelte-1aadbul");
+    			add_location(div8, file$3, 105, 2, 3434);
+    			attr_dev(div9, "class", "r-section-title svelte-1aadbul");
+    			add_location(div9, file$3, 143, 8, 4364);
+    			add_location(strong0, file$3, 146, 12, 4496);
+    			attr_dev(div10, "class", "activity-date svelte-1aadbul");
+    			add_location(div10, file$3, 147, 12, 4549);
+    			attr_dev(div11, "class", "activity-heading svelte-1aadbul");
+    			add_location(div11, file$3, 145, 10, 4453);
+    			add_location(p0, file$3, 149, 10, 4619);
+    			add_location(p1, file$3, 150, 10, 4671);
+    			add_location(p2, file$3, 151, 10, 4745);
+    			attr_dev(div12, "class", "edu-section svelte-1aadbul");
+    			add_location(div12, file$3, 144, 8, 4417);
+    			add_location(strong1, file$3, 155, 12, 4883);
+    			attr_dev(div13, "class", "activity-date svelte-1aadbul");
+    			add_location(div13, file$3, 156, 12, 4944);
+    			attr_dev(div14, "class", "activity-heading svelte-1aadbul");
+    			add_location(div14, file$3, 154, 10, 4840);
+    			add_location(p3, file$3, 158, 10, 5014);
+    			attr_dev(div15, "class", "edu-section svelte-1aadbul");
+    			add_location(div15, file$3, 153, 8, 4804);
     			attr_dev(div16, "id", "education");
     			attr_dev(div16, "class", "r-section");
-    			add_location(div16, file$3, 137, 6, 4253);
-    			attr_dev(div17, "class", "r-section-title svelte-1613jni");
-    			add_location(div17, file$3, 158, 10, 5110);
+    			add_location(div16, file$3, 142, 6, 4317);
+    			attr_dev(div17, "class", "r-section-title svelte-1aadbul");
+    			add_location(div17, file$3, 163, 10, 5174);
     			attr_dev(div18, "class", "tech-knowledge r-section");
-    			add_location(div18, file$3, 157, 8, 5061);
-    			attr_dev(div19, "class", "r-section-title svelte-1613jni");
-    			add_location(div19, file$3, 166, 10, 5402);
+    			add_location(div18, file$3, 162, 8, 5125);
+    			attr_dev(div19, "class", "r-section-title svelte-1aadbul");
+    			add_location(div19, file$3, 178, 10, 5784);
     			attr_dev(div20, "class", "interests r-section");
-    			add_location(div20, file$3, 165, 8, 5358);
+    			add_location(div20, file$3, 177, 8, 5740);
     			attr_dev(div21, "id", "knowledge-interests");
-    			attr_dev(div21, "class", "svelte-1613jni");
-    			add_location(div21, file$3, 156, 6, 5022);
-    			attr_dev(div22, "class", "top-body svelte-1613jni");
-    			add_location(div22, file$3, 136, 4, 4224);
-    			attr_dev(div23, "class", "r-section-title svelte-1613jni");
-    			add_location(div23, file$3, 176, 6, 5709);
+    			attr_dev(div21, "class", "svelte-1aadbul");
+    			add_location(div21, file$3, 161, 6, 5086);
+    			attr_dev(div22, "class", "top-body svelte-1aadbul");
+    			add_location(div22, file$3, 141, 4, 4288);
+    			attr_dev(div23, "class", "r-section-title svelte-1aadbul");
+    			add_location(div23, file$3, 188, 6, 6091);
     			attr_dev(div24, "id", "work");
     			attr_dev(div24, "class", "r-section");
-    			add_location(div24, file$3, 175, 4, 5669);
-    			attr_dev(div25, "class", "r-section-title svelte-1613jni");
-    			add_location(div25, file$3, 194, 6, 6271);
+    			add_location(div24, file$3, 187, 4, 6051);
+    			attr_dev(div25, "class", "r-section-title svelte-1aadbul");
+    			add_location(div25, file$3, 206, 6, 6653);
     			attr_dev(div26, "id", "projects");
     			attr_dev(div26, "class", "r-section");
-    			add_location(div26, file$3, 193, 4, 6227);
+    			add_location(div26, file$3, 205, 4, 6609);
     			attr_dev(div27, "class", "r-body");
-    			add_location(div27, file$3, 135, 2, 4199);
-    			attr_dev(div28, "class", "resume svelte-1613jni");
-    			add_location(div28, file$3, 99, 0, 3347);
+    			add_location(div27, file$3, 140, 2, 4263);
+    			attr_dev(div28, "class", "resume svelte-1aadbul");
+    			add_location(div28, file$3, 104, 0, 3411);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7806,24 +8030,26 @@ var app = (function () {
     			append_dev(div18, div17);
     			append_dev(div18, t26);
     			mount_component(delimitedlist0, div18, null);
-    			append_dev(div21, t27);
+    			append_dev(div18, t27);
+    			mount_component(delimitedlist1, div18, null);
+    			append_dev(div21, t28);
     			append_dev(div21, div20);
     			append_dev(div20, div19);
-    			append_dev(div20, t29);
-    			mount_component(delimitedlist1, div20, null);
-    			append_dev(div27, t30);
+    			append_dev(div20, t30);
+    			mount_component(delimitedlist2, div20, null);
+    			append_dev(div27, t31);
     			append_dev(div27, div24);
     			append_dev(div24, div23);
-    			append_dev(div24, t32);
+    			append_dev(div24, t33);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].m(div24, null);
     			}
 
-    			append_dev(div27, t33);
+    			append_dev(div27, t34);
     			append_dev(div27, div26);
     			append_dev(div26, div25);
-    			append_dev(div26, t35);
+    			append_dev(div26, t36);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div26, null);
@@ -7833,10 +8059,10 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div2, "input", /*div2_input_handler*/ ctx[11]),
-    					listen_dev(div4, "input", /*div4_input_handler*/ ctx[12]),
-    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[13]),
-    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[14])
+    					listen_dev(div2, "input", /*div2_input_handler*/ ctx[12]),
+    					listen_dev(div4, "input", /*div4_input_handler*/ ctx[13]),
+    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[14]),
+    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[15])
     				];
 
     				mounted = true;
@@ -7863,21 +8089,28 @@ var app = (function () {
 
     			const delimitedlist0_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 2) {
+    			if (dirty[1] & /*$$scope*/ 16) {
     				delimitedlist0_changes.$$scope = { dirty, ctx };
     			}
 
     			delimitedlist0.$set(delimitedlist0_changes);
     			const delimitedlist1_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 2) {
+    			if (dirty[1] & /*$$scope*/ 16) {
     				delimitedlist1_changes.$$scope = { dirty, ctx };
     			}
 
     			delimitedlist1.$set(delimitedlist1_changes);
+    			const delimitedlist2_changes = {};
 
-    			if (dirty[0] & /*jobs*/ 256) {
-    				each_value_2 = /*jobs*/ ctx[8];
+    			if (dirty[1] & /*$$scope*/ 16) {
+    				delimitedlist2_changes.$$scope = { dirty, ctx };
+    			}
+
+    			delimitedlist2.$set(delimitedlist2_changes);
+
+    			if (dirty[0] & /*jobs*/ 512) {
+    				each_value_2 = /*jobs*/ ctx[9];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -7900,8 +8133,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*projects*/ 512) {
-    				each_value = /*projects*/ ctx[9];
+    			if (dirty[0] & /*projects*/ 1024) {
+    				each_value = /*projects*/ ctx[10];
     				validate_each_argument(each_value);
     				let i;
 
@@ -7928,11 +8161,13 @@ var app = (function () {
     			if (current) return;
     			transition_in(delimitedlist0.$$.fragment, local);
     			transition_in(delimitedlist1.$$.fragment, local);
+    			transition_in(delimitedlist2.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(delimitedlist0.$$.fragment, local);
     			transition_out(delimitedlist1.$$.fragment, local);
+    			transition_out(delimitedlist2.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -7940,6 +8175,7 @@ var app = (function () {
     			if (if_block) if_block.d();
     			destroy_component(delimitedlist0);
     			destroy_component(delimitedlist1);
+    			destroy_component(delimitedlist2);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
@@ -7969,30 +8205,15 @@ var app = (function () {
     	let phone = "xxx-xxx-xxxx";
     	let email = "benmlubas@gmail.com";
     	let website = "benlubas.com";
-
-    	const skills = [
-    		"Rails",
-    		"TypeScript",
-    		"React",
-    		"Rust",
-    		"HTML",
-    		"CSS",
-    		"Svelte",
-    		"Clojure",
-    		"SQL",
-    		"Docker",
-    		"K8s",
-    		"Airflow",
-    		"AWS"
-    	];
-
+    	const expertSkills = ["Rails", "Python", "TypeScript", "Lua", "SQL", "React", "HTML", "CSS"];
+    	const advancedSkills = ["Rust", "C++", "Svelte", "Clojure", "Docker", "Airflow", "AWS"];
     	const interests = ["Tiny Keyboards", "Neovim", "Gaming", "Hockey"];
 
     	const jobs = [
     		{
     			company: "BookBub",
-    			title: "Software Engineering Co-op",
-    			date: "2023",
+    			title: "Software Engineer",
+    			date: "Jan-July 2023",
     			bullets: [
     				"Partially automated the migration of JavaScript tests from Enzyme to RTL + Jest decreasing\
         the projected port time from five months to just under two months",
@@ -8004,8 +8225,8 @@ var app = (function () {
     		},
     		{
     			company: "Wayfair",
-    			title: "Software Engineering Co-op",
-    			date: "2022",
+    			title: "Software Engineer",
+    			date: "Jan-June 2022",
     			bullets: [
     				'From my manager at Wayfair: "[Ben] quickly onboarded and fully contributed as a member of\
         the squad for the majority of his coop. Ben stretched himself beyond just executing on\
@@ -8092,7 +8313,8 @@ var app = (function () {
     		phone,
     		email,
     		website,
-    		skills,
+    		expertSkills,
+    		advancedSkills,
     		interests,
     		jobs,
     		projects
@@ -8118,7 +8340,8 @@ var app = (function () {
     		email,
     		website,
     		showAvailability,
-    		skills,
+    		expertSkills,
+    		advancedSkills,
     		interests,
     		jobs,
     		projects,

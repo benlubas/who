@@ -10,18 +10,23 @@
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
 
-  const skills = [
+  const expertSkills = [
     "Rails",
+    "Python",
     "TypeScript",
+    "Lua",
+    "SQL",
     "React",
-    "Rust",
     "HTML",
     "CSS",
+  ];
+
+  const advancedSkills = [
+    "Rust",
+    "C++",
     "Svelte",
     "Clojure",
-    "SQL",
     "Docker",
-    "K8s",
     "Airflow",
     "AWS",
   ];
@@ -36,8 +41,8 @@
   const jobs = [
     {
       company: "BookBub",
-      title: "Software Engineering Co-op",
-      date: "2023",
+      title: "Software Engineer",
+      date: "Jan-July 2023",
       bullets: [
         "Partially automated the migration of JavaScript tests from Enzyme to RTL + Jest decreasing\
         the projected port time from five months to just under two months",
@@ -49,8 +54,8 @@
     },
     {
       company: "Wayfair",
-      title: "Software Engineering Co-op",
-      date: "2022",
+      title: "Software Engineer",
+      date: "Jan-June 2022",
       bullets: [
         'From my manager at Wayfair: "[Ben] quickly onboarded and fully contributed as a member of\
         the squad for the majority of his coop. Ben stretched himself beyond just executing on\
@@ -158,7 +163,14 @@
         <div class="tech-knowledge r-section">
           <div class="r-section-title">Technical Knowledge</div>
           <DelimitedList>
-            {#each skills as skill}
+            <div class="delimited-list-label">Expert:&nbsp;</div>
+            {#each expertSkills as skill}
+              <DelimitedListItem>{skill}</DelimitedListItem>
+            {/each}
+          </DelimitedList>
+          <DelimitedList>
+            <div class="delimited-list-label">Advanced:&nbsp;</div>
+            {#each advancedSkills as skill}
               <DelimitedListItem>{skill}</DelimitedListItem>
             {/each}
           </DelimitedList>
@@ -250,6 +262,11 @@
   /* .r-section:hover .r-section-title { */
   /*   filter: drop-shadow(0 0 1rem var(--primary)); */
   /* } */
+
+  .delimited-list-label {
+    display: inline;
+    font-weight: bold;
+  }
 
   .activity-heading {
     display: flex;

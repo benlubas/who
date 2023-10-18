@@ -8,7 +8,8 @@
 
 <style>
   ul {
-    text-align: center;
+    text-align: justify;
+    text-align-last: justify;
     padding: 0;
     margin: 0;
   }
