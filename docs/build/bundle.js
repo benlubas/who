@@ -108,6 +108,9 @@ var app = (function () {
         }
         return -1;
     }
+    function null_to_empty(value) {
+        return value == null ? '' : value;
+    }
     function set_store_value(store, ret, value) {
         store.set(value);
         return ret;
@@ -6519,15 +6522,16 @@ var app = (function () {
     function create_fragment$6(ctx) {
     	let ul;
     	let current;
-    	const default_slot_template = /*#slots*/ ctx[1].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[0], null);
+    	const default_slot_template = /*#slots*/ ctx[2].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[1], null);
 
     	const block = {
     		c: function create() {
     			ul = element("ul");
     			if (default_slot) default_slot.c();
-    			attr_dev(ul, "class", "dl-list svelte-fcy4n6");
-    			add_location(ul, file$5, 3, 0, 68);
+    			attr_dev(ul, "class", "dl-list svelte-133bgw5");
+    			toggle_class(ul, "justify", /*justify*/ ctx[0]);
+    			add_location(ul, file$5, 4, 0, 96);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6543,18 +6547,22 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && (!current || dirty & /*$$scope*/ 1)) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 2)) {
     					update_slot_base(
     						default_slot,
     						default_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[0],
+    						/*$$scope*/ ctx[1],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[0])
-    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[0], dirty, null),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[1])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[1], dirty, null),
     						null
     					);
     				}
+    			}
+
+    			if (dirty & /*justify*/ 1) {
+    				toggle_class(ul, "justify", /*justify*/ ctx[0]);
     			}
     		},
     		i: function intro(local) {
@@ -6586,23 +6594,35 @@ var app = (function () {
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('DelimitedList', slots, ['default']);
-    	const writable_props = [];
+    	let { justify = false } = $$props;
+    	const writable_props = ['justify'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<DelimitedList> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ('$$scope' in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+    		if ('justify' in $$props) $$invalidate(0, justify = $$props.justify);
+    		if ('$$scope' in $$props) $$invalidate(1, $$scope = $$props.$$scope);
     	};
 
-    	return [$$scope, slots];
+    	$$self.$capture_state = () => ({ justify });
+
+    	$$self.$inject_state = $$props => {
+    		if ('justify' in $$props) $$invalidate(0, justify = $$props.justify);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [justify, $$scope, slots];
     }
 
     class DelimitedList extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init$1(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+    		init$1(this, options, instance$6, create_fragment$6, safe_not_equal, { justify: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -6610,6 +6630,14 @@ var app = (function () {
     			options,
     			id: create_fragment$6.name
     		});
+    	}
+
+    	get justify() {
+    		throw new Error("<DelimitedList>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set justify(value) {
+    		throw new Error("<DelimitedList>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -6719,47 +6747,47 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[16] = list[i];
+    	child_ctx[17] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[19] = list[i];
+    	child_ctx[20] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
+    	child_ctx[23] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[19] = list[i];
+    	child_ctx[20] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[27] = list[i];
+    	child_ctx[28] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[30] = list[i];
+    	child_ctx[31] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_6(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[30] = list[i];
+    	child_ctx[31] = list[i];
     	return child_ctx;
     }
 
-    // (112:8) {#if showAvailability}
+    // (113:8) {#if showAvailability}
     function create_if_block$1(ctx) {
     	let div;
     	let span;
@@ -6771,27 +6799,27 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			attr_dev(span, "contenteditable", "");
-    			if (/*availability*/ ctx[1] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[11].call(span));
-    			add_location(span, file$3, 113, 12, 3649);
-    			attr_dev(div, "class", "availability");
-    			add_location(div, file$3, 112, 10, 3610);
+    			if (/*availability*/ ctx[2] === void 0) add_render_callback(() => /*span_input_handler*/ ctx[12].call(span));
+    			add_location(span, file$3, 114, 12, 3712);
+    			attr_dev(div, "class", "availability svelte-1pkdh4u");
+    			add_location(div, file$3, 113, 10, 3673);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, span);
 
-    			if (/*availability*/ ctx[1] !== void 0) {
-    				span.innerHTML = /*availability*/ ctx[1];
+    			if (/*availability*/ ctx[2] !== void 0) {
+    				span.innerHTML = /*availability*/ ctx[2];
     			}
 
     			if (!mounted) {
-    				dispose = listen_dev(span, "input", /*span_input_handler*/ ctx[11]);
+    				dispose = listen_dev(span, "input", /*span_input_handler*/ ctx[12]);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*availability*/ 2 && /*availability*/ ctx[1] !== span.innerHTML) {
-    				span.innerHTML = /*availability*/ ctx[1];
+    			if (dirty[0] & /*availability*/ 4 && /*availability*/ ctx[2] !== span.innerHTML) {
+    				span.innerHTML = /*availability*/ ctx[2];
     			}
     		},
     		d: function destroy(detaching) {
@@ -6805,16 +6833,16 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(112:8) {#if showAvailability}",
+    		source: "(113:8) {#if showAvailability}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (168:14) <DelimitedListItem>
+    // (169:14) <DelimitedListItem>
     function create_default_slot_5(ctx) {
-    	let t_value = /*skill*/ ctx[30] + "";
+    	let t_value = /*skill*/ ctx[31] + "";
     	let t;
 
     	const block = {
@@ -6834,14 +6862,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5.name,
     		type: "slot",
-    		source: "(168:14) <DelimitedListItem>",
+    		source: "(169:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (167:12) {#each expertSkills as skill}
+    // (168:12) {#each expertSkills as skill}
     function create_each_block_6(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -6865,7 +6893,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const delimitedlistitem_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlistitem_changes.$$scope = { dirty, ctx };
     			}
 
@@ -6889,20 +6917,20 @@ var app = (function () {
     		block,
     		id: create_each_block_6.name,
     		type: "each",
-    		source: "(167:12) {#each expertSkills as skill}",
+    		source: "(168:12) {#each expertSkills as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:10) <DelimitedList>
+    // (166:10) <DelimitedList justify={style == 'plain'}>
     function create_default_slot_4(ctx) {
     	let div;
     	let t1;
     	let each_1_anchor;
     	let current;
-    	let each_value_6 = /*expertSkills*/ ctx[6];
+    	let each_value_6 = /*expertSkills*/ ctx[7];
     	validate_each_argument(each_value_6);
     	let each_blocks = [];
 
@@ -6925,8 +6953,8 @@ var app = (function () {
     			}
 
     			each_1_anchor = empty();
-    			attr_dev(div, "class", "delimited-list-label svelte-1aadbul");
-    			add_location(div, file$3, 165, 12, 5267);
+    			attr_dev(div, "class", "delimited-list-label svelte-1pkdh4u");
+    			add_location(div, file$3, 166, 12, 5382);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -6940,8 +6968,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*expertSkills*/ 64) {
-    				each_value_6 = /*expertSkills*/ ctx[6];
+    			if (dirty[0] & /*expertSkills*/ 128) {
+    				each_value_6 = /*expertSkills*/ ctx[7];
     				validate_each_argument(each_value_6);
     				let i;
 
@@ -6998,16 +7026,16 @@ var app = (function () {
     		block,
     		id: create_default_slot_4.name,
     		type: "slot",
-    		source: "(165:10) <DelimitedList>",
+    		source: "(166:10) <DelimitedList justify={style == 'plain'}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (174:14) <DelimitedListItem>
+    // (175:14) <DelimitedListItem>
     function create_default_slot_3$1(ctx) {
-    	let t_value = /*skill*/ ctx[30] + "";
+    	let t_value = /*skill*/ ctx[31] + "";
     	let t;
 
     	const block = {
@@ -7027,14 +7055,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(174:14) <DelimitedListItem>",
+    		source: "(175:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (173:12) {#each advancedSkills as skill}
+    // (174:12) {#each advancedSkills as skill}
     function create_each_block_5(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -7058,7 +7086,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const delimitedlistitem_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlistitem_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7082,20 +7110,20 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(173:12) {#each advancedSkills as skill}",
+    		source: "(174:12) {#each advancedSkills as skill}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (171:10) <DelimitedList>
+    // (172:10) <DelimitedList justify={style == 'plain'}>
     function create_default_slot_2$1(ctx) {
     	let div;
     	let t1;
     	let each_1_anchor;
     	let current;
-    	let each_value_5 = /*advancedSkills*/ ctx[7];
+    	let each_value_5 = /*advancedSkills*/ ctx[8];
     	validate_each_argument(each_value_5);
     	let each_blocks = [];
 
@@ -7118,8 +7146,8 @@ var app = (function () {
     			}
 
     			each_1_anchor = empty();
-    			attr_dev(div, "class", "delimited-list-label svelte-1aadbul");
-    			add_location(div, file$3, 171, 12, 5509);
+    			attr_dev(div, "class", "delimited-list-label svelte-1pkdh4u");
+    			add_location(div, file$3, 172, 12, 5651);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -7133,8 +7161,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*advancedSkills*/ 128) {
-    				each_value_5 = /*advancedSkills*/ ctx[7];
+    			if (dirty[0] & /*advancedSkills*/ 256) {
+    				each_value_5 = /*advancedSkills*/ ctx[8];
     				validate_each_argument(each_value_5);
     				let i;
 
@@ -7191,16 +7219,16 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(171:10) <DelimitedList>",
+    		source: "(172:10) <DelimitedList justify={style == 'plain'}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (182:14) <DelimitedListItem>
+    // (183:14) <DelimitedListItem>
     function create_default_slot_1$1(ctx) {
-    	let t_value = /*interest*/ ctx[27] + "";
+    	let t_value = /*interest*/ ctx[28] + "";
     	let t;
 
     	const block = {
@@ -7220,14 +7248,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(182:14) <DelimitedListItem>",
+    		source: "(183:14) <DelimitedListItem>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (181:12) {#each interests as interest}
+    // (182:12) {#each interests as interest}
     function create_each_block_4(ctx) {
     	let delimitedlistitem;
     	let current;
@@ -7251,7 +7279,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const delimitedlistitem_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlistitem_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7275,18 +7303,18 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(181:12) {#each interests as interest}",
+    		source: "(182:12) {#each interests as interest}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (180:10) <DelimitedList>
+    // (181:10) <DelimitedList justify={style == 'plain'}>
     function create_default_slot$2(ctx) {
     	let each_1_anchor;
     	let current;
-    	let each_value_4 = /*interests*/ ctx[8];
+    	let each_value_4 = /*interests*/ ctx[9];
     	validate_each_argument(each_value_4);
     	let each_blocks = [];
 
@@ -7315,8 +7343,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*interests*/ 256) {
-    				each_value_4 = /*interests*/ ctx[8];
+    			if (dirty[0] & /*interests*/ 512) {
+    				each_value_4 = /*interests*/ ctx[9];
     				validate_each_argument(each_value_4);
     				let i;
 
@@ -7371,17 +7399,17 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(180:10) <DelimitedList>",
+    		source: "(181:10) <DelimitedList justify={style == 'plain'}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (199:12) {#each job.bullets as bullet}
+    // (200:12) {#each job.bullets as bullet}
     function create_each_block_3(ctx) {
     	let li;
-    	let t_value = /*bullet*/ ctx[19] + "";
+    	let t_value = /*bullet*/ ctx[20] + "";
     	let t;
 
     	const block = {
@@ -7389,7 +7417,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 199, 14, 6492);
+    			add_location(li, file$3, 200, 14, 6661);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7405,32 +7433,32 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(199:12) {#each job.bullets as bullet}",
+    		source: "(200:12) {#each job.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (190:6) {#each jobs as job}
+    // (191:6) {#each jobs as job}
     function create_each_block_2(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*job*/ ctx[22].title + "";
+    	let t0_value = /*job*/ ctx[23].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*job*/ ctx[22].company + "";
+    	let t2_value = /*job*/ ctx[23].company + "";
     	let t2;
     	let t3;
     	let div1;
-    	let t4_value = /*job*/ ctx[22].date + "";
+    	let t4_value = /*job*/ ctx[23].date + "";
     	let t4;
     	let t5;
     	let ul;
     	let t6;
-    	let each_value_3 = /*job*/ ctx[22].bullets;
+    	let each_value_3 = /*job*/ ctx[23].bullets;
     	validate_each_argument(each_value_3);
     	let each_blocks = [];
 
@@ -7458,16 +7486,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 193, 14, 6285);
-    			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 192, 12, 6247);
-    			attr_dev(div1, "class", "activity-date svelte-1aadbul");
-    			add_location(div1, file$3, 195, 12, 6360);
-    			attr_dev(div2, "class", "activity-heading svelte-1aadbul");
-    			add_location(div2, file$3, 191, 10, 6204);
-    			add_location(ul, file$3, 197, 10, 6431);
-    			attr_dev(div3, "class", "job");
-    			add_location(div3, file$3, 190, 8, 6176);
+    			add_location(strong, file$3, 194, 14, 6454);
+    			attr_dev(div0, "class", "job-title svelte-1pkdh4u");
+    			add_location(div0, file$3, 193, 12, 6416);
+    			attr_dev(div1, "class", "activity-date svelte-1pkdh4u");
+    			add_location(div1, file$3, 196, 12, 6529);
+    			attr_dev(div2, "class", "activity-heading svelte-1pkdh4u");
+    			add_location(div2, file$3, 192, 10, 6373);
+    			add_location(ul, file$3, 198, 10, 6600);
+    			attr_dev(div3, "class", "job svelte-1pkdh4u");
+    			add_location(div3, file$3, 191, 8, 6345);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7490,8 +7518,8 @@ var app = (function () {
     			append_dev(div3, t6);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*jobs*/ 512) {
-    				each_value_3 = /*job*/ ctx[22].bullets;
+    			if (dirty[0] & /*jobs*/ 1024) {
+    				each_value_3 = /*job*/ ctx[23].bullets;
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -7524,17 +7552,17 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(190:6) {#each jobs as job}",
+    		source: "(191:6) {#each jobs as job}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (217:12) {#each project.bullets as bullet}
+    // (218:12) {#each project.bullets as bullet}
     function create_each_block_1(ctx) {
     	let li;
-    	let t_value = /*bullet*/ ctx[19] + "";
+    	let t_value = /*bullet*/ ctx[20] + "";
     	let t;
 
     	const block = {
@@ -7542,7 +7570,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "job-bullet");
-    			add_location(li, file$3, 217, 14, 7080);
+    			add_location(li, file$3, 218, 14, 7249);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -7558,32 +7586,32 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(217:12) {#each project.bullets as bullet}",
+    		source: "(218:12) {#each project.bullets as bullet}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (208:6) {#each projects as project}
+    // (209:6) {#each projects as project}
     function create_each_block(ctx) {
     	let div3;
     	let div2;
     	let div0;
     	let strong;
-    	let t0_value = /*project*/ ctx[16].title + "";
+    	let t0_value = /*project*/ ctx[17].title + "";
     	let t0;
     	let t1;
-    	let t2_value = /*project*/ ctx[16].technologies + "";
+    	let t2_value = /*project*/ ctx[17].technologies + "";
     	let t2;
     	let t3;
     	let div1;
-    	let t4_value = /*project*/ ctx[16].date + "";
+    	let t4_value = /*project*/ ctx[17].date + "";
     	let t4;
     	let t5;
     	let ul;
     	let t6;
-    	let each_value_1 = /*project*/ ctx[16].bullets;
+    	let each_value_1 = /*project*/ ctx[17].bullets;
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -7611,16 +7639,16 @@ var app = (function () {
     			}
 
     			t6 = space();
-    			add_location(strong, file$3, 211, 14, 6852);
-    			attr_dev(div0, "class", "job-title");
-    			add_location(div0, file$3, 210, 12, 6814);
-    			attr_dev(div1, "class", "activity-date svelte-1aadbul");
-    			add_location(div1, file$3, 213, 12, 6940);
-    			attr_dev(div2, "class", "activity-heading svelte-1aadbul");
-    			add_location(div2, file$3, 209, 10, 6771);
-    			add_location(ul, file$3, 215, 10, 7015);
-    			attr_dev(div3, "class", "project");
-    			add_location(div3, file$3, 208, 8, 6739);
+    			add_location(strong, file$3, 212, 14, 7021);
+    			attr_dev(div0, "class", "job-title svelte-1pkdh4u");
+    			add_location(div0, file$3, 211, 12, 6983);
+    			attr_dev(div1, "class", "activity-date svelte-1pkdh4u");
+    			add_location(div1, file$3, 214, 12, 7109);
+    			attr_dev(div2, "class", "activity-heading svelte-1pkdh4u");
+    			add_location(div2, file$3, 210, 10, 6940);
+    			add_location(ul, file$3, 216, 10, 7184);
+    			attr_dev(div3, "class", "project svelte-1pkdh4u");
+    			add_location(div3, file$3, 209, 8, 6908);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -7643,8 +7671,8 @@ var app = (function () {
     			append_dev(div3, t6);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*projects*/ 1024) {
-    				each_value_1 = /*project*/ ctx[16].bullets;
+    			if (dirty[0] & /*projects*/ 2048) {
+    				each_value_1 = /*project*/ ctx[17].bullets;
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -7677,7 +7705,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(208:6) {#each projects as project}",
+    		source: "(209:6) {#each projects as project}",
     		ctx
     	});
 
@@ -7738,6 +7766,8 @@ var app = (function () {
     	let div19;
     	let t30;
     	let delimitedlist2;
+    	let div21_class_value;
+    	let div22_class_value;
     	let t31;
     	let div24;
     	let div23;
@@ -7746,13 +7776,15 @@ var app = (function () {
     	let div26;
     	let div25;
     	let t36;
+    	let div28_class_value;
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*showAvailability*/ ctx[5] && create_if_block$1(ctx);
+    	let if_block = /*showAvailability*/ ctx[6] && create_if_block$1(ctx);
 
     	delimitedlist0 = new DelimitedList({
     			props: {
+    				justify: /*style*/ ctx[0] == 'plain',
     				$$slots: { default: [create_default_slot_4] },
     				$$scope: { ctx }
     			},
@@ -7761,6 +7793,7 @@ var app = (function () {
 
     	delimitedlist1 = new DelimitedList({
     			props: {
+    				justify: /*style*/ ctx[0] == 'plain',
     				$$slots: { default: [create_default_slot_2$1] },
     				$$scope: { ctx }
     			},
@@ -7769,13 +7802,14 @@ var app = (function () {
 
     	delimitedlist2 = new DelimitedList({
     			props: {
+    				justify: /*style*/ ctx[0] == 'plain',
     				$$slots: { default: [create_default_slot$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
     		});
 
-    	let each_value_2 = /*jobs*/ ctx[9];
+    	let each_value_2 = /*jobs*/ ctx[10];
     	validate_each_argument(each_value_2);
     	let each_blocks_1 = [];
 
@@ -7783,7 +7817,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value = /*projects*/ ctx[10];
+    	let each_value = /*projects*/ ctx[11];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -7879,85 +7913,85 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "name svelte-1aadbul");
-    			add_location(div0, file$3, 108, 8, 3518);
-    			attr_dev(div1, "class", "name-box svelte-1aadbul");
-    			add_location(div1, file$3, 107, 6, 3487);
-    			attr_dev(div2, "class", "resume-subtitle svelte-1aadbul");
+    			attr_dev(div0, "class", "name svelte-1pkdh4u");
+    			add_location(div0, file$3, 109, 8, 3581);
+    			attr_dev(div1, "class", "name-box svelte-1pkdh4u");
+    			add_location(div1, file$3, 108, 6, 3550);
+    			attr_dev(div2, "class", "resume-subtitle svelte-1pkdh4u");
     			attr_dev(div2, "contenteditable", "");
-    			if (/*subtitle*/ ctx[0] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[12].call(div2));
-    			add_location(div2, file$3, 117, 6, 3754);
-    			attr_dev(div3, "class", "title-box");
-    			add_location(div3, file$3, 106, 4, 3457);
-    			attr_dev(div4, "class", "phone svelte-1aadbul");
+    			if (/*subtitle*/ ctx[1] === void 0) add_render_callback(() => /*div2_input_handler*/ ctx[13].call(div2));
+    			add_location(div2, file$3, 118, 6, 3817);
+    			attr_dev(div3, "class", "title-box svelte-1pkdh4u");
+    			add_location(div3, file$3, 107, 4, 3520);
+    			attr_dev(div4, "class", "phone svelte-1pkdh4u");
     			attr_dev(div4, "contenteditable", "");
     			attr_dev(div4, "spellcheck", false);
-    			if (/*phone*/ ctx[2] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[13].call(div4));
-    			add_location(div4, file$3, 120, 6, 3871);
-    			attr_dev(div5, "class", "email svelte-1aadbul");
+    			if (/*phone*/ ctx[3] === void 0) add_render_callback(() => /*div4_input_handler*/ ctx[14].call(div4));
+    			add_location(div4, file$3, 121, 6, 3934);
+    			attr_dev(div5, "class", "email svelte-1pkdh4u");
     			attr_dev(div5, "contenteditable", "");
     			attr_dev(div5, "spellcheck", false);
-    			if (/*email*/ ctx[3] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[14].call(div5));
-    			add_location(div5, file$3, 126, 6, 3995);
-    			attr_dev(div6, "class", "website svelte-1aadbul");
+    			if (/*email*/ ctx[4] === void 0) add_render_callback(() => /*div5_input_handler*/ ctx[15].call(div5));
+    			add_location(div5, file$3, 127, 6, 4058);
+    			attr_dev(div6, "class", "website svelte-1pkdh4u");
     			attr_dev(div6, "contenteditable", "");
     			attr_dev(div6, "spellcheck", false);
-    			if (/*website*/ ctx[4] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[15].call(div6));
-    			add_location(div6, file$3, 132, 6, 4119);
-    			attr_dev(div7, "class", "contact svelte-1aadbul");
-    			add_location(div7, file$3, 119, 4, 3843);
-    			attr_dev(div8, "class", "head svelte-1aadbul");
-    			add_location(div8, file$3, 105, 2, 3434);
-    			attr_dev(div9, "class", "r-section-title svelte-1aadbul");
-    			add_location(div9, file$3, 143, 8, 4364);
-    			add_location(strong0, file$3, 146, 12, 4496);
-    			attr_dev(div10, "class", "activity-date svelte-1aadbul");
-    			add_location(div10, file$3, 147, 12, 4549);
-    			attr_dev(div11, "class", "activity-heading svelte-1aadbul");
-    			add_location(div11, file$3, 145, 10, 4453);
-    			add_location(p0, file$3, 149, 10, 4619);
-    			add_location(p1, file$3, 150, 10, 4671);
-    			add_location(p2, file$3, 151, 10, 4745);
-    			attr_dev(div12, "class", "edu-section svelte-1aadbul");
-    			add_location(div12, file$3, 144, 8, 4417);
-    			add_location(strong1, file$3, 155, 12, 4883);
-    			attr_dev(div13, "class", "activity-date svelte-1aadbul");
-    			add_location(div13, file$3, 156, 12, 4944);
-    			attr_dev(div14, "class", "activity-heading svelte-1aadbul");
-    			add_location(div14, file$3, 154, 10, 4840);
-    			add_location(p3, file$3, 158, 10, 5014);
-    			attr_dev(div15, "class", "edu-section svelte-1aadbul");
-    			add_location(div15, file$3, 153, 8, 4804);
+    			if (/*website*/ ctx[5] === void 0) add_render_callback(() => /*div6_input_handler*/ ctx[16].call(div6));
+    			add_location(div6, file$3, 133, 6, 4182);
+    			attr_dev(div7, "class", "contact svelte-1pkdh4u");
+    			add_location(div7, file$3, 120, 4, 3906);
+    			attr_dev(div8, "class", "head svelte-1pkdh4u");
+    			add_location(div8, file$3, 106, 2, 3497);
+    			attr_dev(div9, "class", "r-section-title svelte-1pkdh4u");
+    			add_location(div9, file$3, 144, 8, 4438);
+    			add_location(strong0, file$3, 147, 12, 4570);
+    			attr_dev(div10, "class", "activity-date svelte-1pkdh4u");
+    			add_location(div10, file$3, 148, 12, 4623);
+    			attr_dev(div11, "class", "activity-heading svelte-1pkdh4u");
+    			add_location(div11, file$3, 146, 10, 4527);
+    			add_location(p0, file$3, 150, 10, 4693);
+    			add_location(p1, file$3, 151, 10, 4745);
+    			add_location(p2, file$3, 152, 10, 4819);
+    			attr_dev(div12, "class", "edu-section svelte-1pkdh4u");
+    			add_location(div12, file$3, 145, 8, 4491);
+    			add_location(strong1, file$3, 156, 12, 4957);
+    			attr_dev(div13, "class", "activity-date svelte-1pkdh4u");
+    			add_location(div13, file$3, 157, 12, 5018);
+    			attr_dev(div14, "class", "activity-heading svelte-1pkdh4u");
+    			add_location(div14, file$3, 155, 10, 4914);
+    			add_location(p3, file$3, 159, 10, 5088);
+    			attr_dev(div15, "class", "edu-section svelte-1pkdh4u");
+    			add_location(div15, file$3, 154, 8, 4878);
     			attr_dev(div16, "id", "education");
-    			attr_dev(div16, "class", "r-section");
-    			add_location(div16, file$3, 142, 6, 4317);
-    			attr_dev(div17, "class", "r-section-title svelte-1aadbul");
-    			add_location(div17, file$3, 163, 10, 5174);
-    			attr_dev(div18, "class", "tech-knowledge r-section");
-    			add_location(div18, file$3, 162, 8, 5125);
-    			attr_dev(div19, "class", "r-section-title svelte-1aadbul");
-    			add_location(div19, file$3, 178, 10, 5784);
-    			attr_dev(div20, "class", "interests r-section");
-    			add_location(div20, file$3, 177, 8, 5740);
+    			attr_dev(div16, "class", "r-section svelte-1pkdh4u");
+    			add_location(div16, file$3, 143, 6, 4391);
+    			attr_dev(div17, "class", "r-section-title svelte-1pkdh4u");
+    			add_location(div17, file$3, 164, 10, 5262);
+    			attr_dev(div18, "class", "tech-knowledge r-section svelte-1pkdh4u");
+    			add_location(div18, file$3, 163, 8, 5213);
+    			attr_dev(div19, "class", "r-section-title svelte-1pkdh4u");
+    			add_location(div19, file$3, 179, 10, 5926);
+    			attr_dev(div20, "class", "interests r-section svelte-1pkdh4u");
+    			add_location(div20, file$3, 178, 8, 5882);
     			attr_dev(div21, "id", "knowledge-interests");
-    			attr_dev(div21, "class", "svelte-1aadbul");
-    			add_location(div21, file$3, 161, 6, 5086);
-    			attr_dev(div22, "class", "top-body svelte-1aadbul");
-    			add_location(div22, file$3, 141, 4, 4288);
-    			attr_dev(div23, "class", "r-section-title svelte-1aadbul");
-    			add_location(div23, file$3, 188, 6, 6091);
+    			attr_dev(div21, "class", div21_class_value = "" + (null_to_empty(/*style*/ ctx[0]) + " svelte-1pkdh4u"));
+    			add_location(div21, file$3, 162, 6, 5160);
+    			attr_dev(div22, "class", div22_class_value = "" + (null_to_empty(`top-body ${/*style*/ ctx[0]}`) + " svelte-1pkdh4u"));
+    			add_location(div22, file$3, 142, 4, 4351);
+    			attr_dev(div23, "class", "r-section-title svelte-1pkdh4u");
+    			add_location(div23, file$3, 189, 6, 6260);
     			attr_dev(div24, "id", "work");
-    			attr_dev(div24, "class", "r-section");
-    			add_location(div24, file$3, 187, 4, 6051);
-    			attr_dev(div25, "class", "r-section-title svelte-1aadbul");
-    			add_location(div25, file$3, 206, 6, 6653);
+    			attr_dev(div24, "class", "r-section svelte-1pkdh4u");
+    			add_location(div24, file$3, 188, 4, 6220);
+    			attr_dev(div25, "class", "r-section-title svelte-1pkdh4u");
+    			add_location(div25, file$3, 207, 6, 6822);
     			attr_dev(div26, "id", "projects");
-    			attr_dev(div26, "class", "r-section");
-    			add_location(div26, file$3, 205, 4, 6609);
-    			attr_dev(div27, "class", "r-body");
-    			add_location(div27, file$3, 140, 2, 4263);
-    			attr_dev(div28, "class", "resume svelte-1aadbul");
-    			add_location(div28, file$3, 104, 0, 3411);
+    			attr_dev(div26, "class", "r-section svelte-1pkdh4u");
+    			add_location(div26, file$3, 206, 4, 6778);
+    			attr_dev(div27, "class", "r-body svelte-1pkdh4u");
+    			add_location(div27, file$3, 141, 2, 4326);
+    			attr_dev(div28, "class", div28_class_value = "" + (null_to_empty(`resume ${/*style*/ ctx[0]}`) + " svelte-1pkdh4u"));
+    			add_location(div28, file$3, 105, 0, 3463);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -7973,30 +8007,30 @@ var app = (function () {
     			append_dev(div3, t2);
     			append_dev(div3, div2);
 
-    			if (/*subtitle*/ ctx[0] !== void 0) {
-    				div2.innerHTML = /*subtitle*/ ctx[0];
+    			if (/*subtitle*/ ctx[1] !== void 0) {
+    				div2.innerHTML = /*subtitle*/ ctx[1];
     			}
 
     			append_dev(div8, t3);
     			append_dev(div8, div7);
     			append_dev(div7, div4);
 
-    			if (/*phone*/ ctx[2] !== void 0) {
-    				div4.innerHTML = /*phone*/ ctx[2];
+    			if (/*phone*/ ctx[3] !== void 0) {
+    				div4.innerHTML = /*phone*/ ctx[3];
     			}
 
     			append_dev(div7, t4);
     			append_dev(div7, div5);
 
-    			if (/*email*/ ctx[3] !== void 0) {
-    				div5.innerHTML = /*email*/ ctx[3];
+    			if (/*email*/ ctx[4] !== void 0) {
+    				div5.innerHTML = /*email*/ ctx[4];
     			}
 
     			append_dev(div7, t5);
     			append_dev(div7, div6);
 
-    			if (/*website*/ ctx[4] !== void 0) {
-    				div6.innerHTML = /*website*/ ctx[4];
+    			if (/*website*/ ctx[5] !== void 0) {
+    				div6.innerHTML = /*website*/ ctx[5];
     			}
 
     			append_dev(div28, t6);
@@ -8059,58 +8093,69 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div2, "input", /*div2_input_handler*/ ctx[12]),
-    					listen_dev(div4, "input", /*div4_input_handler*/ ctx[13]),
-    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[14]),
-    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[15])
+    					listen_dev(div2, "input", /*div2_input_handler*/ ctx[13]),
+    					listen_dev(div4, "input", /*div4_input_handler*/ ctx[14]),
+    					listen_dev(div5, "input", /*div5_input_handler*/ ctx[15]),
+    					listen_dev(div6, "input", /*div6_input_handler*/ ctx[16])
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (/*showAvailability*/ ctx[5]) if_block.p(ctx, dirty);
+    			if (/*showAvailability*/ ctx[6]) if_block.p(ctx, dirty);
 
-    			if (dirty[0] & /*subtitle*/ 1 && /*subtitle*/ ctx[0] !== div2.innerHTML) {
-    				div2.innerHTML = /*subtitle*/ ctx[0];
+    			if (dirty[0] & /*subtitle*/ 2 && /*subtitle*/ ctx[1] !== div2.innerHTML) {
+    				div2.innerHTML = /*subtitle*/ ctx[1];
     			}
 
-    			if (dirty[0] & /*phone*/ 4 && /*phone*/ ctx[2] !== div4.innerHTML) {
-    				div4.innerHTML = /*phone*/ ctx[2];
+    			if (dirty[0] & /*phone*/ 8 && /*phone*/ ctx[3] !== div4.innerHTML) {
+    				div4.innerHTML = /*phone*/ ctx[3];
     			}
 
-    			if (dirty[0] & /*email*/ 8 && /*email*/ ctx[3] !== div5.innerHTML) {
-    				div5.innerHTML = /*email*/ ctx[3];
+    			if (dirty[0] & /*email*/ 16 && /*email*/ ctx[4] !== div5.innerHTML) {
+    				div5.innerHTML = /*email*/ ctx[4];
     			}
 
-    			if (dirty[0] & /*website*/ 16 && /*website*/ ctx[4] !== div6.innerHTML) {
-    				div6.innerHTML = /*website*/ ctx[4];
+    			if (dirty[0] & /*website*/ 32 && /*website*/ ctx[5] !== div6.innerHTML) {
+    				div6.innerHTML = /*website*/ ctx[5];
     			}
 
     			const delimitedlist0_changes = {};
+    			if (dirty[0] & /*style*/ 1) delimitedlist0_changes.justify = /*style*/ ctx[0] == 'plain';
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlist0_changes.$$scope = { dirty, ctx };
     			}
 
     			delimitedlist0.$set(delimitedlist0_changes);
     			const delimitedlist1_changes = {};
+    			if (dirty[0] & /*style*/ 1) delimitedlist1_changes.justify = /*style*/ ctx[0] == 'plain';
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlist1_changes.$$scope = { dirty, ctx };
     			}
 
     			delimitedlist1.$set(delimitedlist1_changes);
     			const delimitedlist2_changes = {};
+    			if (dirty[0] & /*style*/ 1) delimitedlist2_changes.justify = /*style*/ ctx[0] == 'plain';
 
-    			if (dirty[1] & /*$$scope*/ 16) {
+    			if (dirty[1] & /*$$scope*/ 32) {
     				delimitedlist2_changes.$$scope = { dirty, ctx };
     			}
 
     			delimitedlist2.$set(delimitedlist2_changes);
 
-    			if (dirty[0] & /*jobs*/ 512) {
-    				each_value_2 = /*jobs*/ ctx[9];
+    			if (!current || dirty[0] & /*style*/ 1 && div21_class_value !== (div21_class_value = "" + (null_to_empty(/*style*/ ctx[0]) + " svelte-1pkdh4u"))) {
+    				attr_dev(div21, "class", div21_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*style*/ 1 && div22_class_value !== (div22_class_value = "" + (null_to_empty(`top-body ${/*style*/ ctx[0]}`) + " svelte-1pkdh4u"))) {
+    				attr_dev(div22, "class", div22_class_value);
+    			}
+
+    			if (dirty[0] & /*jobs*/ 1024) {
+    				each_value_2 = /*jobs*/ ctx[10];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -8133,8 +8178,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*projects*/ 1024) {
-    				each_value = /*projects*/ ctx[10];
+    			if (dirty[0] & /*projects*/ 2048) {
+    				each_value = /*projects*/ ctx[11];
     				validate_each_argument(each_value);
     				let i;
 
@@ -8155,6 +8200,10 @@ var app = (function () {
     				}
 
     				each_blocks.length = each_value.length;
+    			}
+
+    			if (!current || dirty[0] & /*style*/ 1 && div28_class_value !== (div28_class_value = "" + (null_to_empty(`resume ${/*style*/ ctx[0]}`) + " svelte-1pkdh4u"))) {
+    				attr_dev(div28, "class", div28_class_value);
     			}
     		},
     		i: function intro(local) {
@@ -8199,15 +8248,31 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Resume', slots, []);
+    	let { style = "plain" } = $$props;
     	let subtitle = "computer science major";
     	let showAvailability = true;
     	let availability = "Availability: Part Time";
     	let phone = "xxx-xxx-xxxx";
     	let email = "benmlubas@gmail.com";
     	let website = "benlubas.com";
-    	const expertSkills = ["Rails", "Python", "TypeScript", "Lua", "SQL", "React", "HTML", "CSS"];
+
+    	const expertSkills = [
+    		"Python",
+    		"TypeScript",
+    		"Rails",
+    		"git",
+    		"Lua",
+    		"SQL",
+    		"React",
+    		"HTML",
+    		"CSS",
+    		"(Neo)Vim",
+    		"Java",
+    		"Bash"
+    	];
+
     	const advancedSkills = ["Rust", "C++", "Svelte", "Clojure", "Docker", "Airflow", "AWS"];
-    	const interests = ["Tiny Keyboards", "Neovim", "Gaming", "Hockey"];
+    	const interests = ["Tiny Keyboards", "Neovim", "Gaming"];
 
     	const jobs = [
     		{
@@ -8272,7 +8337,7 @@ var app = (function () {
     		}
     	];
 
-    	const writable_props = [];
+    	const writable_props = ['style'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Resume> was created with unknown prop '${key}'`);
@@ -8280,32 +8345,37 @@ var app = (function () {
 
     	function span_input_handler() {
     		availability = this.innerHTML;
-    		$$invalidate(1, availability);
+    		$$invalidate(2, availability);
     	}
 
     	function div2_input_handler() {
     		subtitle = this.innerHTML;
-    		$$invalidate(0, subtitle);
+    		$$invalidate(1, subtitle);
     	}
 
     	function div4_input_handler() {
     		phone = this.innerHTML;
-    		$$invalidate(2, phone);
+    		$$invalidate(3, phone);
     	}
 
     	function div5_input_handler() {
     		email = this.innerHTML;
-    		$$invalidate(3, email);
+    		$$invalidate(4, email);
     	}
 
     	function div6_input_handler() {
     		website = this.innerHTML;
-    		$$invalidate(4, website);
+    		$$invalidate(5, website);
     	}
+
+    	$$self.$$set = $$props => {
+    		if ('style' in $$props) $$invalidate(0, style = $$props.style);
+    	};
 
     	$$self.$capture_state = () => ({
     		DelimitedList,
     		DelimitedListItem,
+    		style,
     		name,
     		subtitle,
     		showAvailability,
@@ -8321,12 +8391,13 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('subtitle' in $$props) $$invalidate(0, subtitle = $$props.subtitle);
-    		if ('showAvailability' in $$props) $$invalidate(5, showAvailability = $$props.showAvailability);
-    		if ('availability' in $$props) $$invalidate(1, availability = $$props.availability);
-    		if ('phone' in $$props) $$invalidate(2, phone = $$props.phone);
-    		if ('email' in $$props) $$invalidate(3, email = $$props.email);
-    		if ('website' in $$props) $$invalidate(4, website = $$props.website);
+    		if ('style' in $$props) $$invalidate(0, style = $$props.style);
+    		if ('subtitle' in $$props) $$invalidate(1, subtitle = $$props.subtitle);
+    		if ('showAvailability' in $$props) $$invalidate(6, showAvailability = $$props.showAvailability);
+    		if ('availability' in $$props) $$invalidate(2, availability = $$props.availability);
+    		if ('phone' in $$props) $$invalidate(3, phone = $$props.phone);
+    		if ('email' in $$props) $$invalidate(4, email = $$props.email);
+    		if ('website' in $$props) $$invalidate(5, website = $$props.website);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -8334,6 +8405,7 @@ var app = (function () {
     	}
 
     	return [
+    		style,
     		subtitle,
     		availability,
     		phone,
@@ -8356,7 +8428,7 @@ var app = (function () {
     class Resume extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init$1(this, options, instance$4, create_fragment$4, safe_not_equal, {}, null, [-1, -1]);
+    		init$1(this, options, instance$4, create_fragment$4, safe_not_equal, { style: 0 }, null, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -8365,12 +8437,20 @@ var app = (function () {
     			id: create_fragment$4.name
     		});
     	}
+
+    	get style() {
+    		throw new Error("<Resume>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set style(value) {
+    		throw new Error("<Resume>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src/pages/resume.svelte generated by Svelte v3.49.0 */
     const file$2 = "src/pages/resume.svelte";
 
-    // (17:6) <Note mobile glow>
+    // (20:6) <Note mobile glow>
     function create_default_slot_3(ctx) {
     	let t;
 
@@ -8390,14 +8470,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(17:6) <Note mobile glow>",
+    		source: "(20:6) <Note mobile glow>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (25:6) <Note>
+    // (32:6) <Note>
     function create_default_slot_2(ctx) {
     	let t;
 
@@ -8417,14 +8497,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(25:6) <Note>",
+    		source: "(32:6) <Note>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (43:6) {#if $theme === "dark"}
+    // (50:6) {#if $theme === "dark"}
     function create_if_block(ctx) {
     	let t0;
     	let themeswitcher;
@@ -8439,7 +8519,7 @@ var app = (function () {
     			create_component(themeswitcher.$$.fragment);
     			t1 = space();
     			br = element("br");
-    			add_location(br, file$2, 45, 8, 1865);
+    			add_location(br, file$2, 52, 8, 2200);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t0, anchor);
@@ -8469,14 +8549,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(43:6) {#if $theme === \\\"dark\\\"}",
+    		source: "(50:6) {#if $theme === \\\"dark\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (49:6) <FoldableSection title="Chrome/Chromium">
+    // (57:6) <FoldableSection title="Chrome/Chromium">
     function create_default_slot_1(ctx) {
     	let ol;
     	let li0;
@@ -8511,13 +8591,13 @@ var app = (function () {
     			t8 = text("Check ");
     			em = element("em");
     			em.textContent = "Background Graphics";
-    			add_location(strong0, file$2, 51, 39, 2094);
-    			add_location(strong1, file$2, 52, 12, 2139);
-    			add_location(li0, file$2, 50, 10, 2050);
-    			add_location(li1, file$2, 54, 10, 2202);
-    			add_location(em, file$2, 55, 20, 2249);
-    			add_location(li2, file$2, 55, 10, 2239);
-    			add_location(ol, file$2, 49, 8, 2035);
+    			add_location(strong0, file$2, 59, 39, 2435);
+    			add_location(strong1, file$2, 60, 12, 2480);
+    			add_location(li0, file$2, 58, 10, 2391);
+    			add_location(li1, file$2, 62, 10, 2543);
+    			add_location(em, file$2, 63, 20, 2590);
+    			add_location(li2, file$2, 63, 10, 2580);
+    			add_location(ol, file$2, 57, 8, 2376);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -8544,14 +8624,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(49:6) <FoldableSection title=\\\"Chrome/Chromium\\\">",
+    		source: "(57:6) <FoldableSection title=\\\"Chrome/Chromium\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (59:6) <FoldableSection title="FireFox">
+    // (67:6) <FoldableSection title="FireFox">
     function create_default_slot$1(ctx) {
     	let ol;
     	let li0;
@@ -8606,17 +8686,17 @@ var app = (function () {
     			em2 = element("em");
     			em2.textContent = "Print headers and footers";
     			t16 = text(" is unchecked");
-    			add_location(strong0, file$2, 61, 39, 2429);
-    			add_location(strong1, file$2, 62, 12, 2474);
-    			add_location(li0, file$2, 60, 10, 2385);
-    			add_location(em0, file$2, 64, 20, 2547);
-    			add_location(li1, file$2, 64, 10, 2537);
-    			add_location(li2, file$2, 65, 10, 2585);
-    			add_location(em1, file$2, 66, 20, 2632);
-    			add_location(li3, file$2, 66, 10, 2622);
-    			add_location(em2, file$2, 67, 24, 2688);
-    			add_location(li4, file$2, 67, 10, 2674);
-    			add_location(ol, file$2, 59, 8, 2370);
+    			add_location(strong0, file$2, 69, 39, 2770);
+    			add_location(strong1, file$2, 70, 12, 2815);
+    			add_location(li0, file$2, 68, 10, 2726);
+    			add_location(em0, file$2, 72, 20, 2888);
+    			add_location(li1, file$2, 72, 10, 2878);
+    			add_location(li2, file$2, 73, 10, 2926);
+    			add_location(em1, file$2, 74, 20, 2973);
+    			add_location(li3, file$2, 74, 10, 2963);
+    			add_location(em2, file$2, 75, 24, 3029);
+    			add_location(li4, file$2, 75, 10, 3015);
+    			add_location(ol, file$2, 67, 8, 2711);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ol, anchor);
@@ -8652,7 +8732,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(59:6) <FoldableSection title=\\\"FireFox\\\">",
+    		source: "(67:6) <FoldableSection title=\\\"FireFox\\\">",
     		ctx
     	});
 
@@ -8667,20 +8747,26 @@ var app = (function () {
     	let t0;
     	let note0;
     	let t1;
+    	let span0;
+    	let t3;
+    	let span1;
+    	let t5;
     	let note1;
-    	let t2;
+    	let t6;
     	let div2;
     	let div1;
     	let resume;
-    	let t3;
+    	let t7;
     	let div4;
     	let div3;
-    	let t5;
-    	let t6;
+    	let t9;
+    	let t10;
     	let foldablesection0;
-    	let t7;
+    	let t11;
     	let foldablesection1;
     	let current;
+    	let mounted;
+    	let dispose;
 
     	pagetitle = new PageTitle({
     			props: { title: "Resume" },
@@ -8705,8 +8791,14 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	resume = new Resume({ $$inline: true });
-    	let if_block = /*$theme*/ ctx[0] === "dark" && create_if_block(ctx);
+    	resume = new Resume({
+    			props: {
+    				style: /*styles*/ ctx[2][/*style*/ ctx[0]]
+    			},
+    			$$inline: true
+    		});
+
+    	let if_block = /*$theme*/ ctx[1] === "dark" && create_if_block(ctx);
 
     	foldablesection0 = new FoldableSection({
     			props: {
@@ -8734,36 +8826,46 @@ var app = (function () {
     			create_component(pagetitle.$$.fragment);
     			t0 = space();
     			create_component(note0.$$.fragment);
-    			t1 = text("\n\n      This is my resume! It's still a work in progress, as I'd like it to be\n      more interactive. It's currently printable, with some editable parts.\n      ");
+    			t1 = text("\n\n      This is my resume! It's still a work in progress, as I'd like it to be\n      more interactive. It's currently printable, with some editable parts.\n      There are two styles, you can\n      ");
+    			span0 = element("span");
+    			span0.textContent = "switch";
+    			t3 = text("\n      between them by clicking\n      ");
+    			span1 = element("span");
+    			span1.textContent = "switch";
+    			t5 = text(".\n      ");
     			create_component(note1.$$.fragment);
-    			t2 = space();
+    			t6 = space();
     			div2 = element("div");
     			div1 = element("div");
     			create_component(resume.$$.fragment);
-    			t3 = space();
+    			t7 = space();
     			div4 = element("div");
     			div3 = element("div");
     			div3.textContent = "Printing";
-    			t5 = space();
+    			t9 = space();
     			if (if_block) if_block.c();
-    			t6 = text("\n      You can follow these short, browser-specific, instructions to print the resume properly:\n      ");
+    			t10 = text("\n      You can follow these short, browser-specific, instructions to print the resume\n      properly:\n      ");
     			create_component(foldablesection0.$$.fragment);
-    			t7 = space();
+    			t11 = space();
     			create_component(foldablesection1.$$.fragment);
-    			attr_dev(div0, "class", "no-print svelte-q37b62");
-    			add_location(div0, file$2, 14, 4, 642);
-    			attr_dev(div1, "class", "resume-border svelte-q37b62");
-    			add_location(div1, file$2, 36, 6, 1552);
+    			attr_dev(span0, "class", "text-btn svelte-arhqf2");
+    			add_location(span0, file$2, 28, 6, 1228);
+    			attr_dev(span1, "class", "text-btn svelte-arhqf2");
+    			add_location(span1, file$2, 30, 6, 1339);
+    			attr_dev(div0, "class", "no-print svelte-arhqf2");
+    			add_location(div0, file$2, 17, 4, 727);
+    			attr_dev(div1, "class", "resume-border svelte-arhqf2");
+    			add_location(div1, file$2, 43, 6, 1865);
     			attr_dev(div2, "class", "flex-center resume-container");
-    			add_location(div2, file$2, 35, 4, 1503);
+    			add_location(div2, file$2, 42, 4, 1816);
     			attr_dev(div3, "class", "subtitle");
-    			add_location(div3, file$2, 41, 6, 1675);
-    			attr_dev(div4, "class", "print-instructions no-print svelte-q37b62");
-    			add_location(div4, file$2, 40, 4, 1627);
-    			attr_dev(div5, "class", "text svelte-q37b62");
-    			add_location(div5, file$2, 13, 2, 619);
-    			attr_dev(div6, "class", "page-cont svelte-q37b62");
-    			add_location(div6, file$2, 12, 0, 593);
+    			add_location(div3, file$2, 48, 6, 2010);
+    			attr_dev(div4, "class", "print-instructions no-print svelte-arhqf2");
+    			add_location(div4, file$2, 47, 4, 1962);
+    			attr_dev(div5, "class", "text svelte-arhqf2");
+    			add_location(div5, file$2, 16, 2, 704);
+    			attr_dev(div6, "class", "page-cont svelte-arhqf2");
+    			add_location(div6, file$2, 15, 0, 678);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8776,48 +8878,64 @@ var app = (function () {
     			append_dev(div0, t0);
     			mount_component(note0, div0, null);
     			append_dev(div0, t1);
+    			append_dev(div0, span0);
+    			append_dev(div0, t3);
+    			append_dev(div0, span1);
+    			append_dev(div0, t5);
     			mount_component(note1, div0, null);
-    			append_dev(div5, t2);
+    			append_dev(div5, t6);
     			append_dev(div5, div2);
     			append_dev(div2, div1);
     			mount_component(resume, div1, null);
-    			append_dev(div5, t3);
+    			append_dev(div5, t7);
     			append_dev(div5, div4);
     			append_dev(div4, div3);
-    			append_dev(div4, t5);
+    			append_dev(div4, t9);
     			if (if_block) if_block.m(div4, null);
-    			append_dev(div4, t6);
+    			append_dev(div4, t10);
     			mount_component(foldablesection0, div4, null);
-    			append_dev(div4, t7);
+    			append_dev(div4, t11);
     			mount_component(foldablesection1, div4, null);
     			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(span0, "click", /*click_handler*/ ctx[3], false, false, false),
+    					listen_dev(span1, "click", /*click_handler_1*/ ctx[4], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
     			const note0_changes = {};
 
-    			if (dirty & /*$$scope*/ 2) {
+    			if (dirty & /*$$scope*/ 32) {
     				note0_changes.$$scope = { dirty, ctx };
     			}
 
     			note0.$set(note0_changes);
     			const note1_changes = {};
 
-    			if (dirty & /*$$scope*/ 2) {
+    			if (dirty & /*$$scope*/ 32) {
     				note1_changes.$$scope = { dirty, ctx };
     			}
 
     			note1.$set(note1_changes);
+    			const resume_changes = {};
+    			if (dirty & /*style*/ 1) resume_changes.style = /*styles*/ ctx[2][/*style*/ ctx[0]];
+    			resume.$set(resume_changes);
 
-    			if (/*$theme*/ ctx[0] === "dark") {
+    			if (/*$theme*/ ctx[1] === "dark") {
     				if (if_block) {
-    					if (dirty & /*$theme*/ 1) {
+    					if (dirty & /*$theme*/ 2) {
     						transition_in(if_block, 1);
     					}
     				} else {
     					if_block = create_if_block(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(div4, t6);
+    					if_block.m(div4, t10);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -8831,14 +8949,14 @@ var app = (function () {
 
     			const foldablesection0_changes = {};
 
-    			if (dirty & /*$$scope*/ 2) {
+    			if (dirty & /*$$scope*/ 32) {
     				foldablesection0_changes.$$scope = { dirty, ctx };
     			}
 
     			foldablesection0.$set(foldablesection0_changes);
     			const foldablesection1_changes = {};
 
-    			if (dirty & /*$$scope*/ 2) {
+    			if (dirty & /*$$scope*/ 32) {
     				foldablesection1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -8874,6 +8992,8 @@ var app = (function () {
     			if (if_block) if_block.d();
     			destroy_component(foldablesection0);
     			destroy_component(foldablesection1);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -8891,14 +9011,19 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let $theme;
     	validate_store(theme, 'theme');
-    	component_subscribe($$self, theme, $$value => $$invalidate(0, $theme = $$value));
+    	component_subscribe($$self, theme, $$value => $$invalidate(1, $theme = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Resume', slots, []);
+    	let style = 0;
+    	const styles = ["plain", "cookie-cutter"];
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Resume> was created with unknown prop '${key}'`);
     	});
+
+    	const click_handler = () => $$invalidate(0, style = style + 1);
+    	const click_handler_1 = () => $$invalidate(0, style = style + 1);
 
     	$$self.$capture_state = () => ({
     		PageTitle,
@@ -8907,10 +9032,26 @@ var app = (function () {
     		Resume,
     		ThemeSwitcher,
     		theme,
+    		style,
+    		styles,
     		$theme
     	});
 
-    	return [$theme];
+    	$$self.$inject_state = $$props => {
+    		if ('style' in $$props) $$invalidate(0, style = $$props.style);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*style*/ 1) {
+    			$$invalidate(0, style %= styles.length);
+    		}
+    	};
+
+    	return [style, $theme, styles, click_handler, click_handler_1];
     }
 
     class Resume_1 extends SvelteComponentDev {

@@ -2,6 +2,8 @@
   import DelimitedList from "./delimitedList.svelte";
   import DelimitedListItem from "./delimitedListItem.svelte";
 
+  export let style = "plain";
+
   const name = "Ben Lubas";
   let subtitle = "computer science major";
   let showAvailability = true;
@@ -11,14 +13,18 @@
   let website = "benlubas.com";
 
   const expertSkills = [
-    "Rails",
     "Python",
     "TypeScript",
+    "Rails",
+    "git",
     "Lua",
     "SQL",
     "React",
     "HTML",
     "CSS",
+    "(Neo)Vim",
+    "Java",
+    "Bash",
   ];
 
   const advancedSkills = [
@@ -31,12 +37,7 @@
     "AWS",
   ];
 
-  const interests = [
-    "Tiny Keyboards",
-    "Neovim",
-    "Gaming",
-    "Hockey",
-  ];
+  const interests = ["Tiny Keyboards", "Neovim", "Gaming"];
 
   const jobs = [
     {
@@ -77,7 +78,7 @@
         "Develop and maintain a Neovim plugin for interactively and asynchronously running code via\
         the Jupyter Kernel, rendering output (including images) inside Neovim",
         "Implement new, user requested features without breaking existing plugin users",
-        "Integrate with other plugins to create an incredible notebook experience in Neovim"
+        "Integrate with other plugins to create an incredible notebook experience in Neovim",
       ],
     },
     {
@@ -102,7 +103,7 @@
   ];
 </script>
 
-<div class="resume">
+<div class={`resume ${style}`}>
   <div class="head">
     <div class="title-box">
       <div class="name-box">
@@ -139,7 +140,7 @@
     </div>
   </div>
   <div class="r-body">
-    <div class="top-body">
+    <div class={`top-body ${style}`}>
       <div id="education" class="r-section">
         <div class="r-section-title">Education</div>
         <div class="edu-section">
@@ -159,16 +160,16 @@
           <p>4x Honor Roll | GPA: 3.97/4.00</p>
         </div>
       </div>
-      <div id="knowledge-interests">
+      <div id="knowledge-interests" class={style}>
         <div class="tech-knowledge r-section">
           <div class="r-section-title">Technical Knowledge</div>
-          <DelimitedList>
+          <DelimitedList justify={style == 'plain'}>
             <div class="delimited-list-label">Expert:&nbsp;</div>
             {#each expertSkills as skill}
               <DelimitedListItem>{skill}</DelimitedListItem>
             {/each}
           </DelimitedList>
-          <DelimitedList>
+          <DelimitedList justify={style == 'plain'}>
             <div class="delimited-list-label">Advanced:&nbsp;</div>
             {#each advancedSkills as skill}
               <DelimitedListItem>{skill}</DelimitedListItem>
@@ -177,7 +178,7 @@
         </div>
         <div class="interests r-section">
           <div class="r-section-title">Interests</div>
-          <DelimitedList>
+          <DelimitedList justify={style == 'plain'}>
             {#each interests as interest}
               <DelimitedListItem>{interest}</DelimitedListItem>
             {/each}
@@ -238,11 +239,23 @@
     --resume-accent: var(--accent);
   }
 
-  .top-body {
+  .resume.cookie-cutter {
+    padding: 0.5in;
+  }
+
+  .top-body.plain {
     display: grid;
     grid:
       [r1-start] "education knowledge-interests" 100% [r1-end]
       / 60fr 40fr;
+  }
+
+  .top-body.cookie-cutter {
+    display: grid;
+    grid:
+      [r1-start] "education" auto [r1-end]
+      [r2-start] "knowledge-interests" auto [r2-end]
+      / 100%;
   }
 
   .head {
@@ -295,6 +308,10 @@
     display: flex;
     flex-direction: column;
     padding-left: 15px;
+  }
+
+  #knowledge-interests.cookie-cutter {
+    padding-left: 0;
   }
 
   .resume-subtitle {

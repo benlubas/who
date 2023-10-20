@@ -10,6 +10,10 @@
   // add the ability to edit the list of skills. Maybe show a little plus when you hover the section
   // to add new entries
   // let showAvailability = true;
+
+  let style = 0;
+  const styles = ["plain", "cookie-cutter"];
+  $: style %= styles.length;
 </script>
 
 <div class="page-cont">
@@ -24,6 +28,10 @@
 
       This is my resume! It's still a work in progress, as I'd like it to be
       more interactive. It's currently printable, with some editable parts.
+      There are two styles, you can
+      <span class="text-btn" on:click={() => (style = style + 1)}>switch</span>
+      between them by clicking
+      <span class="text-btn" on:click={() => (style = style + 1)}>switch</span>.
       <Note>
         Note: My phone number is missing as I'd rather not have it get scraped.
       </Note>
@@ -37,7 +45,7 @@
     </div>
     <div class="flex-center resume-container">
       <div class="resume-border">
-        <Resume />
+        <Resume style={styles[style]} />
       </div>
     </div>
     <div class="print-instructions no-print">
@@ -47,7 +55,8 @@
         the theme: <ThemeSwitcher />
         <br />
       {/if}
-      You can follow these short, browser-specific, instructions to print the resume properly:
+      You can follow these short, browser-specific, instructions to print the resume
+      properly:
       <FoldableSection title="Chrome/Chromium">
         <ol>
           <li>
@@ -81,6 +90,12 @@
     display: inline-block;
     margin-top: 1rem;
     overflow: scroll;
+  }
+
+  .text-btn {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: bold;
   }
 
   @page {
