@@ -15,10 +15,11 @@
   li::after {
     content: " ";
     word-spacing: 1em;
+    filter: blur(0.5px);
     background-image: linear-gradient(
-      -0.25turn,
-      transparent 0 calc(50% - 0.5px),
-      currentcolor 0 calc(50% + 0.05px),
+      -0.2turn,
+      transparent 0 calc(50% - 0.55px),
+      currentcolor 0 calc(50% + 0.5px),
       transparent 0
     );
   }

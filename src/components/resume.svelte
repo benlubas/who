@@ -75,10 +75,12 @@
       date: "October 2023 - Present",
       technologies: "Python | Lua | Jupyter | Neovim",
       bullets: [
-        "Develop and maintain a Neovim plugin for interactively and asynchronously running code via\
-        the Jupyter Kernel, rendering output (including images) inside Neovim",
-        "Implement new, user requested features without breaking existing plugin users",
-        "Integrate with other plugins to create an incredible notebook experience in Neovim",
+        "Develop and maintain an opensource Neovim plugin for: interactively running code via the\
+        Jupyter Kernel; rendering output (including images) inside Neovim; and saving/loading\
+        notebook data.",
+        "Integrate with and contribute to other opensource plugins to create an incredible\
+        Jupyter-notebook-esque experience in Neovim",
+        "Implement multiple large user requested features without breaking existing plugin users",
       ],
     },
     {
@@ -163,27 +165,30 @@
       <div id="knowledge-interests" class={style}>
         <div class="tech-knowledge r-section">
           <div class="r-section-title">Technical Knowledge</div>
-          <DelimitedList justify={style == 'plain'}>
+          <DelimitedList justify={style == "plain"}>
             <div class="delimited-list-label">Expert:&nbsp;</div>
             {#each expertSkills as skill}
               <DelimitedListItem>{skill}</DelimitedListItem>
             {/each}
           </DelimitedList>
-          <DelimitedList justify={style == 'plain'}>
+          <DelimitedList justify={style == "plain"}>
             <div class="delimited-list-label">Advanced:&nbsp;</div>
             {#each advancedSkills as skill}
               <DelimitedListItem>{skill}</DelimitedListItem>
             {/each}
           </DelimitedList>
         </div>
-        <div class="interests r-section">
-          <div class="r-section-title">Interests</div>
-          <DelimitedList justify={style == 'plain'}>
-            {#each interests as interest}
-              <DelimitedListItem>{interest}</DelimitedListItem>
-            {/each}
-          </DelimitedList>
-        </div>
+        {#if style === "plain"}
+          <!-- this doesn't fit on the page with the cookie-cutter layout -->
+          <div class="interests r-section">
+            <div class="r-section-title">Interests</div>
+            <DelimitedList justify={style == "plain"}>
+              {#each interests as interest}
+                <DelimitedListItem>{interest}</DelimitedListItem>
+              {/each}
+            </DelimitedList>
+          </div>
+        {/if}
       </div>
     </div>
     <div id="work" class="r-section">
@@ -240,7 +245,7 @@
   }
 
   .resume.cookie-cutter {
-    padding: 0.5in;
+    padding: 0.65in;
   }
 
   .top-body.plain {
