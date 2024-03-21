@@ -5,9 +5,9 @@
   export let style = "plain";
 
   const name = "Ben Lubas";
-  let subtitle = "computer science major";
+  let subtitle = "software engineer";
   let showAvailability = true;
-  let availability = "Availability: Part Time";
+  let availability = "Availability: Full Time";
   let phone = "xxx-xxx-xxxx";
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
@@ -78,7 +78,7 @@
         "Develop and maintain an opensource Neovim plugin for: interactively running code via the\
         Jupyter Kernel; rendering output (including images) inside Neovim; and saving/loading\
         notebook data.",
-        "Integrate with and contribute to other opensource plugins to create an incredible\
+        "Integrate with and contribute to other opensource software to create an incredible\
         Jupyter-notebook-esque experience in Neovim",
         "Implement multiple large user requested features without breaking existing plugin users",
       ],
