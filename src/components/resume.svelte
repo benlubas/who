@@ -6,8 +6,8 @@
 
   const name = "Ben Lubas";
   let subtitle = "software engineer";
-  let showAvailability = true;
-  let availability = "Availability: Full Time";
+  let showLocation = true;
+  let location = "Boston - Willing to relocate";
   let phone = "xxx-xxx-xxxx";
   let email = "benmlubas@gmail.com";
   let website = "benlubas.com";
@@ -43,7 +43,7 @@
     {
       company: "BookBub",
       title: "Software Engineer",
-      date: "Jan-July 2023",
+      date: "Jan-Jul 2023",
       bullets: [
         "Partially automated the migration of JavaScript tests from Enzyme to RTL + Jest decreasing\
         the projected port time from five months to just under two months",
@@ -56,7 +56,7 @@
     {
       company: "Wayfair",
       title: "Software Engineer",
-      date: "Jan-June 2022",
+      date: "Jan-Jun 2022",
       bullets: [
         'From my manager at Wayfair: "[Ben] quickly onboarded and fully contributed as a member of\
         the squad for the majority of his coop. Ben stretched himself beyond just executing on\
@@ -72,7 +72,7 @@
   const projects = [
     {
       title: "Molten",
-      date: "October 2023 - Present",
+      date: "Oct 2023 - Present",
       technologies: "Python | Lua | Jupyter | Neovim",
       bullets: [
         "Develop and maintain an opensource Neovim plugin for: interactively running code via the\
@@ -94,7 +94,7 @@
     },
     {
       title: "PW Voting Site",
-      date: "Jan-Jun, 2020",
+      date: "Jan-Jun 2020",
       technologies: "React | Node/Express | MongoDB",
       bullets: [
         "Designed, prototyped, and developed a website capable of generating and distributing\
@@ -112,9 +112,9 @@
         <div class="name">
           {name}
         </div>
-        {#if showAvailability}
+        {#if showLocation}
           <div class="availability">
-            <span contenteditable bind:innerHTML={availability} />
+            <span contenteditable bind:innerHTML={location} />
           </div>
         {/if}
       </div>
@@ -151,8 +151,8 @@
             <div class="activity-date">2020-2024</div>
           </div>
           <p>Khoury College of Computer Science</p>
-          <p>Candidate for Bachelor of Science Computer Science, 2024</p>
-          <p>Dean’s List | GPA: 3.71/4.00</p>
+          <p>Degree: Bachelor of Science Computer Science</p>
+          <p>Magna Cum Laude | GPA: 3.73/4.00</p>
         </div>
         <div class="edu-section">
           <div class="activity-heading">
